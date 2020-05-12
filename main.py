@@ -11,6 +11,9 @@ result = api.query("node(50.0526,19.9284,50.0676,19.9484);out;")
 # for i in range(len(result.nodes)):
 #     print(result.nodes[i])
 
+
+#tekst
+
 N = 50.0676
 E = 19.9484
 S = 50.0526

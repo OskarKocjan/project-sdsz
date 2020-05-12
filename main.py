@@ -3,7 +3,7 @@ import overpy
 import matplotlib.pyplot as plt
 
 #   N
-# W + E
+# W + Ess
 #   S
 
 api = overpy.Overpass()
@@ -16,7 +16,7 @@ E = 19.9484
 S = 50.0526
 W = 19.9284
 
-BBox = (W,E,S,N)
+BBox = (W, E, S, N)
 
 img = plt.imread('./map.png')
 fig, ax = plt.subplots(figsize=(10,5))

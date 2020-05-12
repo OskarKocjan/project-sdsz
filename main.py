@@ -3,7 +3,7 @@ import overpy
 import matplotlib.pyplot as plt
 
 #   N
-# W + Ess
+# W + E
 #   S
 
 api = overpy.Overpass()

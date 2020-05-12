@@ -1,20 +1,7 @@
-import numpy as np
 import overpy
 import matplotlib.pyplot as plt
+import pandas as pd
 
-#   N
-# W + E
-#   S
-
-api = overpy.Overpass()
-result = api.query("node(50.0526,19.9284,50.0676,19.9484);out;")
-# for i in range(len(result.nodes)):
-#     print(result.nodes[i])
-
-
-#tekst
-#teks2
-#teks3
 
 N = 50.0676
 E = 19.9484
@@ -23,12 +10,17 @@ W = 19.9284
 
 BBox = (W, E, S, N)
 
-img = plt.imread('./map.png')
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.set_title('Obwodnica')
+df = pd.read_csv('points.csv')
+x = [ round(lon,7) for lon in df.lon ]
+y = [ round(lat,7) for lat in df.lat ]
+
+#img = plt.imread('./map.png')
+fig, ax = plt.subplots(figsize=(8,10))
+ax.scatter(x, y, zorder=1, alpha= 0.2, c='red', s=10)
+ax.set_title('I obwodnica Krakowa')
 ax.set_xlim(BBox[0],BBox[1])
 ax.set_ylim(BBox[2],BBox[3])
-ax.imshow(img,extent=BBox)
+#ax.imshow(img,extent=BBox)
 
 plt.show()
 

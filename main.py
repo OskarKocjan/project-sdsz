@@ -14,6 +14,7 @@ result = api.query("node(50.0526,19.9284,50.0676,19.9484);out;")
 
 #tekst
 #teks2
+#teks3
 
 N = 50.0676
 E = 19.9484

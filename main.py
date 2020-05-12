@@ -22,7 +22,7 @@ W = 19.9284
 BBox = (W, E, S, N)
 
 img = plt.imread('./map.png')
-fig, ax = plt.subplots(figsize=(10,5))
+fig, ax = plt.subplots(figsize=(10, 5))
 ax.set_title('Obwodnica')
 ax.set_xlim(BBox[0],BBox[1])
 ax.set_ylim(BBox[2],BBox[3])

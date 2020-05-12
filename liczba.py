@@ -12,7 +12,7 @@ result = api.query("node(50.0526,19.9284,50.0676,19.9484);out;")
 #     print(result.nodes[i])
 
 
-#tekst
+#tekst aasdsadsadsadsad
 
 N = 50.0676
 E = 19.9484

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.animation import FuncAnimation
 from  Point import Point
-
+from fetchPointsFromCSV import makeDicFromCsv
 
 
 def animate(i):
@@ -21,9 +21,8 @@ streets =["Basztowa", "Juliana Dunajewskiego", "Podwale", "Floriana Straszewskie
 
 df = pd.read_csv('points.csv', encoding='utf8')
 
-points = {}
-for i in range(len(df)):
-    points[df.street[i]] = [].append(Point(df.lat[i],df.lon[i]))
+points = makeDicFromCsv(df)
+print(points)
 
 
 x = [ round(lon,7) for lon in df.lon ]

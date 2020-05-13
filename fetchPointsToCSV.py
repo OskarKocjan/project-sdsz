@@ -23,7 +23,7 @@ def distanceOnEarth(x1,x2,y1,y2):
 
 
 api = overpy.Overpass()
-streets =['"Basztowa"', '"Juliana Dunajewskiego"', '"Podwale"', '"Floriana Straszewskiego"', '"Podzamcze"', '"Świętego Idziego"', '"Świętej Gertrudy"','"Westerplatte"','"Teatr Słowackiego "']
+streets =['"Basztowa"', '"Juliana Dunajewskiego"', '"Podwale"', '"Floriana Straszewskiego"', '"Podzamcze"', '"Świętego Idziego"', '"Świętej Gertrudy"','"Westerplatte"','"Teatr Słowackiego"','"Stary Kleparz"', '"Teatr Bagatela"','"Filharmonia"','"Poczta Główna"']
 row_list = [["id","street","lon","lat"]]
 
 

@@ -17,25 +17,29 @@ S = 50.0526
 W = 19.9284
 
 BBox = (W, E, S, N)
-streets =["Basztowa", "Juliana Dunajewskiego", "Podwale", "Floriana Straszewskiego", "Podzamcze", "Świętego Idziego", "Świętej Gertrudy","Westerplatte","Teatr Słowackiego "]
+streets =["Basztowa", "Juliana Dunajewskiego", "Podwale", "Floriana Straszewskiego", "Podzamcze", "Świętego Idziego", "Świętej Gertrudy","Westerplatte","Teatr Słowackiego"]
 
 df = pd.read_csv('points.csv', encoding='utf8')
 
 points = makeDicFromCsv(df)
+x=[]
+y=[]
 for key,values in points.items():
     for value in values:
-        print(key,value.x, value.y)
+        x.append(value.x)
+        y.append(value.y)
 
+print(y)
 
-# fig, ax = plt.subplots(figsize=(7,9))
-# ax.scatter(x, y, zorder=1, alpha= 1, c='red', s=10)
-# ax.set_title('I obwodnica Krakowa')
-# ax.set_xlim(BBox[0],BBox[1])
-# ax.set_ylim(BBox[2],BBox[3])
-#
-# graph, = plt.plot([], [], 'o')
-# ani = FuncAnimation(fig, animate, frames=200, interval=200)
-# plt.show()
+fig, ax = plt.subplots(figsize=(7,9))
+ax.scatter(y, x, zorder=1, alpha= 1, c='red', s=10)
+ax.set_title('I obwodnica Krakowa')
+ax.set_xlim(BBox[0],BBox[1])
+ax.set_ylim(BBox[2],BBox[3])
+
+#graph, = plt.plot([], [], 'o')
+#ani = FuncAnimation(fig, animate, frames=200, interval=200)
+plt.show()
 
 
 

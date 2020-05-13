@@ -1,6 +1,7 @@
 import overpy
 import csv
 import numpy as np
+import json
 from math import sin, cos, sqrt, atan2,radians
 
 
@@ -10,7 +11,6 @@ from math import sin, cos, sqrt, atan2,radians
 
 def distanceOnEarth(x1,x2,y1,y2):
     R = 6372800  # Earth radius in meters
-
 
     phi1, phi2 = radians(y1), radians(y2)
     dphi = radians(y2 - y1)
@@ -25,7 +25,7 @@ def distanceOnEarth(x1,x2,y1,y2):
 
 api = overpy.Overpass()
 streets =['"Basztowa"', '"Juliana Dunajewskiego"', '"Podwale"', '"Floriana Straszewskiego"', '"Podzamcze"', '"Świętego Idziego"', '"Świętej Gertrudy"','"Westerplatte"','"Teatr Słowackiego "']
-row_list = [["id","lon","lat"]]
+row_list = [["id","street","lon","lat"]]
 
 
 
@@ -37,24 +37,26 @@ for street in streets:
         for j in range(len(result.ways[i].get_nodes(resolve_missing=True))):
             row_list.append([
                 result.ways[i].get_nodes(resolve_missing=True)[j].id,
+                street,
                 result.ways[i].get_nodes(resolve_missing=True)[j].lon,
                 result.ways[i].get_nodes(resolve_missing=True)[j].lat
             ])
 
 
 
-for i in range(2, len(row_list)):
-    lon1 = row_list[i][1]
-    lat1 = row_list[i][2]
-    lon2 = row_list[i-1][1]
-    lat2 = row_list[i-1][2]
-    print(str(lon2)+ " "+str(lat2)+ " "+ str(distanceOnEarth(lon1,lon2,lat1,lat2)))
+# for i in range(2, len(row_list)):
+#     lon1 = row_list[i][1]
+#     lat1 = row_list[i][2]
+#     lon2 = row_list[i-1][1]
+#     lat2 = row_list[i-1][2]
+#     print(str(lon2)+ " "+str(lat2)+ " "+ str(distanceOnEarth(lon1,lon2,lat1,lat2)))
 
 
 
 
 
-with open('points.csv', 'w', newline='') as file:
+with open('points.csv', 'w', newline='',encoding='utf8') as file:
     writer = csv.writer(file)
     writer.writerows(row_list)
+
 

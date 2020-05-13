@@ -1,5 +1,13 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from matplotlib.animation import FuncAnimation
+
+
+def animate(i):
+    graph.set_data(x[:i+1], y[:i+1])
+    return graph
+
+
 
 
 N = 50.0676
@@ -20,7 +28,9 @@ ax.set_title('I obwodnica Krakowa')
 ax.set_xlim(BBox[0],BBox[1])
 ax.set_ylim(BBox[2],BBox[3])
 #ax.imshow(img,extent=BBox)
+graph, = plt.plot([], [], 'o')
 
+ani = FuncAnimation(fig, animate, frames=300, interval=200)
 plt.show()
 
 

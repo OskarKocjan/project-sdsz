@@ -1,14 +1,14 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.animation import FuncAnimation
-from  Point import Point
 from fetchPointsFromCSV import makeDicFromCsv
 
 
-def animate(i):
-    graph.set_data(x[:i+1], y[:i+1])
-    return graph
-#siema
+
+# def animate(i):
+#     graph.set_data(x[:i+1], y[:i+1])
+#     return graph
+
 
 
 N = 50.0676
@@ -22,26 +22,20 @@ streets =["Basztowa", "Juliana Dunajewskiego", "Podwale", "Floriana Straszewskie
 df = pd.read_csv('points.csv', encoding='utf8')
 
 points = makeDicFromCsv(df)
-print(points)
+for key,values in points.items():
+    for value in values:
+        print(key,value.x, value.y)
 
 
-x = [ round(lon,7) for lon in df.lon ]
-y = [ round(lat,7) for lat in df.lat ]
-
-
-
-
-
-
-fig, ax = plt.subplots(figsize=(7,9))
-ax.scatter(x, y, zorder=1, alpha= 1, c='red', s=10)
-ax.set_title('I obwodnica Krakowa')
-ax.set_xlim(BBox[0],BBox[1])
-ax.set_ylim(BBox[2],BBox[3])
-
-graph, = plt.plot([], [], 'o')
-ani = FuncAnimation(fig, animate, frames=200, interval=200)
-plt.show()
+# fig, ax = plt.subplots(figsize=(7,9))
+# ax.scatter(x, y, zorder=1, alpha= 1, c='red', s=10)
+# ax.set_title('I obwodnica Krakowa')
+# ax.set_xlim(BBox[0],BBox[1])
+# ax.set_ylim(BBox[2],BBox[3])
+#
+# graph, = plt.plot([], [], 'o')
+# ani = FuncAnimation(fig, animate, frames=200, interval=200)
+# plt.show()
 
 
 

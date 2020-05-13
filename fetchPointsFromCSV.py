@@ -7,5 +7,5 @@ def makeDicFromCsv(df):
 
     for key, values in points.items():
         for i in range(len(df)):
-            points[key].append(Point(df.lat[i], df.lon[i]))
+            points[key].append(Point(round(df.lat[i],7), round(df.lon[i],7)))
     return points

@@ -8,7 +8,7 @@ from fetchPointsFromCSV import makeDicFromCsv
 def animate(i):
     graph.set_data(x[:i+1], y[:i+1])
     return graph
-
+#siema
 
 
 N = 50.0676

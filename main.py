@@ -1,13 +1,35 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.animation import FuncAnimation
-from fetchPointsFromCSV import makeDicFromCsv
+from fetchPointsFromCSV import makeDicFromCsv,distance
+from Point import Point
+import json
+
+with open("./coords/bag-filh.json", 'r') as f:
+    datastore = json.load(f)
+
+data = datastore["features"][1]["geometry"]["coordinates"]
+points = [Point(el[0],el[1]) for el in data]
+x = [point.x for point in points]
+y = [point.y for point in points]
+print(x)
+print(y)
 
 
 
-# def animate(i):
-#     graph.set_data(x[:i+1], y[:i+1])
-#     return graph
+
+def animate(i):
+    graph.set_data( x[:i+1],y[:i+1])
+    return graph
+
+def sortPoints(dict):
+    for key in dict:
+        for i in range(len(dict[key])-1):
+            for j in range(len(dict[key])-1-i):
+                if(dict[key][j].x < dict[key][j+1].x):
+                    dict[key][j], dict[key][j+1] = dict[key][j+1], dict[key][j]
+
+    return dict
 
 
 
@@ -21,24 +43,45 @@ streets =["Basztowa", "Juliana Dunajewskiego", "Podwale", "Floriana Straszewskie
 
 df = pd.read_csv('points.csv', encoding='utf8')
 
-points = makeDicFromCsv(df)
-x=[]
-y=[]
-for key,values in points.items():
-    for value in values:
-        x.append(value.x)
-        y.append(value.y)
+#points = makeDicFromCsv(df)
 
-print(y)
+# x = []
+# y = []
+
+
+
+
+# for p in points['"Juliana Dunajewskiego"']:
+#     print(p.x, p.y)
+
+# a = [2,4,10,12]
+# for i in range(1,len(a)):
+#     print(i)
+#     if(a[i]-a[i-1]>2):
+#         print(i,len(a))
+#         a.insert(i,a[i-1]+1)
+
+
+
+# for key,values in points.items():
+#     for value in values:
+#         x.append(value.y)
+#         y.append(value.x)
+#
+# for i in range(1,len(x)):
+#     if(distance(x[i-1],y[i-1],x[i],y[i])>10):
+#         print(i,x[i-1],y[i-1],x[i],y[i])
+# print(len(x))
+
 
 fig, ax = plt.subplots(figsize=(7,9))
-ax.scatter(y, x, zorder=1, alpha= 1, c='red', s=10)
+ax.scatter(x,y, zorder=1, alpha= 1, c='red', s=10)
 ax.set_title('I obwodnica Krakowa')
 ax.set_xlim(BBox[0],BBox[1])
 ax.set_ylim(BBox[2],BBox[3])
 
-#graph, = plt.plot([], [], 'o')
-#ani = FuncAnimation(fig, animate, frames=200, interval=200)
+graph, = plt.plot([], [], 'o')
+ani = FuncAnimation(fig, animate, frames=200, interval=200)
 plt.show()
 
 

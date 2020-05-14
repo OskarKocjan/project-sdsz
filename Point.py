@@ -5,33 +5,30 @@
 
 class Point:
 
-    x = 0
-    y = 0
-    color = 'white'
 
-
-    def __init__(self, x, y, color = 'white'):
-        self.x = x
-        self.y = y
-        self.color = color
+    def __init__(self, x = 0, y = 0, color = 'white'):
+        self.__x = x
+        self.__y = y
+        self.__color = color
 
     def setColor(self, color):
-        self.color = color
+        self._color = color
 
 
     def setX(self, x):
-        self.x = x
+        self.__x = x
 
     def setY(self, y):
-        self.y = y
+        self.__y = y
 
     def getColor(self):
-        return self.color
+        return self.__color
 
     def getX(self):
-        return self.x
+        return self.__x
 
     def getY(self):
-        return self.y
+        return self.__y
+
 
 

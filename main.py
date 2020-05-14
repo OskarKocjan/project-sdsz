@@ -5,11 +5,17 @@ from fetchPointsFromCSV import makeDicFromCsv,distance
 from Point import Point
 import json
 
-with open("./coords/bag-filh.json", 'r') as f:
+with open("roads.json", 'r') as f:
     datastore = json.load(f)
 
-data = datastore["features"][1]["geometry"]["coordinates"]
-points = [Point(el[0],el[1]) for el in data]
+data = datastore["tracks"]
+# data = datastore["tracks"][0]["coordinates"]
+# data1 = datastore["tracks"][1]["coordinates"]
+points = []
+for track in data:
+    for coords in track["coordinates"]:
+        points.append(Point(coords[0],coords[1]))
+# points = [Point(el[0],el[1]) for el in data]
 x = [point.x for point in points]
 y = [point.y for point in points]
 print(x)
@@ -18,9 +24,9 @@ print(y)
 
 
 
-def animate(i):
-    graph.set_data( x[:i+1],y[:i+1])
-    return graph
+# def animate(i):
+#     graph.set_data( x[:i+1],y[:i+1])
+#     return graph
 
 def sortPoints(dict):
     for key in dict:
@@ -80,8 +86,8 @@ ax.set_title('I obwodnica Krakowa')
 ax.set_xlim(BBox[0],BBox[1])
 ax.set_ylim(BBox[2],BBox[3])
 
-graph, = plt.plot([], [], 'o')
-ani = FuncAnimation(fig, animate, frames=200, interval=200)
+#graph, = plt.plot([], [], 'o')
+#ani = FuncAnimation(fig, animate, frames=1500, interval=30)
 plt.show()
 
 

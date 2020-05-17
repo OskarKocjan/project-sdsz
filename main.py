@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from matplotlib.animation import FuncAnimation
-from fetchPointsFromCSV import makeDicFromCsv,distance
+from fetchPointsFromFile import makeDicFromCsv,distance
 from Point import Point
 import json
 
@@ -16,10 +17,9 @@ for track in data:
     for coords in track["coordinates"]:
         points.append(Point(coords[0],coords[1]))
 # points = [Point(el[0],el[1]) for el in data]
-x = [point.x for point in points]
-y = [point.y for point in points]
-print(x)
-print(y)
+x = [point.getX() for point in points]
+y = [point.getY() for point in points]
+
 
 
 
@@ -80,14 +80,22 @@ df = pd.read_csv('points.csv', encoding='utf8')
 # print(len(x))
 
 
+
+
+
 fig, ax = plt.subplots(figsize=(7,9))
-ax.scatter(x,y, zorder=1, alpha= 1, c='red', s=10)
+
+ax.scatter(y,x, zorder=1, alpha= 1, c='red', s=0.5)
+
+
 ax.set_title('I obwodnica Krakowa')
-ax.set_xlim(BBox[0],BBox[1])
-ax.set_ylim(BBox[2],BBox[3])
+#ax.set_xlim(BBox[0],BBox[1])
+#ax.set_ylim(BBox[2],BBox[3])
+
 
 #graph, = plt.plot([], [], 'o')
 #ani = FuncAnimation(fig, animate, frames=1500, interval=30)
+
 plt.show()
 
 

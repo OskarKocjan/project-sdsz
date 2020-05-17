@@ -12,7 +12,7 @@ class Point:
         self.__color = color
 
     def setColor(self, color):
-        self._color = color
+        self.__color = color
 
 
     def setX(self, x):
@@ -30,5 +30,9 @@ class Point:
     def getY(self):
         return self.__y
 
+    def getCords(self):
+        return (self.__x, self.__y)
 
-
+    def setCords(self,x ,y ):
+        self.__x = x
+        self.__y = y

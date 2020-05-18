@@ -3,15 +3,9 @@ import json
 from Point import Point
 from fetchPointsFromFile import ChangePointsFromFloatToInt
 
-def runningBlue(i):
-    pygame.draw.circle(screen, white, (x[i - 1], y[i - 1]), 1)
-    pygame.draw.circle(screen, red, (x[i], y[i]), 1)
-    i += 1
-
-
-
-
-
+def runningRed(i):
+    pygame.draw.circle(screen, white, (x[i - 1], y[i - 1]), 5)
+    pygame.draw.circle(screen, red, (x[i], y[i]), 5)
 
 
 
@@ -42,14 +36,14 @@ clockobject = pygame.time.Clock()
 
 screen.fill(black)
 for i in range(len(x)):
-    pygame.draw.circle(screen,white,(x[i],y[i]),1)
+    pygame.draw.circle(screen, white, (x[i], y[i]), 5)
 
 i = 1 
 
 # Game Loop
 while running:
 
-    clockobject.tick(60)
+    clockobject.tick(20)
 
 
     for event in pygame.event.get():
@@ -59,7 +53,7 @@ while running:
     # screen.fill((255,225,255))
     
    
-    runningBlue(i)
+    runningRed(i)
     i += 1
     if(i == len(x)):
         i = 1

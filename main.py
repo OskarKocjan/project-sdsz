@@ -85,7 +85,7 @@ df = pd.read_csv('points.csv', encoding='utf8')
 
 fig, ax = plt.subplots(figsize=(7,9))
 
-ax.scatter(y,x, zorder=1, alpha= 1, c='red', s=0.5)
+ax.scatter(x,y, zorder=1, alpha= 1, c='red', s=0.5)
 
 
 ax.set_title('I obwodnica Krakowa')

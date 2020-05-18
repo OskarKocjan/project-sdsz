@@ -4,8 +4,8 @@ from Point import Point
 from fetchPointsFromFile import ChangePointsFromFloatToInt
 
 def runningRed(i):
-    pygame.draw.circle(screen, white, (x[i - 1], y[i - 1]), 5)
-    pygame.draw.circle(screen, red, (x[i], y[i]), 5)
+    pygame.draw.circle(screen, white, (x[i - 1], y[i - 1]), 3)
+    pygame.draw.circle(screen, red, (x[i], y[i]), 3)
 
 
 
@@ -36,7 +36,7 @@ clockobject = pygame.time.Clock()
 
 screen.fill(black)
 for i in range(len(x)):
-    pygame.draw.circle(screen, white, (x[i], y[i]), 5)
+    pygame.draw.circle(screen, white, (x[i], y[i]), 3)
 
 i = 1 
 

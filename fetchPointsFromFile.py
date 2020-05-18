@@ -85,8 +85,8 @@ def ChangePointsFromFloatToInt(file):
         points[i].setY(int(points[i].getY()))
 
         rememberX = points[i].getX()
-        points[i].setX(points[i].getY())
-        points[i].setY(rememberX)
+        points[i].setX(points[i].getY() + 70)
+        points[i].setY(rememberX + 30)
 
     i = 0
     for track in data:

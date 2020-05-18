@@ -37,43 +37,64 @@ def ChangePointsFromFloatToInt(file):
         for coords in track["coordinates"]:
             points.append(Point(coords[0], coords[1]))
 
-    x = [point.getX() for point in points]
-    y = [point.getY() for point in points]
 
-    kx = 176 / x[0]
-    ky = 363 / y[0]
+    kx = 176 / points[0].getX()
+    ky = 363 / points[0].getY()
 
-    rx = abs(x[0] - x[1])
-    ry = abs(y[0] - y[1])
+    rx = abs(points[0].getX() - points[1].getX())
+    ry = abs(points[0].getY() - points[1].getY())
 
     rx = 1 / rx
 
     ry = 1 / ry
 
-    for i in range(len(x)):
-        x[i] = round(((x[i] * (kx + rx)) - 481100) * 10)
+    for i in range(len(points)):
+        points[i].setX(round(((points[i].getX() * (kx + rx)) - 481100) * 10))
+        points[i].setY(round(((points[i].getY() * (ky + ry)) - 1343150) * 10))
 
-    for i in range(len(y)):
-        y[i] = round(((y[i] * (ky + ry)) - 1343150) * 10)
 
-    xmin = min(x)
-    ymin = min(y)
 
-    for i in range(len(x)):
-        x[i] = x[i] - xmin
-        if (x[i] % 2 == 1):
-            x[i] += 1
-        x[i] = x[i] / 2
-        if (x[i] % 2 == 1):
-            x[i] += 1
-        x[i] = x[i] / 2
-        x[i] = int(x[i])
+    xmin = points[0].getX()
+    ymin = points[0].getY()
 
-    for i in range(len(y)):
-        y[i] = y[i] - ymin
-        if (y[i] % 2 == 1):
-            y[i] += 1
-        y[i] = y[i] / 2
-        y[i] = int(y[i])
 
-    return x, y
+    for i in range(len(points)):
+        if(points[i].getX() < xmin):
+            xmin = points[i].getX()
+
+        if (points[i].getY() < ymin):
+            ymin = points[i].getY()
+
+
+    for i in range(len(points)):
+        points[i].setX(points[i].getX() - xmin)
+        if (points[i].getX() % 2 == 1):
+            points[i].setX(points[i].getX() + 1)
+        points[i].setX(points[i].getX() / 2)
+        if (points[i].getX() % 2 == 1):
+            points[i].setX(points[i].getX() + 1)
+        points[i].setX(points[i].getX() / 2)
+        points[i].setX(int(points[i].getX()))
+
+
+        points[i].setY(points[i].getY() - ymin)
+        if (points[i].getY() % 2 == 1):
+            points[i].setY(points[i].getY() + 1)
+        points[i].setY(points[i].getY() / 2)
+
+        points[i].setY(int(points[i].getY()))
+
+        rememberX = points[i].getX()
+        points[i].setX(points[i].getY())
+        points[i].setY(rememberX)
+
+    i = 0
+    for track in data:
+        for coords in track["coordinates"]:
+
+            coords[0] = points[i].getX()
+            coords[1] = points[i].getY()
+            i += 1
+
+
+    return data,points

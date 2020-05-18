@@ -2,15 +2,18 @@ import pygame
 import json
 from Point import Point
 from fetchPointsFromFile import ChangePointsFromFloatToInt
+from numpy import subtract
 
 def runningRed(i):
-    pygame.draw.circle(screen, white, (x[i - 1], y[i - 1]), 3)
-    pygame.draw.circle(screen, red, (x[i], y[i]), 3)
+    pygame.draw.circle(screen, white,points[i - 1].getCords(), 3)
+    pygame.draw.circle(screen, red, points[i].getCords(), 3)
 
 
 
-x = []
-y = []
+
+
+
+
 
 
 
@@ -20,7 +23,7 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 
-y, x = ChangePointsFromFloatToInt("roads.json")
+data, points = ChangePointsFromFloatToInt("roads.json")
 
 # initialize
 pygame.init()
@@ -35,15 +38,15 @@ pygame.display.set_caption("Cracow Road Simulation")
 clockobject = pygame.time.Clock()
 
 screen.fill(black)
-for i in range(len(x)):
-    pygame.draw.circle(screen, white, (x[i], y[i]), 3)
+for i in range(len(points)):
+    pygame.draw.circle(screen,white,points[i].getCords(),5)
 
 i = 1 
 
 # Game Loop
 while running:
 
-    clockobject.tick(20)
+    clockobject.tick(30)
 
 
     for event in pygame.event.get():
@@ -55,7 +58,7 @@ while running:
    
     runningRed(i)
     i += 1
-    if(i == len(x)):
+    if(i == len(points)):
         i = 1
 
 

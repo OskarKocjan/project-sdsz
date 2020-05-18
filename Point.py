@@ -31,8 +31,8 @@ class Point:
         return self.__y
 
     def getCords(self):
-        return (self.__x, self.__y)
+        return (self.getX(), self.getY())
 
-    def setCords(self,x ,y ):
-        self.__x = x
-        self.__y = y
+    def setCords(self, x , y ):
+        self.setY(y)
+        self.selfX(x)

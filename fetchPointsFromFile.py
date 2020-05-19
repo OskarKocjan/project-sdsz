@@ -30,10 +30,14 @@ def ChangePointsFromFloatToInt(file):
     with open(file, 'r') as f:
         datastore = json.load(f)
 
+
     data = datastore["tracks"]
+
+
 
     points = []
     for track in data:
+        print(track['name'])
         for coords in track["coordinates"]:
             points.append(Point(coords[0], coords[1]))
 

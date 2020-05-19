@@ -6,10 +6,11 @@
 class Point:
 
 
-    def __init__(self, x = 0, y = 0, color = 'white'):
+    def __init__(self, x = 0, y = 0, color = 'white', taken = 0):
         self.__x = x
         self.__y = y
         self.__color = color
+        self.__taken = taken
 
     def setColor(self, color):
         self.__color = color
@@ -36,3 +37,17 @@ class Point:
     def setCords(self, x , y ):
         self.setY(y)
         self.selfX(x)
+
+    def getTaken(self):
+        return self.__taken
+
+    def setTaken(self, taken):
+        self.__taken = taken
+
+    def checkTaken(self):
+
+        if self.getTaken() == 1:
+            return True
+
+        else:
+            return False

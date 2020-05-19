@@ -5,18 +5,10 @@ from fetchPointsFromFile import ChangePointsFromFloatToInt
 from numpy import subtract
 from Car import Car
 
-def runningRed(i):
-    pygame.draw.circle(screen, white,points[i - 1].getCords(), 3)
-    pygame.draw.circle(screen, red, points[i].getCords(), 3)
 
-def initializeCars(points):
 
-    cars = []
 
-    for i in range(len(points)):
-        cars.append(Car.fromPoint(points[i]))
 
-    return cars
 
 def initializePoints(points):
     for i in range(len(points)):
@@ -32,6 +24,7 @@ black = (0, 0, 0)
 
 
 data, points = ChangePointsFromFloatToInt("roads.json")
+car = Car.fromPoint(points[1],points[0], points[2])
 
 # initialize
 pygame.init()
@@ -48,7 +41,7 @@ clockobject = pygame.time.Clock()
 screen.fill(black)
 
 initializePoints(points)
-cars = initializeCars(points)
+
 
 i = 1 
 
@@ -57,7 +50,7 @@ i = 1
 # Game Loop
 while running:
 
-    clockobject.tick(30)
+    clockobject.tick(60)
 
 
     for event in pygame.event.get():
@@ -65,8 +58,11 @@ while running:
             running = False
 
     
-   
-    runningRed(i)
+
+    car.move(screen)
+    car.setCords(points[i].getX(),points[i].getY())
+    car.setNeigh(points[i+1],points[i-1])
+
     i += 1
     if(i == len(points)):
         i = 1

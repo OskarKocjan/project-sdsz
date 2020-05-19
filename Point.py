@@ -31,7 +31,7 @@ class Point:
 
     def setCords(self, x , y ):
         self.setY(y)
-        self.selfX(x)
+        self.setX(x)
 
     def getTaken(self):
         return self.__taken

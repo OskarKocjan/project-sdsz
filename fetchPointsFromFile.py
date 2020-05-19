@@ -32,14 +32,14 @@ def ChangePointsFromFloatToInt(file):
 
 
     data = datastore["tracks"]
-
+    data[3]['coordinates'].reverse()
 
 
     points = []
     for track in data:
-        print(track['name'])
         for coords in track["coordinates"]:
             points.append(Point(coords[0], coords[1]))
+
 
 
     kx = 176 / points[0].getX()
@@ -99,6 +99,9 @@ def ChangePointsFromFloatToInt(file):
             coords[0] = points[i].getX()
             coords[1] = points[i].getY()
             i += 1
+
+
+
 
 
     return data,points

@@ -1,7 +1,7 @@
 {
   "tracks": [
     {
-      "name": "bagatela-filharmonia",
+      "name": "bagatela-filharmonia-ccw",
       "coordinates": [
         [19.93272930036, 50.06330548662],
         [19.93268785764, 50.06326821069],
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "name": "filharmonia-gertrudy-forward",
+      "name": "filharmonia-gertrudy-ccw",
       "coordinates": [
         [19.9332051581, 50.05867121203],
         [19.93322783428, 50.0586275375],
@@ -265,7 +265,7 @@
       ]
     },
     {
-      "name": "poczta-gertrudy-up",
+      "name": "poczta-gertrudy-ccw",
       "coordinates": [
         [19.93937292495, 50.05419420052],
         [19.93941873668, 50.05422923778],
@@ -394,7 +394,7 @@
       ]
     },
     {
-      "name": "gertrudy-poczta-down",
+      "name": "gertrudy-poczta-cw",
       "coordinates": [
         [19.93931226964, 50.05422892029],
         [19.93935942877, 50.05426395752],
@@ -524,7 +524,7 @@
     },
 
     {
-      "name": "westerplatte-right-up",
+      "name": "westerplatte-right-ccw",
       "coordinates": [
         [19.94244287214, 50.05960619985],
         [19.94248862503, 50.05964495047],
@@ -645,7 +645,7 @@
       ]
     },
     {
-      "name": "westerplatte-left-up",
+      "name": "westerplatte-left-ccw",
       "coordinates": [
         [19.94238670544, 50.05963473145],
         [19.94243437259, 50.05967162325],
@@ -766,7 +766,7 @@
       ]
     },
     {
-      "name": "westerplatte-right-down",
+      "name": "westerplatte-right-cw",
       "coordinates": [
         [19.9448459496, 50.06439139554],
         [19.94484742583, 50.06434496187],
@@ -886,7 +886,7 @@
       ]
     },
     {
-      "name": "westerplatte-left-down",
+      "name": "westerplatte-left-cw",
       "coordinates": [
         [19.94492282158, 50.06439281634],
         [19.9449242978, 50.06434638268],
@@ -1006,7 +1006,7 @@
       ]
     },
     {
-      "name": "basztowa-right",
+      "name": "basztowa-ccw",
       "coordinates": [
         [19.94481425803, 50.06477302058],
         [19.94475399993, 50.0647919385],
@@ -1095,7 +1095,7 @@
       ]
     },
     {
-      "name": "basztowa-left",
+      "name": "basztowa-cw",
       "coordinates": [
         [19.93946939507, 50.0662594703],
         [19.93953783193, 50.06626165396],
@@ -1184,7 +1184,7 @@
       ]
     },
     {
-      "name": "basztowa-dunaj-right",
+      "name": "basztowa-dunaj-ccw",
       "coordinates": [
         [19.93335813624, 50.06358307027],
         [19.9334226413, 50.06363451677],
@@ -1297,7 +1297,7 @@
       ]
     },
     {
-      "name": "basztowa-dunaj-left",
+      "name": "basztowa-dunaj-cw",
       "coordinates": [
         [19.9389977297, 50.06632228618],
         [19.93892657867, 50.06632027862],

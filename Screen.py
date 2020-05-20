@@ -7,12 +7,9 @@ from Car import Car
 
 
 
-
-
-
 def initializePoints(points):
     for i in range(len(points)):
-        pygame.draw.circle(screen, white, points[i].getCords(), 5)
+        pygame.draw.circle(screen, white, points[i].getCords(), 2)
 
 
 
@@ -24,6 +21,7 @@ black = (0, 0, 0)
 
 
 data, points = ChangePointsFromFloatToInt("roads.json")
+print(data)
 car = Car.fromPoint(points[1],points[0], points[2])
 
 # initialize

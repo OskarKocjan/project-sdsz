@@ -32,7 +32,8 @@ def ChangePointsFromFloatToInt(file):
 
 
     data = datastore["tracks"]
-    data[3]['coordinates'].reverse()
+    #bo jedna tablica na odwrot bo sie Macio walnął xddd
+    #data[3]['coordinates'].reverse()
 
 
     points = []

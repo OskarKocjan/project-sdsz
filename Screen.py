@@ -1,6 +1,6 @@
 import pygame
 from Point import Point
-from fetchPointsFromFile import ChangePointsFromFloatToInt
+from fetchPointsFromFile import ChangePointsFromFloatToInt,convertGeoJsonToJson
 from Car import Car
 
 
@@ -14,8 +14,12 @@ red = (255, 0, 0)
 white = (255, 255, 255)
 black = (0, 0, 0)
 
+#convert from GeoJson
+convertGeoJsonToJson("../coords/intersections/kleparz.json")
+
+
 # fetching coords from json
-data, points = ChangePointsFromFloatToInt("roads.json")
+data, points = ChangePointsFromFloatToInt("./intersections/kleparz.json")
 car = Car.fromPoint(points[1],points[0], points[2])
 
 

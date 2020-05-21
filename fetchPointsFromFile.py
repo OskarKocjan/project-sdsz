@@ -1,5 +1,6 @@
 from Point import Point
 from math import sin, cos, sqrt, atan2,radians
+import os
 import json
 
 
@@ -15,6 +16,26 @@ def distance(x1, y1, x2, y2):
             cos(phi1) * cos(phi2) * sin(dlambda / 2) ** 2
 
         return 2 * R * atan2(sqrt(a), sqrt(1 - a))
+
+
+def convertGeoJsonToJson(file):
+    #file = "../coords/intersections/kleparz.json"
+    path = file.split("/")
+    name = os.path.splitext(path[len(path)-1])[0]
+    with open(file, 'r') as f:
+            datastore = json.load(f)
+
+            data = {}
+            data['tracks'] = []
+            for item in datastore["features"]:
+                road = {}
+                road['name'] = item["properties"]["name"]
+                road['coordinates'] = item["geometry"]['coordinates']
+                data['tracks'].append(road)
+
+    with open('intersections/'+name+'.json', 'w') as outfile:
+        json.dump(data, outfile)
+
 
 
 

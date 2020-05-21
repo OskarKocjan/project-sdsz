@@ -19,7 +19,8 @@ convertGeoJsonToJson("../coords/intersections/kleparz.json")
 
 
 # fetching coords from json
-data, points = ChangePointsFromFloatToInt("./intersections/kleparz.json")
+# data, points = ChangePointsFromFloatToInt("./intersections/kleparz.json")
+data, points = ChangePointsFromFloatToInt("roads.json")
 car = Car.fromPoint(points[1],points[0], points[2])
 
 

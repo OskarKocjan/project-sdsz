@@ -29,7 +29,7 @@ def convertGeoJsonToJson(file):
             data['tracks'] = []
             for item in datastore["features"]:
                 road = {}
-                road['name'] = item["properties"]["name"]
+                road['name'] =  item["properties"]["name"] if item["properties"]["name"] else "name"
                 road['coordinates'] = item["geometry"]['coordinates']
                 data['tracks'].append(road)
 
@@ -38,6 +38,10 @@ def convertGeoJsonToJson(file):
 
 
 
+def getFirstThreeAndLast(data,name):
+    for item in data:
+        if(item['name'] == name):
+            return item["coordinates"][0], item["coordinates"][1], item["coordinates"][2], item["coordinates"][len(item["coordinates"])-1]
 
 def ChangePointsFromFloatToInt(file):
     with open(file, 'r') as f:
@@ -103,11 +107,25 @@ def ChangePointsFromFloatToInt(file):
         points[i].setY(rememberX + 30)
 
     i = 0
+
+    finalData = []
+
+
     for track in data:
+
+        road = {}
+        road['name'] = track['name']
+        road['coordinates'] = []
+
         for coords in track["coordinates"]:
+
+            road['coordinates'].append(Point(coords[0],coords[1]))
 
             coords[0] = points[i].getX()
             coords[1] = points[i].getY()
             i += 1
+            finalData.append(road)
 
-    return data,points
+
+
+    return finalData,points

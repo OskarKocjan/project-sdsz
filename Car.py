@@ -17,6 +17,17 @@ class Car(Point):
         return cls(point.getX(), point.getY(), point.getColor(), point.getTaken(), prevP, nextP, v, a)
 
 
+    def setTrack(self,streets,data):
+        track = []
+        for road in data:
+            for street in streets:
+                if (road['name'] == street):
+                    track.append(road)
+        self.__track = track
+
+    def getTrack(self):
+        return self.__track
+
     def getV(self):
         return self.__v
 
@@ -49,7 +60,11 @@ class Car(Point):
         self.__prevP = point2
 
 
+    # def move(self, screen):
+    #     pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 3)
+    #     pygame.draw.circle(screen, (255, 255, 255), self.getCords(), 3)
+
     def move(self, screen):
         pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 3)
-
         pygame.draw.circle(screen, (255, 255, 255), self.getCords(), 3)
+

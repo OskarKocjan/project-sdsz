@@ -1,6 +1,6 @@
 import pygame
 from Point import Point
-from fetchPointsFromFile import ChangePointsFromFloatToInt,convertGeoJsonToJson
+from fetchPointsFromFile import *
 from Car import Car
 
 
@@ -15,13 +15,20 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 #convert from GeoJson
-#convertGeoJsonToJson("../coords/intersections/kleparz.json")
+convertGeoJsonToJson("../coords/intersections/kleparz.json")
+
 
 
 # fetching coords from json
-# data, points = ChangePointsFromFloatToInt("./intersections/kleparz.json")
 data, points = ChangePointsFromFloatToInt("roads.json")
-car = Car.fromPoint(points[1],points[0], points[2])
+# set track to car
+streets = ["basztowa-ccw","basztowa-dunaj-ccw"]
+pkts = getFirstThreeAndLast(data, "basztowa-ccw")
+
+car = Car.fromPoint(pkts[1], pkts[0], pkts[2])
+
+car.setTrack(streets, data)
+print(car.getCords())
 
 
 # initialize
@@ -47,17 +54,16 @@ i = 1
 # Main Loop
 while running:
 
-    clockobject.tick(20)
+    clockobject.tick(10)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    
 
     car.move(screen)
-    car.setCords(points[i].getX(),points[i].getY())
-    car.setNeigh(points[i+1],points[i-1])
+    # car.setCords(points[i].getX(), points[i].getY())
+    # car.setNeigh(points[i+1], points[i-1])
 
     i += 1
     if(i == len(points)-1):

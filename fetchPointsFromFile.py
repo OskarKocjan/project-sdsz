@@ -3,16 +3,6 @@ from math import sin, cos, sqrt, atan2,radians
 import json
 
 
-def makeDicFromCsv(df):
-    points = {}
-    for i in range(len(df)):
-        points.update({df.street[i]:[]})
-
-    for key, values in points.items():
-        for i in range(len(df)):
-            points[key].append(Point(round(df.lat[i],7), round(df.lon[i],7)))
-    return points
-
 def distance(x1, y1, x2, y2):
         # Earth radius in meters
         R = 6372800
@@ -26,15 +16,14 @@ def distance(x1, y1, x2, y2):
 
         return 2 * R * atan2(sqrt(a), sqrt(1 - a))
 
+
+
 def ChangePointsFromFloatToInt(file):
     with open(file, 'r') as f:
         datastore = json.load(f)
 
 
     data = datastore["tracks"]
-    #bo jedna tablica na odwrot bo sie Macio walnął xddd
-    #data[3]['coordinates'].reverse()
-
 
     points = []
     for track in data:
@@ -100,9 +89,5 @@ def ChangePointsFromFloatToInt(file):
             coords[0] = points[i].getX()
             coords[1] = points[i].getY()
             i += 1
-
-
-
-
 
     return data,points

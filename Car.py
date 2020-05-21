@@ -4,7 +4,6 @@ import pygame
 class Car(Point):
 
 
-
     def __init__(self, x, y, color, taken, prevP, nextP, v = 0, a = 0 ):
         super().__init__(x, y, color, taken)
         self.__a = a
@@ -48,8 +47,6 @@ class Car(Point):
     def setNeigh(self, point1, point2):
         self.__nextP = point1
         self.__prevP = point2
-
-
 
 
     def move(self, screen):

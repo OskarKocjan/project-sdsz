@@ -1,10 +1,7 @@
 import pygame
-import json
 from Point import Point
 from fetchPointsFromFile import ChangePointsFromFloatToInt
-from numpy import subtract
 from Car import Car
-
 
 
 def initializePoints(points):
@@ -12,17 +9,15 @@ def initializePoints(points):
         pygame.draw.circle(screen, white, points[i].getCords(), 2)
 
 
-
-
 resolution = (1800,900)
 red = (255, 0, 0)
 white = (255, 255, 255)
 black = (0, 0, 0)
 
-
+# fetching coords from json
 data, points = ChangePointsFromFloatToInt("roads.json")
-print(data)
 car = Car.fromPoint(points[1],points[0], points[2])
+
 
 # initialize
 pygame.init()
@@ -33,23 +28,21 @@ screen = pygame.display.set_mode(resolution)
 running = True
 pygame.display.set_caption("Cracow Road Simulation")
 
-
+# time delay
 clockobject = pygame.time.Clock()
 
+# background color
 screen.fill(black)
 
+# draw road
 initializePoints(points)
-
 
 i = 1 
 
-
-
-# Game Loop
+# Main Loop
 while running:
 
-    clockobject.tick(60)
-
+    clockobject.tick(20)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -62,9 +55,8 @@ while running:
     car.setNeigh(points[i+1],points[i-1])
 
     i += 1
-    if(i == len(points)):
+    if(i == len(points)-1):
         i = 1
-
 
     pygame.display.update()
 

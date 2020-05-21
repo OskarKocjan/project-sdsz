@@ -52,9 +52,8 @@ def ChangePointsFromFloatToInt(file):
             points.append(Point(coords[0], coords[1]))
 
 
-
-    kx = 176 / points[0].getX()
-    ky = 363 / points[0].getY()
+    kx = 1
+    ky = 1
 
     rx = abs(points[0].getX() - points[1].getX())
     ry = abs(points[0].getY() - points[1].getY())

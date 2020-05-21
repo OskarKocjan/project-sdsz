@@ -15,7 +15,7 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 #convert from GeoJson
-convertGeoJsonToJson("../coords/intersections/kleparz.json")
+#convertGeoJsonToJson("../coords/intersections/kleparz.json")
 
 
 # fetching coords from json

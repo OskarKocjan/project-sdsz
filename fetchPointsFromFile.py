@@ -107,16 +107,15 @@ def ChangePointsFromFloatToInt(file):
         points[i].setY(rememberX + 30)
 
     i = 0
-
+    help = 1
 
     for track in data:
         for coords in track["coordinates"]:
-
-
-            coords[0] = points[i].getX()
-            coords[1] = points[i].getY()
+            coords.clear()
+            coords.append(Point(points[i].getX(), points[i].getY()))
             i += 1
 
+        track['coordinates'] = sum(track['coordinates'],[])
 
 
 

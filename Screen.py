@@ -21,7 +21,6 @@ black = (0, 0, 0)
 
 # fetching coords from json
 data, points = ChangePointsFromFloatToInt("roads.json")
-print(data[0]['coordinates'][0].getCords())
 # set track to car
 streets = ["basztowa-ccw","basztowa-dunaj-ccw"]
 pkts = getFirstThreeAndLast(data, "basztowa-ccw")

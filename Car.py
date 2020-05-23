@@ -4,17 +4,12 @@ import pygame
 class Car(Point):
 
 
-    def __init__(self, x, y, color, taken, prevP, nextP, v = 0, a = 0 ):
-        super().__init__(x, y, color, taken)
+    def __init__(self, currP, prevP, nextP, v = 0, a = 0 ):
+        self.__currP = currP
         self.__a = a
         self.__v = v
         self.__prevP = prevP
         self.__nextP = nextP
-
-
-    @classmethod
-    def fromPoint(cls, point, prevP, nextP, v = 0, a = 0):
-        return cls(point.getX(), point.getY(), point.getColor(), point.getTaken(), prevP, nextP, v, a)
 
 
     def setTrack(self,streets,data):
@@ -46,6 +41,12 @@ class Car(Point):
     def getNextP(self):
         return self.__nextP
 
+    def getCurrP(self):
+        return self.__currP
+
+    def setCurrP(self, currP):
+        self.__currP = currP
+
     def setPrevP(self, prevP):
         self.__prevP = prevP
 
@@ -66,5 +67,9 @@ class Car(Point):
 
     def move(self, screen):
         pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 3)
-        pygame.draw.circle(screen, (255, 255, 255), self.getCords(), 3)
+        pygame.draw.circle(screen, (255, 255, 255), self.getCurrP().getCords(), 3)
+
+        self.setPrevP(self.getCurrP())
+        self.setCurrP(self.getNextP())
+
 

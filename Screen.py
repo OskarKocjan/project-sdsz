@@ -25,6 +25,8 @@ data, points = ChangePointsFromFloatToInt("roads.json")
 streets = ["basztowa-ccw","basztowa-dunaj-ccw"]
 pkts = getFirstThreeAndLast(data, "basztowa-ccw")
 
+print(points[0])
+
 car = Car.fromPoint(pkts[1], pkts[0], pkts[2])
 
 car.setTrack(streets, data)
@@ -61,7 +63,7 @@ while running:
             running = False
 
 
-    car.move(screen)
+    #car.move(screen)
     # car.setCords(points[i].getX(), points[i].getY())
     # car.setNeigh(points[i+1], points[i-1])
 

@@ -29,13 +29,19 @@ def convertGeoJsonToJson(file):
             data['tracks'] = []
             for item in datastore["features"]:
                 road = {}
-                road['name'] =  item["properties"]["name"] if item["properties"]["name"] else "name"
+                if(type(item["properties"]) is dict):
+                    road['name'] = item["properties"]["name"]
+
+
                 road['coordinates'] = item["geometry"]['coordinates']
                 data['tracks'].append(road)
+
 
     with open('intersections/'+name+'.json', 'w') as outfile:
         json.dump(data, outfile)
 
+
+convertGeoJsonToJson("../coords/intersections/bagatela.json")
 
 
 def getFirstThreeAndLast(data,name):

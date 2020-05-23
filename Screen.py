@@ -22,12 +22,13 @@ black = (0, 0, 0)
 # fetching coords from json
 data, points = ChangePointsFromFloatToInt("roads.json")
 # set track to car
-streets = ["bagatela-filharmonia-ccw", "filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
-pkts = getFirstThreeAndLast(data, "bagatela-filharmonia-ccw")
+streets = ["filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
+# streets = ["basztowa-right-cw-skret-prawo-westerplatte", "basztowa-right-cw-prosto-lubicz","lubcz-right-prosto-basztowa"]
+pkts = getFirstThreeAndLast(data, "filharmonia-gertrudy-ccw")
 
 
 
-car = Car(pkts[1], pkts[0], pkts[2],"bagatela-filharmonia-ccw")
+car = Car(pkts[1], pkts[0], pkts[2],"filharmonia-gertrudy-ccw")
 
 car.setTrack(streets, data)
 
@@ -52,10 +53,12 @@ screen.fill(black)
 initializePoints(points)
 
 #Maciopelo siemandero elo elo
-i = 1 
+i = 1
 
-# Main Loop
+
+#Main Loop
 while running:
+
 
     clockobject.tick(30)
 
@@ -64,11 +67,13 @@ while running:
             running = False
 
 
-    #car.move(screen)
+    car.move(screen)
     # car.setCords(points[i].getX(), points[i].getY())
     # car.setNeigh(points[i+1], points[i-1])
 
     car.move(screen)
+
+
 
 
     pygame.display.update()

@@ -1,15 +1,16 @@
 from Point import Point
 import pygame
 
-class Car(Point):
+class Car():
 
 
-    def __init__(self, currP, prevP, nextP, v = 0, a = 0 ):
+    def __init__(self, currP, prevP, nextP,street, v = 0, a = 0 ):
         self.__currP = currP
         self.__a = a
         self.__v = v
         self.__prevP = prevP
         self.__nextP = nextP
+        self.__street = street
 
 
     def setTrack(self,streets,data):
@@ -18,6 +19,7 @@ class Car(Point):
             for street in streets:
                 if (road['name'] == street):
                     track.append(road)
+
         self.__track = track
 
     def getTrack(self):
@@ -61,15 +63,38 @@ class Car(Point):
         self.__prevP = point2
 
 
+    def getStreet(self):
+        return self.__street
+
+    def setStreet(self, street):
+        self.__street = street
+
     # def move(self, screen):
     #     pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 3)
     #     pygame.draw.circle(screen, (255, 255, 255), self.getCords(), 3)
 
     def move(self, screen):
+
+        track = self.getTrack()
+
         pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 3)
         pygame.draw.circle(screen, (255, 255, 255), self.getCurrP().getCords(), 3)
 
         self.setPrevP(self.getCurrP())
         self.setCurrP(self.getNextP())
 
+        changeLine = 0
 
+        for dictionaries in track:
+            if dictionaries['name'] == self.getStreet():
+                for i in range(len(dictionaries['coordinates'])):
+                    if(self.getNextP().same(dictionaries['coordinates'][i])):
+                        if(i != len(dictionaries['coordinates']) - 1):
+                            self.setNextP(dictionaries['coordinates'][i+1])
+                        else:
+                            changeLine = 1
+
+                        break
+
+            elif(changeLine == 1):
+                self.setNextP(dictionaries['coordinates'][0])

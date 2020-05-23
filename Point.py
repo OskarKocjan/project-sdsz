@@ -47,3 +47,11 @@ class Point:
 
         else:
             return False
+
+
+    def same(self,point):
+
+        if(self.getX() == point.getX() and self.getY() == point.getY() and self.getColor() == point.getColor() and self.getTaken() == point.getTaken()):
+            return True
+        else:
+            return False

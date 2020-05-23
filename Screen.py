@@ -51,6 +51,7 @@ screen.fill(black)
 # draw road
 initializePoints(points)
 
+#Maciopelo siemandero
 i = 1 
 
 # Main Loop
@@ -69,9 +70,6 @@ while running:
 
     car.move(screen)
 
-    i += 1
-    if(i == len(points)-1):
-        i = 1
 
     pygame.display.update()
 

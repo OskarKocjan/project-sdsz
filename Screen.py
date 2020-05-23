@@ -15,22 +15,24 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 #convert from GeoJson
-convertGeoJsonToJson("../coords/intersections/kleparz.json")
+# convertGeoJsonToJson("../coords/intersections/kleparz.json")
 
 
 
 # fetching coords from json
 data, points = ChangePointsFromFloatToInt("roads.json")
+print(data[0])
+
 # set track to car
 streets = ["basztowa-ccw","basztowa-dunaj-ccw"]
 pkts = getFirstThreeAndLast(data, "basztowa-ccw")
 
-print(points[0])
 
-car = Car.fromPoint(pkts[1], pkts[0], pkts[2])
 
-car.setTrack(streets, data)
-print(car.getCords())
+#car = Car.fromPoint(pkts[1], pkts[0], pkts[2])
+
+#car.setTrack(streets, data)
+
 
 
 # initialize

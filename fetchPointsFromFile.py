@@ -108,24 +108,16 @@ def ChangePointsFromFloatToInt(file):
 
     i = 0
 
-    finalData = []
-
 
     for track in data:
-
-        road = {}
-        road['name'] = track['name']
-        road['coordinates'] = []
-
         for coords in track["coordinates"]:
 
-            road['coordinates'].append(Point(coords[0], coords[1]))
 
             coords[0] = points[i].getX()
             coords[1] = points[i].getY()
             i += 1
-            finalData.append(road)
 
 
 
-    return finalData,points
+
+    return data, points

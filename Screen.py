@@ -51,7 +51,7 @@ screen.fill(black)
 # draw road
 initializePoints(points)
 
-#Maciopelo siemandero
+#Maciopelo siemandero elo elo
 i = 1 
 
 # Main Loop

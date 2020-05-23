@@ -91,6 +91,7 @@ class Car():
                     if(self.getNextP().same(dictionaries['coordinates'][i])):
                         if(i != len(dictionaries['coordinates']) - 1):
                             self.setNextP(dictionaries['coordinates'][i+1])
+
                         else:
                             changeLine = 1
 
@@ -98,3 +99,5 @@ class Car():
 
             elif(changeLine == 1):
                 self.setNextP(dictionaries['coordinates'][0])
+                self.setStreet(dictionaries['name'])
+                break

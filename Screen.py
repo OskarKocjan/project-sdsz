@@ -22,14 +22,14 @@ black = (0, 0, 0)
 # fetching coords from json
 data, points = ChangePointsFromFloatToInt("roads.json")
 # set track to car
-streets = ["basztowa-ccw","basztowa-dunaj-ccw"]
-pkts = getFirstThreeAndLast(data, "basztowa-ccw")
+streets = ["bagatela-filharmonia-ccw", "filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
+pkts = getFirstThreeAndLast(data, "bagatela-filharmonia-ccw")
 
 
 
-#car = Car.fromPoint(pkts[1], pkts[0], pkts[2])
+car = Car(pkts[1], pkts[0], pkts[2],"bagatela-filharmonia-ccw")
 
-#car.setTrack(streets, data)
+car.setTrack(streets, data)
 
 
 
@@ -56,7 +56,7 @@ i = 1
 # Main Loop
 while running:
 
-    clockobject.tick(10)
+    clockobject.tick(30)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -66,6 +66,8 @@ while running:
     #car.move(screen)
     # car.setCords(points[i].getX(), points[i].getY())
     # car.setNeigh(points[i+1], points[i-1])
+
+    car.move(screen)
 
     i += 1
     if(i == len(points)-1):

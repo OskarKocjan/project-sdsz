@@ -1,10 +1,11 @@
 from Point import Point
+from time import sleep
 import pygame
 
 class Car():
 
 
-    def __init__(self,streets,data,color, v = 0, a = 0):
+    def __init__(self,streets,data,color, v = 1, a = 0):
         self.__currentStreet = streets[0]
         self.__track = self.setTrack(streets,data)
         self.__a = a
@@ -80,42 +81,55 @@ class Car():
         self.__currentStreet = street
 
 
-    def move(self, screen):
-
-        track = self.getTrack()
-
-        pygame.draw.circle(screen, self.__color, self.getNextP().getCords(), 2)
-        pygame.draw.circle(screen, (255, 255, 255), self.getCurrP().getCords(), 2)
-
-        self.setPrevP(self.getCurrP())
-        self.setCurrP(self.getNextP())
+    def move(self, screen, points):
 
 
-        changeLine = 0
-
-        for dictionaries in track:
-            if dictionaries['name'] == self.getCurrentStreet():
-                for i in range(len(dictionaries['coordinates'])):
-                    if(self.getNextP().same(dictionaries['coordinates'][i])):
-                        if(i != len(dictionaries['coordinates']) - 1):
-                            self.setNextP(dictionaries['coordinates'][i+1])
-
-                        else:
-                            changeLine = 1
-
-                        break
-
-            elif(changeLine == 1):
-                self.setNextP(dictionaries['coordinates'][0])
-                self.setCurrentStreet(dictionaries['name'])
-                break
+        for point in points:
+            if(point.getCords() == self.getNextP().getCords()):
+                point.setTaken(1)
+                print(point, self.getNextP())
+            else:
+                point.setTaken(0)
 
 
-        # if last street set to the first again and go around
-        lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
-        if(self.getNextP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
-            firstRoadDict = self.__track[0]
-            self.setCurrentStreet(firstRoadDict['name'])
-            self.setNextP(firstRoadDict['coordinates'][0])
+
+        for i in range(self.__v):
+            sleep(0.1)
+            track = self.getTrack()
+
+            pygame.draw.circle(screen, self.__color, self.getNextP().getCords(), 2)
+            pygame.draw.circle(screen, (255, 255, 255), self.getCurrP().getCords(), 2)
+
+            self.setPrevP(self.getCurrP())
+            self.setCurrP(self.getNextP())
+
+
+
+            changeLine = 0
+
+            for dictionaries in track:
+                if dictionaries['name'] == self.getCurrentStreet():
+                    for i in range(len(dictionaries['coordinates'])):
+                        if(self.getNextP().same(dictionaries['coordinates'][i])):
+                            if(i != len(dictionaries['coordinates']) - 1):
+                                self.setNextP(dictionaries['coordinates'][i+1])
+
+                            else:
+                                changeLine = 1
+
+                            break
+
+                elif(changeLine == 1):
+                    self.setNextP(dictionaries['coordinates'][0])
+                    self.setCurrentStreet(dictionaries['name'])
+                    break
+
+
+            # if last street set to the first again and go around
+            lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
+            if(self.getNextP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
+                firstRoadDict = self.__track[0]
+                self.setCurrentStreet(firstRoadDict['name'])
+                self.setNextP(firstRoadDict['coordinates'][0])
 
 

@@ -6,7 +6,7 @@ from Car import Car
 
 def initializePoints(points):
     for i in range(len(points)):
-        pygame.draw.circle(screen, white, points[i].getCords(), 2)
+        pygame.draw.circle(screen, white, points[i].getCords(), 3)
 
 
 resolution = (1800,900)
@@ -21,9 +21,12 @@ data, points = ChangePointsFromFloatToInt("roads.json")
 # set track to car
 streets = ["filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw" ]
 streets2 = ["bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
+streets3 = [ "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", ]
+
 
 car = Car(streets, data, (255, 0, 0), 1)
-car2 = Car(streets2, data, (0, 255, 0), 3)
+car2 = Car(streets2, data, (255, 0, 0), 2)
+car3 = Car(streets3, data, (255, 0, 0), 3)
 
 
 # initialize
@@ -46,22 +49,28 @@ screen.fill(black)
 initializePoints(points)
 
 
-taken_cw = []
-taken_ccw = []
+
 
 #Main Loop
 while running:
 
     clockobject.tick(30)
 
-
+    occupied = 0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-
     car.move(screen, points)
     car2.move(screen, points)
+    car3.move(screen, points)
+
+
+    # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
+    for i in range(len(points)):
+        if (points[i].getTaken() == 1):
+            occupied += 1
+    print(occupied)
 
 
     pygame.display.update()

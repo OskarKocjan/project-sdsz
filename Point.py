@@ -6,6 +6,7 @@ class Point:
         self.__color = color
         self.__taken = taken
 
+
     def __str__(self):
         return '('+str(self.__x)+', '+str(self.__y)+')'
 

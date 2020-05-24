@@ -4,13 +4,23 @@ import pygame
 class Car():
 
 
-    def __init__(self, currP, prevP, nextP,street, v = 0, a = 0 ):
-        self.__currP = currP
+    def __init__(self,streets,data,color, v = 0, a = 0):
+        self.__currentStreet = streets[0]
+        self.__track = self.setTrack(streets,data)
         self.__a = a
         self.__v = v
-        self.__prevP = prevP
-        self.__nextP = nextP
-        self.__street = street
+        self.__color = color
+        self.getFirstThreeAndLast()
+
+
+    def getFirstThreeAndLast(self):
+        for item in self.__track:
+            if (item['name'] == self.__currentStreet):
+                length = len(item["coordinates"])
+                self.__prevP = Point(item["coordinates"][0].getCords()[0], item["coordinates"][0].getCords()[1])
+                self.__currP = Point(item["coordinates"][1].getCords()[0], item["coordinates"][1].getCords()[1])
+                self.__nextP = Point(item["coordinates"][2].getCords()[0], item["coordinates"][2].getCords()[1])
+                self.__lastP = Point(item["coordinates"][length-1].getCords()[0], item["coordinates"][length-1].getCords()[1])
 
 
     def setTrack(self,streets,data):
@@ -20,7 +30,7 @@ class Car():
                 if (road['name'] == street):
                     track.append(road)
 
-        self.__track = track
+        return track
 
     def getTrack(self):
         return self.__track
@@ -63,30 +73,29 @@ class Car():
         self.__prevP = point2
 
 
-    def getStreet(self):
-        return self.__street
+    def getCurrentStreet(self):
+        return self.__currentStreet
 
-    def setStreet(self, street):
-        self.__street = street
+    def setCurrentStreet(self, street):
+        self.__currentStreet = street
 
-    # def move(self, screen):
-    #     pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 3)
-    #     pygame.draw.circle(screen, (255, 255, 255), self.getCords(), 3)
 
     def move(self, screen):
 
         track = self.getTrack()
 
-        pygame.draw.circle(screen, (255, 0, 0), self.getNextP().getCords(), 2)
+        pygame.draw.circle(screen, self.__color, self.getNextP().getCords(), 2)
         pygame.draw.circle(screen, (255, 255, 255), self.getCurrP().getCords(), 2)
 
         self.setPrevP(self.getCurrP())
         self.setCurrP(self.getNextP())
 
+        pygame.time.delay(self.__v * 10)
+
         changeLine = 0
 
         for dictionaries in track:
-            if dictionaries['name'] == self.getStreet():
+            if dictionaries['name'] == self.getCurrentStreet():
                 for i in range(len(dictionaries['coordinates'])):
                     if(self.getNextP().same(dictionaries['coordinates'][i])):
                         if(i != len(dictionaries['coordinates']) - 1):
@@ -99,5 +108,15 @@ class Car():
 
             elif(changeLine == 1):
                 self.setNextP(dictionaries['coordinates'][0])
-                self.setStreet(dictionaries['name'])
+                self.setCurrentStreet(dictionaries['name'])
                 break
+
+
+        # if last street set to the first again and go around
+        lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
+        if(self.getCurrP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
+            firstRoadDict = self.__track[0]
+            self.setCurrentStreet(firstRoadDict['name'])
+            self.setCurrP(firstRoadDict['coordinates'][0])
+
+

@@ -41,14 +41,6 @@ def convertGeoJsonToJson(file):
         json.dump(data, outfile)
 
 
-convertGeoJsonToJson("../coords/intersections/bagatela.json")
-
-
-def getFirstThreeAndLast(data,name):
-    for item in data:
-        if(item['name'] == name):
-            return item["coordinates"][0], item["coordinates"][1], item["coordinates"][2], item["coordinates"][len(item["coordinates"])-1]
-
 def ChangePointsFromFloatToInt(file):
     with open(file, 'r') as f:
         datastore = json.load(f)

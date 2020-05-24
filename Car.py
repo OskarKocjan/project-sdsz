@@ -90,7 +90,6 @@ class Car():
         self.setPrevP(self.getCurrP())
         self.setCurrP(self.getNextP())
 
-        pygame.time.delay(self.__v * 10)
 
         changeLine = 0
 
@@ -114,9 +113,9 @@ class Car():
 
         # if last street set to the first again and go around
         lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
-        if(self.getCurrP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
+        if(self.getNextP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
             firstRoadDict = self.__track[0]
             self.setCurrentStreet(firstRoadDict['name'])
-            self.setCurrP(firstRoadDict['coordinates'][0])
+            self.setNextP(firstRoadDict['coordinates'][0])
 
 

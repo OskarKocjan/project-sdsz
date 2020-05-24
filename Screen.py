@@ -21,7 +21,7 @@ data, points = ChangePointsFromFloatToInt("roads.json")
 # set track to car
 streets = ["bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
 car = Car(streets, data, (255, 0, 0), 1,)
-#car2 = Car(streets, data, (0, 255, 0), 40)
+car2 = Car(streets, data, (0, 255, 0), 40)
 
 
 # initialize
@@ -47,15 +47,16 @@ initializePoints(points)
 #Main Loop
 while running:
 
-
     clockobject.tick(30)
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
+
     car.move(screen)
-    #car2.move(screen)
+    car2.move(screen)
 
 
     pygame.display.update()

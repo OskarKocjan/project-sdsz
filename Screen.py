@@ -19,14 +19,15 @@ black = (0, 0, 0)
 data, points = ChangePointsFromFloatToInt("roads.json")
 
 # set track to car
-streets = ["filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw" ]
+streets = ["dluga-basztowa-ccw-skret"]
+#streets = ["filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw" ]
 streets2 = ["bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
 streets3 = [ "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", ]
 
 
 car = Car(streets, data, (255, 0, 0), 1)
-car2 = Car(streets2, data, (255, 0, 0), 2)
-car3 = Car(streets3, data, (255, 0, 0), 3)
+#car2 = Car(streets2, data, (255, 0, 0), 2)
+#car3 = Car(streets3, data, (255, 0, 0), 3)
 
 
 # initialize
@@ -62,15 +63,15 @@ while running:
             running = False
 
     car.move(screen, points)
-    car2.move(screen, points)
-    car3.move(screen, points)
-
+    #car2.move(screen, points)
+    #car3.move(screen, points)
+    #print(car.getCurrP())
 
     # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
-    for i in range(len(points)):
-        if (points[i].getTaken() == 1):
-            occupied += 1
-    print(occupied)
+    # for i in range(len(points)):
+    #     if (points[i].getTaken() == 1):
+    #         occupied += 1
+    # print(occupied)
 
 
     pygame.display.update()

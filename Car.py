@@ -95,7 +95,7 @@ class Car():
 
 
             # taktyczne spanko dla lepszego wygladu
-            sleep(0.01)
+            sleep(0.5)
 
             track = self.getTrack()
 

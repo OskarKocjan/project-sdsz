@@ -15,20 +15,48 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 
-# fetching data from json
+# fetching essential data from json
 data, points = ChangePointsFromFloatToInt("roads.json")
+points = removeDuplicates(points)
+
+
 
 # set track to car
-streets = ["dluga-basztowa-ccw-skret"]
-#streets = ["filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw" ]
-streets2 = ["bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw" ]
-streets3 = [ "gertrudy-poczta-ccw", "westerplatte-right-ccw", "basztowa-ccw", "basztowa-dunaj-ccw","bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw", ]
+streets = ["bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
+           "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+           ]
+
+streets2 = [
+           "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
+           ]
 
 
-car = Car(streets, data, (255, 0, 0), 1)
-#car2 = Car(streets2, data, (255, 0, 0), 2)
+car = Car(streets, data, (255, 0, 0), 2)
+
+car2 = Car(streets2, data, (255, 0, 0), 1)
+
 #car3 = Car(streets3, data, (255, 0, 0), 3)
-
 
 # initialize
 pygame.init()
@@ -63,11 +91,9 @@ while running:
             running = False
 
     car.move(screen, points)
-    #car2.move(screen, points)
-    #car3.move(screen, points)
-    #print(car.getCurrP())
+    car2.move(screen, points)
 
-    # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
+    #taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
     # for i in range(len(points)):
     #     if (points[i].getTaken() == 1):
     #         occupied += 1

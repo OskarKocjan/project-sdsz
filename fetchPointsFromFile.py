@@ -41,6 +41,21 @@ def convertGeoJsonToJson(file):
         json.dump(data, outfile)
 
 
+
+def removeDuplicates(points):
+    tmp1 = []
+    for p in points:
+        tmp1.append(p.getCords())
+
+    tmp1 = list(dict.fromkeys(tmp1))
+
+    tmp2 = []
+    for p in tmp1:
+        tmp2.append(Point(p[0],p[1]))
+
+    return tmp2
+
+
 def ChangePointsFromFloatToInt(file):
     with open(file, 'r') as f:
         datastore = json.load(f)

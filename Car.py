@@ -26,8 +26,8 @@ class Car():
 
     def setTrack(self,streets,data):
         track = []
-        for road in data:
-            for street in streets:
+        for street in streets:
+            for road in data:
                 if (road['name'] == street):
                     track.append(road)
 
@@ -73,6 +73,10 @@ class Car():
         self.__nextP = point1
         self.__prevP = point2
 
+    def getCurrentStreetCoords(self):
+        for road in self.__track:
+            if(road['name'] == self.getCurrentStreet()):
+                return road['coordinates']
 
     def getCurrentStreet(self):
         return self.__currentStreet
@@ -81,7 +85,30 @@ class Car():
         self.__currentStreet = street
 
 
+    # funkcja sprawdzająca czy punkty przed nim sa zajete, jesli tak -> zwolnij
+    def checkPointsInFront(self, points):
+        cords = self.getCurrentStreetCoords()
+        for pkt in cords:
+            if(pkt.getCords() == self.__currP.getCords()):
+                currIndex = cords.index(pkt)
+                if( currIndex+1 <= len(cords)-1 and currIndex+2 <= len(cords)-1):
+                    firstInFront = cords[currIndex+1].getCords()
+                    secInFront = cords[currIndex+2].getCords()
+                    for p in points:
+                        if(p.getCords() == firstInFront and p.getTaken()):
+                            self.setV(1)
+                            print("taken")
+                        elif(p.getCords() == secInFront and p.getTaken()):
+                            self.setV(1)
+                            print("taken")
+
+
+
     def move(self, screen, points):
+
+
+        #sprawdzanie punktow przed soba
+        self.checkPointsInFront(points)
 
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
@@ -95,7 +122,7 @@ class Car():
 
 
             # taktyczne spanko dla lepszego wygladu
-            sleep(0.5)
+            sleep(0.03)
 
             track = self.getTrack()
 
@@ -128,7 +155,7 @@ class Car():
 
             # if last street set to the first again and go around
             lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
-            if(self.getNextP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
+            if(self.getCurrP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
                 firstRoadDict = self.__track[0]
                 self.setCurrentStreet(firstRoadDict['name'])
                 self.setNextP(firstRoadDict['coordinates'][0])

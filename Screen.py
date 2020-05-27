@@ -2,7 +2,7 @@ import pygame
 from Point import Point
 from fetchPointsFromFile import *
 from Car import Car
-
+from InterfaceStuff import pause
 
 def initializePoints(points):
     for i in range(len(points)):
@@ -13,7 +13,8 @@ resolution = (1800,900)
 red = (255, 0, 0)
 white = (255, 255, 255)
 black = (0, 0, 0)
-
+green = (0, 255, 0)
+blue = (0, 0, 128)
 
 # fetching essential data from json
 data, points = ChangePointsFromFloatToInt("roads.json")
@@ -90,18 +91,30 @@ screen.fill(black)
 # draw road
 initializePoints(points)
 
-
+#Pause message
+font = pygame.font.Font('freesansbold.ttf', 32)
+text = font.render('To Pause press P To Continue press C', True, green)
+textRect = text.get_rect()
+textRect.center = (resolution[0] // 2, resolution[1] // 2)
+screen.blit(text, textRect)
 
 
 #Main Loop
 while running:
 
-    clockobject.tick(10)
+    clockobject.tick(20)
 
     occupied = 0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_p:
+                pause(clockobject)
+                print("siema")
+
+
+
 
     car.move(screen, points)
     #car2.move(screen, points)

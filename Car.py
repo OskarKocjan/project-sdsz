@@ -97,7 +97,7 @@ class Car():
                         nextPoint = cords[currIndex+i].getCords()
                         for p in points:
                             if p.getCords() == nextPoint and p.getTaken():
-                                self.setV(1)
+                                self.setV(2)
                                 print("taken")
 
                 # if( currIndex+1 <= len(cords)-1 and currIndex+2 <= len(cords)-1):
@@ -131,7 +131,7 @@ class Car():
 
 
             # taktyczne spanko dla lepszego wygladu
-            sleep(0.02)
+
 
             track = self.getTrack()
 
@@ -139,6 +139,7 @@ class Car():
             pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 3)
 
             self.setPrevP(self.getCurrP())
+
             self.setCurrP(self.getNextP())
 
 

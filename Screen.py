@@ -69,7 +69,7 @@ car = Car(streets, data, (255, 0, 0), 2)
 
 car2 = Car(streets2, data, (255, 0, 0), 1)
 
-#car3 = Car(streets3, data, (255, 0, 0), 3)
+car3 = Car(streets3, data, (255, 0, 0), 3)
 
 # initialize
 pygame.init()
@@ -96,7 +96,7 @@ initializePoints(points)
 #Main Loop
 while running:
 
-    clockobject.tick(30)
+    clockobject.tick(25)
 
     occupied = 0
     for event in pygame.event.get():
@@ -104,8 +104,8 @@ while running:
             running = False
 
     car.move(screen, points)
-    car2.move(screen, points)
-    # car3.move(screen, points)
+    #car2.move(screen, points)
+    car3.move(screen, points)
 
 
     #taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow

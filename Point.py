@@ -1,17 +1,25 @@
 class Point:
 
-    def __init__(self, x = 0, y = 0, color = 'white', taken = 0):
+    def __init__(self, x = 0, y = 0, color = 'white', taken = 0, index = 0):
         self.__x = x
         self.__y = y
         self.__color = color
         self.__taken = taken
-
+        self.__index = index
 
     def __str__(self):
         return '('+str(self.__x)+', '+str(self.__y)+')'
 
     def setColor(self, color):
         self.__color = color
+
+    def setIndex(self, index):
+        self.__index = index
+
+    def getIndex(self):
+        return self.__index
+
+
 
     def setX(self, x):
         self.__x = x

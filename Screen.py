@@ -104,7 +104,7 @@ screen.blit(text, textRect)
 #Main Loop
 while running:
 
-    clockobject.tick(20)
+    clockobject.tick(15)
 
     occupied = 0
     for event in pygame.event.get():
@@ -113,16 +113,10 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_p:
                 pause(clockobject)
-                print("siema")
-
-
-
 
     car.move(screen, points)
     car2.move(screen, points)
-    #car3.move(screen, points)
-    #print(car.getCurrP().getIndex(),car2.getCurrP().getIndex() )
-    #print(points[car.getCurrP().getIndex()].getTaken(),points[car2.getCurrP().getIndex()].getTaken())
+    car3.move(screen, points)
 
     # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
     for i in range(len(points)):

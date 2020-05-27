@@ -91,18 +91,10 @@ class Car():
         currIndex = self.__currP.getIndex()
 
         for i in range(1, self.getV() + 1):
-            if currIndex + i <= len(cords) - 1:
                 nextIndex = currIndex + i
-
                 if points[nextIndex].getTaken():
                     self.setV(1)
                     print("taken")
-
-        # nextPoint = cords[currIndex+i].getCords()
-        # for p in points:
-        #     if p.getCords() == nextPoint and p.getTaken():
-        #         self.setV(2)
-        #         print("taken")
 
 
     def move(self, screen, points):
@@ -114,20 +106,6 @@ class Car():
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
 
-            # ustawianie globalnej zmiennej czy punkt zajety czy juz nie
-            # for i in range(len(points)):
-            #     if (points[i].getCords() == self.getNextP().getCords()):
-            #         points[i].setTaken(1)
-            #     elif (points[i].getCords() == self.getCurrP().getCords()):
-            #         points[i].setTaken(0)
-
-
-
-
-
-            # taktyczne spanko dla lepszego wygladu
-
-
             track = self.getTrack()
 
             pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 3)
@@ -136,6 +114,8 @@ class Car():
             self.setPrevP(self.getCurrP())
             self.setCurrP(self.getNextP())
 
+
+            # ustawianie czy zajety czy nie
             points[self.getCurrP().getIndex()].setTaken(1)
             points[self.getPrevP().getIndex()].setTaken(0)
 

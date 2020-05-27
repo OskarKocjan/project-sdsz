@@ -88,29 +88,24 @@ class Car():
     # funkcja sprawdzająca czy punkty przed nim sa zajete, jesli tak -> zwolnij
     def checkPointsInFront(self, points):
         cords = self.getCurrentStreetCoords()
-        for pkt in cords:
-            if(pkt.getCords() == self.__currP.getCords()):
-                currIndex = cords.index(pkt)
+        # for pkt in cords:
+        #     if(pkt.getCords() == self.__currP.getCords()):
+        #         currIndex = cords.index(pkt)
 
-                for i in range(1, self.getV() + 1):
-                    if currIndex + i <= len(cords) -1:
-                        nextPoint = cords[currIndex+i].getCords()
-                        for p in points:
-                            if p.getCords() == nextPoint and p.getTaken():
-                                self.setV(2)
-                                print("taken")
+        currIndex = self.__currP.getIndex()
 
-                # if( currIndex+1 <= len(cords)-1 and currIndex+2 <= len(cords)-1):
-                #     firstInFront = cords[currIndex+1].getCords()
-                #     secInFront = cords[currIndex+2].getCords()
-                #     for p in points:
-                #         if(p.getCords() == firstInFront and p.getTaken()):
-                #             self.setV(1)
-                #             print("taken")
-                #         elif(p.getCords() == secInFront and p.getTaken()):
-                #             self.setV(1)
-                #             print("taken")
+        for i in range(1, self.getV() + 1):
+            if currIndex + i <= len(cords) -1:
+                nextIndex  = currIndex + i
+                if(points[nextIndex].getTaken()):
+                    self.setV(2)
+                    print("taken")
 
+        # nextPoint = cords[currIndex+i].getCords()
+        # for p in points:
+        #     if p.getCords() == nextPoint and p.getTaken():
+        #         self.setV(2)
+        #         print("taken")
 
 
     def move(self, screen, points):

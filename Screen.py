@@ -96,7 +96,7 @@ initializePoints(points)
 #Main Loop
 while running:
 
-    clockobject.tick(25)
+    clockobject.tick(10)
 
     occupied = 0
     for event in pygame.event.get():

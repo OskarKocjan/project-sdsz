@@ -135,8 +135,8 @@ class Car():
 
             track = self.getTrack()
 
-            pygame.draw.circle(screen, self.__color, self.getNextP().getCords(), 3)
-            pygame.draw.circle(screen, (255, 255, 255), self.getCurrP().getCords(), 3)
+            pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 3)
+            pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 3)
 
             self.setPrevP(self.getCurrP())
             self.setCurrP(self.getNextP())

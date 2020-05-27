@@ -15,13 +15,14 @@ class Car():
 
 
     def getFirstThreeAndLast(self):
+
         for item in self.__track:
             if (item['name'] == self.__currentStreet):
                 length = len(item["coordinates"])
-                self.__prevP = Point(item["coordinates"][0].getCords()[0], item["coordinates"][0].getCords()[1])
-                self.__currP = Point(item["coordinates"][1].getCords()[0], item["coordinates"][1].getCords()[1])
-                self.__nextP = Point(item["coordinates"][2].getCords()[0], item["coordinates"][2].getCords()[1])
-                self.__lastP = Point(item["coordinates"][length-1].getCords()[0], item["coordinates"][length-1].getCords()[1])
+                self.__prevP = item["coordinates"][0]
+                self.__currP = item["coordinates"][1]
+                self.__nextP = item["coordinates"][2]
+                self.__lastP = item["coordinates"][length-1]
 
 
     def setTrack(self,streets,data):
@@ -86,22 +87,22 @@ class Car():
 
 
     # funkcja sprawdzająca czy punkty przed nim sa zajete, jesli tak -> zwolnij
-    def checkPointsInFront(self, points,screen):
-        cords = self.getCurrentStreetCoords()
-        currIndex = self.__currP.getIndex()
+    def checkPointsInFront(self, points):
 
-        for i in range(1, self.getV() + 1):
+        currIndex = self.__currP.getIndex()
+        for i in range(1, self.getV()):
                 nextIndex = currIndex + i
+
                 if points[nextIndex].getTaken():
-                    self.setV(1)
-                    print("taken")
+                    self.setV(2)
+                    print("taken", nextIndex)
 
 
     def move(self, screen, points):
 
 
         #sprawdzanie punktow przed soba
-        self.checkPointsInFront(points,screen)
+        self.checkPointsInFront(points)
 
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
@@ -111,13 +112,12 @@ class Car():
             pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 3)
             pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 3)
 
-            self.setPrevP(self.getCurrP())
-            self.setCurrP(self.getNextP())
-
-
             # ustawianie czy zajety czy nie
             points[self.getCurrP().getIndex()].setTaken(1)
             points[self.getPrevP().getIndex()].setTaken(0)
+
+            self.setPrevP(self.getCurrP())
+            self.setCurrP(self.getNextP())
 
 
             changeLine = 0

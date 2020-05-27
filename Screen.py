@@ -68,11 +68,11 @@ streets3 = [
             "basztowa-ccw-basztowa-prosto",
            ]
 
-car = Car(streets1, data, (255, 0, 0), 1)
+car = Car(streets1, data, (255, 0, 0), 2)
 
-car2 = Car(streets2, data, (255, 0, 0), 2)
+car2 = Car(streets2, data, (255, 0, 0), 4)
 
-car3 = Car(streets3, data, (255, 0, 0), 3)
+car3 = Car(streets1, data, (255, 0, 0), 6)
 
 # initialize
 pygame.init()

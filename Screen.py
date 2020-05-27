@@ -50,7 +50,20 @@ streets2 = [
             "bagatela-filharmonia-ccw",
            "strasz-strasz-prosto",
            ]
-
+streets3 = [
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
+           "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           ]
 
 car = Car(streets, data, (255, 0, 0), 2)
 
@@ -92,6 +105,8 @@ while running:
 
     car.move(screen, points)
     car2.move(screen, points)
+    # car3.move(screen, points)
+
 
     #taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
     # for i in range(len(points)):

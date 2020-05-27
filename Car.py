@@ -91,16 +91,25 @@ class Car():
         for pkt in cords:
             if(pkt.getCords() == self.__currP.getCords()):
                 currIndex = cords.index(pkt)
-                if( currIndex+1 <= len(cords)-1 and currIndex+2 <= len(cords)-1):
-                    firstInFront = cords[currIndex+1].getCords()
-                    secInFront = cords[currIndex+2].getCords()
-                    for p in points:
-                        if(p.getCords() == firstInFront and p.getTaken()):
-                            self.setV(1)
-                            print("taken")
-                        elif(p.getCords() == secInFront and p.getTaken()):
-                            self.setV(1)
-                            print("taken")
+
+                for i in range(1, self.getV() + 1):
+                    if currIndex + i <= len(cords) -1:
+                        nextPoint = cords[currIndex+i].getCords()
+                        for p in points:
+                            if p.getCords() == nextPoint and p.getTaken():
+                                self.setV(1)
+                                print("taken")
+
+                # if( currIndex+1 <= len(cords)-1 and currIndex+2 <= len(cords)-1):
+                #     firstInFront = cords[currIndex+1].getCords()
+                #     secInFront = cords[currIndex+2].getCords()
+                #     for p in points:
+                #         if(p.getCords() == firstInFront and p.getTaken()):
+                #             self.setV(1)
+                #             print("taken")
+                #         elif(p.getCords() == secInFront and p.getTaken()):
+                #             self.setV(1)
+                #             print("taken")
 
 
 
@@ -122,7 +131,7 @@ class Car():
 
 
             # taktyczne spanko dla lepszego wygladu
-            sleep(0.03)
+            sleep(0.02)
 
             track = self.getTrack()
 

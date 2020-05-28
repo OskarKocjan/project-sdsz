@@ -68,11 +68,11 @@ streets3 = [
             "basztowa-ccw-basztowa-prosto",
            ]
 
-car = Car(streets1, data, (255, 0, 0), 2)
+car = Car(streets1, data, (255, 0, 0), "car", 1, )
 
-car2 = Car(streets2, data, (255, 0, 0), 4)
+car2 = Car(streets2, data, (255, 0, 0), "car2", 2)
 
-car3 = Car(streets1, data, (255, 0, 0), 6)
+car3 = Car(streets3, data, (255, 0, 0), "car3", 4, )
 
 # initialize
 pygame.init()
@@ -104,7 +104,7 @@ screen.blit(text, textRect)
 #Main Loop
 while running:
 
-    clockobject.tick(15)
+    clockobject.tick(4)
 
     occupied = 0
     for event in pygame.event.get():

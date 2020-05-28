@@ -5,13 +5,14 @@ import pygame
 class Car():
 
 
-    def __init__(self,streets,data,color, v = 1, a = 0):
+    def __init__(self,streets,data,color,name, v = 1, a = 0):
         self.__currentStreet = streets[0]
         self.__track = self.setTrack(streets,data)
         self.__a = a
         self.__v = v
         self.__color = color
         self.getFirstThreeAndLast()
+        self.name = name
 
 
     def getFirstThreeAndLast(self):
@@ -90,18 +91,19 @@ class Car():
     def checkPointsInFront(self, points):
 
         currIndex = self.__currP.getIndex()
+
         for i in range(1, self.getV()):
+
                 nextIndex = currIndex + i
 
                 if points[nextIndex].getTaken():
-                    self.setV(2)
-                    print("taken", nextIndex)
+                    self.setV(min(self.getV(), i))
+
 
 
     def move(self, screen, points):
 
 
-        #sprawdzanie punktow przed soba
         self.checkPointsInFront(points)
 
         # petla predkosci dla danego pojazdu
@@ -118,7 +120,6 @@ class Car():
 
             self.setPrevP(self.getCurrP())
             self.setCurrP(self.getNextP())
-
 
             changeLine = 0
 
@@ -146,5 +147,7 @@ class Car():
                 firstRoadDict = self.__track[0]
                 self.setCurrentStreet(firstRoadDict['name'])
                 self.setNextP(firstRoadDict['coordinates'][0])
+
+
 
 

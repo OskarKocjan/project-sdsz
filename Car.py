@@ -1,11 +1,12 @@
 from Point import Point
 from time import sleep
 import pygame
+from random import randint
 
 class Car():
 
 
-    def __init__(self,streets,data,color,name, v = 1, a = 0):
+    def __init__(self,streets,data,color,name, v = 1, a = 0, v_changed = 0):
         self.__currentStreet = streets[0]
         self.__track = self.setTrack(streets,data)
         self.__a = a
@@ -13,7 +14,8 @@ class Car():
         self.__color = color
         self.getFirstThreeAndLast()
         self.name = name
-
+        self.__v_max = v + 1
+        self.__v_changed = v_changed
 
     def getFirstThreeAndLast(self):
 
@@ -75,6 +77,21 @@ class Car():
         self.__nextP = point1
         self.__prevP = point2
 
+
+    def set_vmax(self, vmax):
+        self.__v_max = vmax
+
+    def get_vmax(self):
+        return self.__v_max
+
+
+    def get_v_change(self):
+        return self.__v_changed
+
+    def set_v_change(self, bool):
+        self.__v_changed = bool
+
+
     def getCurrentStreetCoords(self):
         for road in self.__track:
             if(road['name'] == self.getCurrentStreet()):
@@ -92,12 +109,22 @@ class Car():
 
         currIndex = self.__currP.getIndex()
 
-        for i in range(1, self.getV()):
+        for i in range(0, self.getV() + 1):
 
                 nextIndex = currIndex + i
 
                 if points[nextIndex].getTaken():
                     self.setV(min(self.getV(), i))
+                    self.set_v_change(1)
+
+    def accel_random(self):
+
+        random = randint(0, 100)
+        if (random > 5):
+            self.setV(min(self.getV()+1, self.get_vmax()))
+        else:
+            self.setV(max(self.getV() - 1, 0))
+
 
 
 
@@ -105,6 +132,20 @@ class Car():
 
 
         self.checkPointsInFront(points)
+
+        self.change_point(screen, points)
+
+        if(self.get_v_change() == 0):
+            self.accel_random()
+        else:
+            self.set_v_change(0)
+
+
+
+
+
+
+    def change_point(self, screen, points):
 
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
@@ -141,12 +182,11 @@ class Car():
                     break
 
 
-            # if last street set to the first again and go around
             lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
             if(self.getCurrP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
-                firstRoadDict = self.__track[0]
-                self.setCurrentStreet(firstRoadDict['name'])
-                self.setNextP(firstRoadDict['coordinates'][0])
+                 firstRoadDict = self.__track[0]
+                 self.setCurrentStreet(firstRoadDict['name'])
+                 self.setNextP(firstRoadDict['coordinates'][0])
 
 
 

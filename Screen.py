@@ -68,11 +68,12 @@ streets3 = [
             "basztowa-ccw-basztowa-prosto",
            ]
 
-car = Car(streets1, data, (255, 0, 0), "car", 1, )
+car = Car(streets1, data, red, "car", 1)
 
-car2 = Car(streets2, data, (255, 0, 0), "car2", 2)
 
-car3 = Car(streets3, data, (255, 0, 0), "car3", 4, )
+car2 = Car(streets2, data, blue, "car2", 2)
+
+car3 = Car(streets3, data, green, "car3", 4, )
 
 # initialize
 pygame.init()
@@ -101,10 +102,17 @@ textRect.center = (resolution[0] // 2, resolution[1] // 2)
 screen.blit(text, textRect)
 
 
+
+
+"""
+car.move(screen, points)
+car.set_vmax(0)
+car.setV(0)
+"""
 #Main Loop
 while running:
 
-    clockobject.tick(4)
+    clockobject.tick(30)
 
     occupied = 0
     for event in pygame.event.get():
@@ -117,6 +125,7 @@ while running:
     car.move(screen, points)
     car2.move(screen, points)
     car3.move(screen, points)
+
 
     # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
     for i in range(len(points)):

@@ -18,12 +18,67 @@ blue = (0, 0, 128)
 
 # fetching essential data from json
 data, points = ChangePointsFromFloatToInt("roads.json")
-# points = removeDuplicates(points)
 
 
+# trasy od lubicz wszsytkie
+streets = [
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-karmelicka-skret"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-franc-skret"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-stradom-prosto"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-staro-skret"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-sienna-skret"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-right-ccw'],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-right-ccw', "westerplatte-lubicz-skret"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-right-ccw', "westerplatte-pawia-prosto"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw'],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw', "westerplatte-lubicz-skret"],
+
+    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
+     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
+     "idziego-gertrudy-skret",
+     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw', "westerplatte-pawia-prosto"],
+]
 
 # set track to car
 
+
+### ELO ELO dodalem brancha
+
+# dookoła obwodnicy start od:  'filharmonia-gertrudy-ccw'
 streets1 = [
            "filharmonia-gertrudy-ccw",
             "idziego-gertrudy-skret",
@@ -39,41 +94,13 @@ streets1 = [
            "strasz-strasz-prosto",
            ]
 
-streets2 = ["bagatela-filharmonia-ccw",
-           "strasz-strasz-prosto",
-           "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-           "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-           "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-           "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-           "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-           ]
+print(draw_a_street(streets))
 
-streets3 = [
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-           "strasz-strasz-prosto",
-           "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-           "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-           "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-           "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-           ]
+car = Car(streets[8], data, red, "car", 1)
 
-car = Car(streets1, data, red, "car", 1)
+#car2 = Car(streets2, data, blue, "car2", 2)
 
-
-car2 = Car(streets2, data, blue, "car2", 2)
-
-car3 = Car(streets3, data, green, "car3", 4, )
+#car3 = Car(streets3, data, green, "car3", 4, )
 
 # initialize
 pygame.init()
@@ -109,10 +136,12 @@ car.move(screen, points)
 car.set_vmax(0)
 car.setV(0)
 """
+
+
 #Main Loop
 while running:
 
-    clockobject.tick(30)
+    clockobject.tick(7)
 
     occupied = 0
     for event in pygame.event.get():
@@ -123,8 +152,8 @@ while running:
                 pause(clockobject)
 
     car.move(screen, points)
-    car2.move(screen, points)
-    car3.move(screen, points)
+    #car2.move(screen, points)
+    #car3.move(screen, points)
 
 
     # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow

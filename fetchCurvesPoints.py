@@ -41,12 +41,12 @@ def convertGeoJsonToJson(file):
                     data['coordinates'].append(item["geometry"]['coordinates'])
 
 
-            bubbleSort(data['coordinates'], 'x', 'desc')
+            bubbleSort(data['coordinates'], 'x', 'asc')
 
 
 
     with open('../coords/intersections/specified/'+name+'.json', 'w') as outfile:
         json.dump(data, outfile)
 
-#file = "../coords/intersections/dluga-basztowa-ccw-skret.json"
-#convertGeoJsonToJson(file)
+file = "../coords/intersections/basztowa-cw-basztowa-prosto.json"
+convertGeoJsonToJson(file)

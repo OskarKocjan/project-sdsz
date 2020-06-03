@@ -3,6 +3,8 @@ from Point import Point
 from fetchPointsFromFile import *
 from Car import Car
 from InterfaceStuff import pause
+import time
+
 
 def initializePoints(points):
     for i in range(len(points)):
@@ -45,22 +47,12 @@ streets = [
     ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
      "idziego-gertrudy-skret",
-     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-right-ccw'],
-
-    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
-     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
-     "idziego-gertrudy-skret",
      'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-right-ccw', "westerplatte-lubicz-skret"],
 
     ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
      "idziego-gertrudy-skret",
      'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-right-ccw', "westerplatte-pawia-prosto"],
-
-    ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
-     "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
-     "idziego-gertrudy-skret",
-     'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw'],
 
     ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
@@ -75,8 +67,6 @@ streets = [
 
 # set track to car
 
-
-### ELO ELO dodalem brancha
 
 # dookoła obwodnicy start od:  'filharmonia-gertrudy-ccw'
 streets1 = [
@@ -94,14 +84,13 @@ streets1 = [
            "strasz-strasz-prosto",
            ]
 
-print(draw_a_street(streets))
 
-car = Car(streets[8], data, red, "car", 1)
+car = Car(streets[8], data, red, "car", 2)
 
 
-#car2 = Car(streets2, data, blue, "car2", 2)
+car2 = Car(streets[1], data, blue, "car2", 4)
 
-#car3 = Car(streets3, data, green, "car3", 4, )
+car3 = Car(streets[2], data, green, "car3", 6)
 
 
 # initialize
@@ -140,9 +129,15 @@ car.setV(0)
 """
 
 
+start_time = time.time()
+
+points[1241].setTaken(1)
 
 #Main Loop
 while running:
+
+
+    #print(time.time() - start_time)
 
     clockobject.tick(7)
 
@@ -156,8 +151,12 @@ while running:
                 pause(clockobject)
 
     car.move(screen, points)
+    print(car.get_curr_street_p(), car.get_curr_street_c(), car.get_curr_street_n(), car.get_curr_street_l().getIndex())
+
+
     #car2.move(screen, points)
     #car3.move(screen, points)
+    #print(car.getV(), car2.getV(), car3.getV())
 
 
     # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow

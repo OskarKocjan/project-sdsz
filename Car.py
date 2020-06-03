@@ -8,7 +8,7 @@ class Car():
 
     def __init__(self,streets,data,color,name, v = 1, a = 0, v_changed = 0):
         self.__currentStreet = streets[0]
-        self.__track = self.setTrack(streets,data)
+        self.__track = self.setTrack(streets, data)
         self.__a = a
         self.__v = v
         self.__color = color
@@ -18,15 +18,20 @@ class Car():
         self.__v_changed = v_changed
 
     def getFirstThreeAndLast(self):
-
         for item in self.__track:
             if (item['name'] == self.__currentStreet):
-                length = len(item["coordinates"])
-                self.__prevP = item["coordinates"][0]
-                self.__currP = item["coordinates"][1]
-                self.__nextP = item["coordinates"][2]
-                self.__lastP = item["coordinates"][length-1]
+                self.setCurrP(item["coordinates"][0])
+                self.setPrevP(item["coordinates"][1])
+                self.setNextP(item["coordinates"][2])
 
+    def get_street_points(self):
+        for item in self.__track:
+            if (item['name'] == self.__currentStreet):
+                lenght = len(item['coordinates'])
+                self.set_curr_street_p(item["coordinates"][0])
+                self.set_curr_street_c(item["coordinates"][1])
+                self.set_curr_street_n(item["coordinates"][2])
+                self.set_curr_street_l(item["coordinates"][lenght-1])
 
     def setTrack(self,streets,data):
         track = []
@@ -36,6 +41,30 @@ class Car():
                     track.append(road)
 
         return track
+
+    def set_curr_street_p(self,prev):
+        self.curr_street_p = prev
+
+    def set_curr_street_c(self, curr):
+        self.curr_street_p = curr
+
+    def set_curr_street_n(self, next):
+            self.curr_street_p = next
+
+    def set_curr_street_l(self,last):
+        self.curr_street_l = last
+
+    def get_curr_street_p(self):
+        return self.curr_street_p
+
+    def get_curr_street_c(self):
+        return self.curr_street_p
+
+    def get_curr_street_n(self):
+        return self.curr_street_p
+
+    def get_curr_street_l(self):
+        return self.curr_street_l
 
     def getTrack(self):
         return self.__track
@@ -77,6 +106,11 @@ class Car():
         self.__nextP = point1
         self.__prevP = point2
 
+    def setLastP(self,lastP):
+        self.__lastP = lastP
+
+    def getLastP(self):
+        return self.__lastP
 
     def set_vmax(self, vmax):
         self.__v_max = vmax
@@ -128,8 +162,12 @@ class Car():
 
 
 
+
+
+
     def move(self, screen, points):
 
+        self.get_street_points()
 
         self.checkPointsInFront(points)
 

@@ -1,5 +1,6 @@
 from Point import Point
-from math import sin, cos, sqrt, atan2,radians
+from math import sin, cos, sqrt, atan2,radians,floor,ceil
+from random import randrange
 import os
 import json
 
@@ -16,6 +17,27 @@ def distance(x1, y1, x2, y2):
             cos(phi1) * cos(phi2) * sin(dlambda / 2) ** 2
 
         return 2 * R * atan2(sqrt(a), sqrt(1 - a))
+
+
+streets1 = [
+           "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
+           ]
+
+
+def draw_a_street(streets):
+    return randrange(len(streets))
+
 
 
 def convertGeoJsonToJson(file):

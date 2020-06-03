@@ -8,7 +8,7 @@ import time
 
 def initializePoints(points):
     for i in range(len(points)):
-        pygame.draw.circle(screen, white, points[i].getCords(), 3)
+        pygame.draw.circle(screen, white, points[i].getCords(), 5)
 
 
 resolution = (1800,900)
@@ -105,6 +105,7 @@ pygame.display.set_caption("Cracow Road Simulation")
 
 # time delay
 clockobject = pygame.time.Clock()
+tick = 20
 
 # background color
 screen.fill(black)
@@ -128,10 +129,10 @@ car.set_vmax(0)
 car.setV(0)
 """
 
-
+print(len(car.get_street_names()))
 start_time = time.time()
 
-points[1241].setTaken(1)
+#points[1241].setTaken(1)
 
 #Main Loop
 while running:
@@ -139,7 +140,7 @@ while running:
 
     #print(time.time() - start_time)
 
-    clockobject.tick(7)
+    clockobject.tick(tick)
 
 
     occupied = 0
@@ -149,13 +150,17 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_p:
                 pause(clockobject)
+            elif event.key == pygame.K_RIGHT:
+                tick = max(tick + 5, 3)
+            elif event.key == pygame.K_LEFT:
+                tick = max(tick - 5, 3)
 
     car.move(screen, points)
-    print(car.get_curr_street_p(), car.get_curr_street_c(), car.get_curr_street_n(), car.get_curr_street_l().getIndex())
+    #print(car.get_curr_street_p(), car.get_curr_street_c(), car.get_curr_street_n(), car.get_curr_street_l().getIndex())
 
 
-    #car2.move(screen, points)
-    #car3.move(screen, points)
+    car2.move(screen, points)
+    car3.move(screen, points)
     #print(car.getV(), car2.getV(), car3.getV())
 
 

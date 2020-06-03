@@ -16,6 +16,7 @@ class Car():
         self.name = name
         self.__v_max = v + 1
         self.__v_changed = v_changed
+        self.__street_names = streets
 
     def getFirstThreeAndLast(self):
         for item in self.__track:
@@ -34,6 +35,7 @@ class Car():
                 self.set_curr_street_l(item["coordinates"][lenght-1])
 
     def setTrack(self,streets,data):
+
         track = []
         for street in streets:
             for road in data:
@@ -126,6 +128,13 @@ class Car():
         self.__v_changed = bool
 
 
+    def set_street_names(self,streets):
+        self.__street_names = streets
+
+    def get_street_names(self):
+        return self.__street_names
+
+
     def getCurrentStreetCoords(self):
         for road in self.__track:
             if(road['name'] == self.getCurrentStreet()):
@@ -142,10 +151,20 @@ class Car():
     def checkPointsInFront(self, points):
 
         currIndex = self.__currP.getIndex()
-
+        nextIndex = currIndex
+        j = 0
         for i in range(0, self.getV() + 1):
 
-                nextIndex = currIndex + i
+
+                if(points[nextIndex].getCords() == self.curr_street_l.getCords()):
+                    dict = self.getTrack()
+                    index = self.get_street_names().index(self.getCurrentStreet())
+                    nextPoint = dict[(index+1)%len(self.get_street_names())]['coordinates'][0]
+                    nextIndex = nextPoint.getIndex()
+                    j = 1
+                else:
+                    nextIndex = nextIndex + j
+                    j = 1
 
                 if points[nextIndex].getTaken():
                     self.setV(min(self.getV(), i))
@@ -192,8 +211,8 @@ class Car():
 
             track = self.getTrack()
 
-            pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 3)
-            pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 3)
+            pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 5)
+            pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 5)
 
             # ustawianie czy zajety czy nie
             points[self.getCurrP().getIndex()].setTaken(1)

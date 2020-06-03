@@ -147,6 +147,8 @@ class Car():
 
     def change_point(self, screen, points):
 
+
+    
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
 

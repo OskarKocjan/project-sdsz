@@ -98,9 +98,11 @@ print(draw_a_street(streets))
 
 car = Car(streets[8], data, red, "car", 1)
 
+
 #car2 = Car(streets2, data, blue, "car2", 2)
 
 #car3 = Car(streets3, data, green, "car3", 4, )
+
 
 # initialize
 pygame.init()
@@ -138,10 +140,12 @@ car.setV(0)
 """
 
 
+
 #Main Loop
 while running:
 
     clockobject.tick(7)
+
 
     occupied = 0
     for event in pygame.event.get():

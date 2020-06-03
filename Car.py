@@ -5,7 +5,7 @@ from random import randint
 
 class Car():
 
-
+#siema
     def __init__(self,streets,data,color,name, v = 1, a = 0, v_changed = 0):
         self.__currentStreet = streets[0]
         self.__track = self.setTrack(streets,data)
@@ -147,6 +147,8 @@ class Car():
 
     def change_point(self, screen, points):
 
+
+    
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
 

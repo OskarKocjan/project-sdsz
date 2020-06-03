@@ -71,9 +71,9 @@ streets3 = [
 car = Car(streets1, data, red, "car", 1)
 
 
-car2 = Car(streets2, data, blue, "car2", 2)
+car2 = Car(streets2, data, red, "car2", 2)
 
-car3 = Car(streets3, data, green, "car3", 4, )
+car3 = Car(streets3, data, red, "car3", 4, )
 
 # initialize
 pygame.init()
@@ -109,10 +109,11 @@ car.move(screen, points)
 car.set_vmax(0)
 car.setV(0)
 """
+
 #Main Loop
 while running:
 
-    clockobject.tick(30)
+    clockobject.tick(10)
 
     occupied = 0
     for event in pygame.event.get():

@@ -142,14 +142,15 @@ screen.blit(text, textRect)
 
 
 # thread for counting time - to handle traffic lights
-rt = RepeatedTimer(1.0, start_traffic_lights, points,screen)
+rt = RepeatedTimer(1.0, start_traffic_lights, points, screen)
+
+
 
 try:
 
     # Main Loop
     time.sleep(1)
     while running:
-
         clockobject.tick(tick)
 
         for event in pygame.event.get():

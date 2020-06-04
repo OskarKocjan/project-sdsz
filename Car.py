@@ -202,27 +202,34 @@ class Car:
 
 
     def check_if_line_free(self , points):
-        can_go = 1
+        can_go = 0.9
         oposite, indexes = self.opposite_rl()
         list1 = indexes[0]
         list2 = indexes[1]
-        global_index = self.get_curr_p().getIndex()
+        global_index = self.get_curr_p().get_index()
         for i in range(len(self.get_overtake_track()[list2])):
-            if(points[global_index] == self.get_overtake_track()[list2][i]):
+            if(global_index == self.get_overtake_track()[list2][i].get_index()):
                 great_index = i
                 break
-        giga_index = self.get_overtake_track()[list1][great_index].getIndex()
-        for i in range(0, self.get_vmax()):
-            if(points[giga_index - i].getTaken()):
-                can_go = 0
+        giga_index = self.get_overtake_track()[list1][great_index].get_index()
+        for j in range(0, self.get_vmax()):
+            if(points[giga_index - j].get_taken()):
+                can_go = 0.2
+                rem_j = j
 
-        return can_go, oposite
+        return can_go, oposite, rem_j, giga_index
 
 
 
 
-    def change_line(self):
-        pass
+    def change_line(self, points):
+        split = self.get_current_street().split('-')
+        if(split[1] == 'left' or split[1] == 'right'):
+            will_go, street, can_go, index = self.check_if_line_free(points)
+            if(can_go):
+                pass
+
+
 
     def opposite_rl(self):
         check = self.get_current_street()
@@ -262,7 +269,7 @@ class Car:
     def change_point(self, screen, points):
 
 
-    
+
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
 

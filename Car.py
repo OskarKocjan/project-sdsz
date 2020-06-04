@@ -4,6 +4,7 @@ import pygame
 from random import randint
 
 
+
 class Car:
 
     def __init__(self, streets, data, color, name, v=1, a=0, v_changed=0):
@@ -17,6 +18,8 @@ class Car:
         self.__v_max = v + 1
         self.__v_changed = v_changed
         self.__street_names = streets
+        self.__overtake_track = self.set_overtake_track(['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte-right-cw', 'westerplatte-left-cw' ], data)
+
 
     def get_first_three_and_last(self):
         for item in self.__track:
@@ -43,6 +46,19 @@ class Car:
                     track.append(road)
 
         return track
+
+    def set_overtake_track(self, streets, data):
+        track = []
+
+        for street in streets:
+            for road in data:
+                if (road['name'] == street):
+                    track.append(road['coordinates'])
+
+
+        return track
+
+
 
     def set_curr_street_p(self,prev):
         self.curr_street_p = prev
@@ -76,6 +92,12 @@ class Car:
 
     def get_a(self):
         return self.__a
+
+
+    def get_overtake_track(self):
+        return self.__overtake_track
+
+
 
     def set_v(self, v):
         self.__v = v
@@ -120,11 +142,13 @@ class Car:
     def get_vmax(self):
         return self.__v_max
 
+
     def get_v_change(self):
         return self.__v_changed
 
     def set_v_change(self, bool):
         self.__v_changed = bool
+
 
     def set_street_names(self,streets):
         self.__street_names = streets
@@ -174,6 +198,51 @@ class Car:
             self.set_v(min(self.get_v()+1, self.get_vmax()))
         else:
             self.set_v(max(self.get_v() - 1, 0))
+            self.setV(max(self.getV() - 1, 0))
+
+
+    def check_if_line_free(self , points):
+        can_go = 1
+        oposite, indexes = self.opposite_rl()
+        list1 = indexes[0]
+        list2 = indexes[1]
+        global_index = self.getCurrP().getIndex()
+        for i in range(len(self.get_overtake_track()[list2])):
+            if(points[global_index] == self.get_overtake_track()[list2][i]):
+                great_index = i
+                break
+        giga_index = self.get_overtake_track()[list1][great_index].getIndex()
+        for i in range(0, self.get_vmax()):
+            if(points[giga_index - i].getTaken()):
+                can_go = 0
+
+        return can_go, oposite
+
+
+
+
+    def change_line(self):
+        pass
+
+    def opposite_rl(self):
+        check = self.getCurrentStreet()
+        split = check.split('-')
+        if(split[1] == 'left'):
+            text = split[0] + '-' + 'right' + '-' + split[2]
+            if (split[2] == 'ccw'):
+                index_number = [0, 1]  # pierwszy to ten na który zmieniamy, a drugi to na którym byliśmy
+            else:
+                index_number = [2, 3]
+        else:
+            text = split[0] + '-' + 'left' + '-' + split[2]
+            if (split[2] == 'ccw'):
+                index_number = [1, 0]
+            else:
+                index_number = [3, 2]
+
+
+        return text, index_number
+
 
     def move(self, screen, points):
 

@@ -39,7 +39,6 @@ def draw_a_street(streets):
     return randrange(len(streets))
 
 
-
 def convertGeoJsonToJson(file):
     #file = "../coords/intersections/kleparz.json"
     path = file.split("/")

@@ -4,11 +4,15 @@ from fetchPointsFromFile import *
 from Car import Car
 from InterfaceStuff import pause
 import time
+from RepeatedTimer import RepeatedTimer,start_traffic_lights
 
 
-def initializePoints(points):
+def initialize_points(points):
     for i in range(len(points)):
-        pygame.draw.circle(screen, white, points[i].getCords(), 5)
+        pygame.draw.circle(screen, white, points[i].getCords(), 3)
+
+
+
 
 
 resolution = (1800,900)
@@ -70,6 +74,8 @@ streets = [
 
 # dookoła obwodnicy start od:  'filharmonia-gertrudy-ccw'
 streets1 = [
+            "bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
            "filharmonia-gertrudy-ccw",
             "idziego-gertrudy-skret",
            "gertrudy-poczta-ccw",
@@ -80,15 +86,16 @@ streets1 = [
             "basztowa-ccw-basztowa-prosto",
            "basztowa-dunaj-ccw",
             "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-           "strasz-strasz-prosto",
+
            ]
 
+tmp = ["bagatela-filharmonia-ccw", "strasz-strasz-prosto", "filharmonia-gertrudy-ccw",]
+tmp2 = ["zwierzyniecka-strasz-skret", "filharmonia-gertrudy-ccw",]
 
-car = Car(streets[8], data, red, "car", 2)
 
+car = Car(tmp, data, red, "car", 0)
 
-car2 = Car(streets[1], data, blue, "car2", 4)
+car2 = Car(tmp2, data, blue, "car2", 0)
 
 car3 = Car(streets[2], data, green, "car3", 6)
 
@@ -105,15 +112,15 @@ pygame.display.set_caption("Cracow Road Simulation")
 
 # time delay
 clockobject = pygame.time.Clock()
-tick = 20
+tick = 15
 
 # background color
 screen.fill(black)
 
 # draw road
-initializePoints(points)
+initialize_points(points)
 
-#Pause message
+# pause message
 font = pygame.font.Font('freesansbold.ttf', 32)
 text = font.render('To Pause press P To Continue press C', True, green)
 textRect = text.get_rect()
@@ -121,57 +128,54 @@ textRect.center = (resolution[0] // 2, resolution[1] // 2)
 screen.blit(text, textRect)
 
 
+# thread for counting time to handle traffic lights
+rt = RepeatedTimer(20 / tick, start_traffic_lights,points,tick)
+
+try:
+
+    # Main Loop
+    while running:
+
+        clockobject.tick(tick)
 
 
-"""
-car.move(screen, points)
-car.set_vmax(0)
-car.setV(0)
-"""
-
-print(len(car.get_street_names()))
-start_time = time.time()
-
-#points[1241].setTaken(1)
-
-#Main Loop
-while running:
+        occupied = 0
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    pause(clockobject)
+                elif event.key == pygame.K_RIGHT:
+                    tick = max(tick + 5, 3)
+                elif event.key == pygame.K_LEFT:
+                    tick = max(tick - 5, 3)
 
 
-    #print(time.time() - start_time)
-
-    clockobject.tick(tick)
-
-
-    occupied = 0
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_p:
-                pause(clockobject)
-            elif event.key == pygame.K_RIGHT:
-                tick = max(tick + 5, 3)
-            elif event.key == pygame.K_LEFT:
-                tick = max(tick - 5, 3)
-
-    car.move(screen, points)
-    #print(car.get_curr_street_p(), car.get_curr_street_c(), car.get_curr_street_n(), car.get_curr_street_l().getIndex())
+        car.move(screen, points)
+        #print(car.getCurrP().getIndex())
+        car2.move(screen, points)
+        #car3.move(screen, points)
 
 
-    car2.move(screen, points)
-    car3.move(screen, points)
-    #print(car.getV(), car2.getV(), car3.getV())
+        # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
+        # for i in range(len(points)):
+        #     if (points[i].getTaken() == 1):
+        #         occupied += 1
+        #print(occupied)
+
+        pygame.display.update()
+
+        pass
+
+finally:
+    rt.stop()
+
+#idziego
+# 1410 - idziego-gertrudy-skret
 
 
-    # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
-    for i in range(len(points)):
-        if (points[i].getTaken() == 1):
-            occupied += 1
-    #print(occupied)
 
-    pygame.display.update()
 
-    pass
 
 

@@ -199,9 +199,6 @@ class Car():
 
 
 
-
-
-
     def change_point(self, screen, points):
 
 
@@ -211,8 +208,8 @@ class Car():
 
             track = self.getTrack()
 
-            pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 5)
-            pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 5)
+            pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 3)
+            pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 3)
 
             # ustawianie czy zajety czy nie
             points[self.getCurrP().getIndex()].setTaken(1)

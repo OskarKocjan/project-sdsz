@@ -19,8 +19,6 @@ class Point:
     def getIndex(self):
         return self.__index
 
-
-
     def setX(self, x):
         self.__x = x
 

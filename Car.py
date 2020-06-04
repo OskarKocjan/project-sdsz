@@ -3,27 +3,27 @@ from time import sleep
 import pygame
 from random import randint
 
-class Car():
 
+class Car:
 
-    def __init__(self,streets,data,color,name, v = 1, a = 0, v_changed = 0):
+    def __init__(self, streets, data, color, name, v=1, a=0, v_changed=0):
         self.__currentStreet = streets[0]
-        self.__track = self.setTrack(streets, data)
+        self.__track = self.set_track(streets, data)
         self.__a = a
         self.__v = v
         self.__color = color
-        self.getFirstThreeAndLast()
+        self.get_first_three_and_last()
         self.name = name
         self.__v_max = v + 1
         self.__v_changed = v_changed
         self.__street_names = streets
 
-    def getFirstThreeAndLast(self):
+    def get_first_three_and_last(self):
         for item in self.__track:
             if (item['name'] == self.__currentStreet):
-                self.setCurrP(item["coordinates"][0])
-                self.setPrevP(item["coordinates"][1])
-                self.setNextP(item["coordinates"][2])
+                self.set_curr_p(item["coordinates"][0])
+                self.set_prev_p(item["coordinates"][1])
+                self.set_next_p(item["coordinates"][2])
 
     def get_street_points(self):
         for item in self.__track:
@@ -34,7 +34,7 @@ class Car():
                 self.set_curr_street_n(item["coordinates"][2])
                 self.set_curr_street_l(item["coordinates"][lenght-1])
 
-    def setTrack(self,streets,data):
+    def set_track(self,streets,data):
 
         track = []
         for street in streets:
@@ -68,50 +68,50 @@ class Car():
     def get_curr_street_l(self):
         return self.curr_street_l
 
-    def getTrack(self):
+    def get_track(self):
         return self.__track
 
-    def getV(self):
+    def get_v(self):
         return self.__v
 
-    def getA(self):
+    def get_a(self):
         return self.__a
 
-    def setV(self, v):
+    def set_v(self, v):
         self.__v = v
 
-    def setA(self, a):
+    def set_a(self, a):
         self.__a = a
 
-    def getPrevP(self):
+    def get_prev_p(self):
         return self.__prevP
 
-    def getNextP(self):
+    def get_next_p(self):
         return self.__nextP
 
-    def getCurrP(self):
+    def get_curr_p(self):
         return self.__currP
 
-    def setCurrP(self, currP):
+    def set_curr_p(self, currP):
         self.__currP = currP
 
-    def setPrevP(self, prevP):
+    def set_prev_p(self, prevP):
         self.__prevP = prevP
 
-    def setNextP(self, nextP):
+    def set_next_p(self, nextP):
         self.__nextP = nextP
 
-    def getNeigh(self):
-        return [self.getNextP(),self.getPrevP()]
+    def get_neigh(self):
+        return [self.get_next_p(),self.get_prev_p()]
 
-    def setNeigh(self, point1, point2):
+    def set_neigh(self, point1, point2):
         self.__nextP = point1
         self.__prevP = point2
 
-    def setLastP(self,lastP):
+    def set_last_p(self,lastP):
         self.__lastP = lastP
 
-    def getLastP(self):
+    def get_last_p(self):
         return self.__lastP
 
     def set_vmax(self, vmax):
@@ -120,13 +120,11 @@ class Car():
     def get_vmax(self):
         return self.__v_max
 
-
     def get_v_change(self):
         return self.__v_changed
 
     def set_v_change(self, bool):
         self.__v_changed = bool
-
 
     def set_street_names(self,streets):
         self.__street_names = streets
@@ -134,61 +132,54 @@ class Car():
     def get_street_names(self):
         return self.__street_names
 
-
-    def getCurrentStreetCoords(self):
+    def get_current_street_coords(self):
         for road in self.__track:
-            if(road['name'] == self.getCurrentStreet()):
+            if(road['name'] == self.get_current_street()):
                 return road['coordinates']
 
-    def getCurrentStreet(self):
+    def get_current_street(self):
         return self.__currentStreet
 
-    def setCurrentStreet(self, street):
+    def set_current_street(self, street):
         self.__currentStreet = street
 
 
     # funkcja sprawdzająca czy punkty przed nim sa zajete, jesli tak -> zwolnij
-    def checkPointsInFront(self, points):
+    def check_points_in_front(self, points):
 
-        currIndex = self.__currP.getIndex()
+        currIndex = self.__currP.get_index()
         nextIndex = currIndex
         j = 0
-        for i in range(0, self.getV() + 1):
+        for i in range(0, self.get_v() + 1):
 
 
-                if(points[nextIndex].getCords() == self.curr_street_l.getCords()):
-                    dict = self.getTrack()
-                    index = self.get_street_names().index(self.getCurrentStreet())
+                if(points[nextIndex].get_cords() == self.curr_street_l.get_cords()):
+                    dict = self.get_track()
+                    index = self.get_street_names().index(self.get_current_street())
                     nextPoint = dict[(index+1)%len(self.get_street_names())]['coordinates'][0]
-                    nextIndex = nextPoint.getIndex()
+                    nextIndex = nextPoint.get_index()
                     j = 1
                 else:
                     nextIndex = nextIndex + j
                     j = 1
 
-                if points[nextIndex].getTaken():
-                    self.setV(min(self.getV(), i))
+                if points[nextIndex].get_taken():
+                    self.set_v(min(self.get_v(), i))
                     self.set_v_change(1)
 
     def accel_random(self):
 
         random = randint(0, 100)
         if (random > 5):
-            self.setV(min(self.getV()+1, self.get_vmax()))
+            self.set_v(min(self.get_v()+1, self.get_vmax()))
         else:
-            self.setV(max(self.getV() - 1, 0))
-
-
-
-
-
-
+            self.set_v(max(self.get_v() - 1, 0))
 
     def move(self, screen, points):
 
         self.get_street_points()
 
-        self.checkPointsInFront(points)
+        self.check_points_in_front(points)
 
         self.change_point(screen, points)
 
@@ -206,26 +197,26 @@ class Car():
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
 
-            track = self.getTrack()
+            track = self.get_track()
 
-            pygame.draw.circle(screen, self.__color, self.getCurrP().getCords(), 3)
-            pygame.draw.circle(screen, (255, 255, 255), self.getPrevP().getCords(), 3)
+            pygame.draw.circle(screen, self.__color, self.get_curr_p().get_cords(), 3)
+            pygame.draw.circle(screen, (255, 255, 255), self.get_prev_p().get_cords(), 3)
 
             # ustawianie czy zajety czy nie
-            points[self.getCurrP().getIndex()].setTaken(1)
-            points[self.getPrevP().getIndex()].setTaken(0)
+            points[self.get_curr_p().get_index()].set_taken(1)
+            points[self.get_prev_p().get_index()].set_taken(0)
 
-            self.setPrevP(self.getCurrP())
-            self.setCurrP(self.getNextP())
+            self.set_prev_p(self.get_curr_p())
+            self.set_curr_p(self.get_next_p())
 
             changeLine = 0
 
             for dictionaries in track:
-                if dictionaries['name'] == self.getCurrentStreet():
+                if dictionaries['name'] == self.get_current_street():
                     for i in range(len(dictionaries['coordinates'])):
-                        if(self.getNextP().same(dictionaries['coordinates'][i])):
+                        if(self.get_next_p().same(dictionaries['coordinates'][i])):
                             if(i != len(dictionaries['coordinates']) - 1):
-                                self.setNextP(dictionaries['coordinates'][i+1])
+                                self.set_next_p(dictionaries['coordinates'][i+1])
 
                             else:
                                 changeLine = 1
@@ -233,16 +224,16 @@ class Car():
                             break
 
                 elif(changeLine == 1):
-                    self.setNextP(dictionaries['coordinates'][0])
-                    self.setCurrentStreet(dictionaries['name'])
+                    self.set_next_p(dictionaries['coordinates'][0])
+                    self.set_current_street(dictionaries['name'])
                     break
 
 
-            lastRoadList = self.getTrack()[len(self.getTrack())-1]['coordinates']
-            if(self.getCurrP().getCords() == lastRoadList[len(lastRoadList)-1].getCords()):
+            lastRoadList = self.get_track()[len(self.get_track())-1]['coordinates']
+            if(self.get_curr_p().get_cords() == lastRoadList[len(lastRoadList)-1].get_cords()):
                  firstRoadDict = self.__track[0]
-                 self.setCurrentStreet(firstRoadDict['name'])
-                 self.setNextP(firstRoadDict['coordinates'][0])
+                 self.set_current_street(firstRoadDict['name'])
+                 self.set_next_p(firstRoadDict['coordinates'][0])
 
 
 

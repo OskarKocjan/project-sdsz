@@ -10,55 +10,53 @@ class Point:
     def __str__(self):
         return '('+str(self.__x)+', '+str(self.__y)+')'
 
-    def setColor(self, color):
+    def set_color(self, color):
         self.__color = color
 
-    def setIndex(self, index):
+    def set_index(self, index):
         self.__index = index
 
-    def getIndex(self):
+    def get_index(self):
         return self.__index
 
-    def setX(self, x):
+    def set_x(self, x):
         self.__x = x
 
-    def setY(self, y):
+    def set_y(self, y):
         self.__y = y
 
-    def getColor(self):
+    def get_color(self):
         return self.__color
 
-    def getX(self):
+    def get_x(self):
         return self.__x
 
-    def getY(self):
+    def get_y(self):
         return self.__y
 
-    def getCords(self):
-        return (self.getX(), self.getY())
+    def get_cords(self):
+        return (self.get_x(), self.get_y())
 
-    def setCords(self, x , y ):
-        self.setY(y)
-        self.setX(x)
+    def set_cords(self, x , y ):
+        self.set_y(y)
+        self.set_x(x)
 
-    def getTaken(self):
+    def get_taken(self):
         return self.__taken
 
-    def setTaken(self, taken):
+    def set_taken(self, taken):
         self.__taken = taken
 
-    def checkTaken(self):
+    def check_taken(self):
 
-        if self.getTaken() == 1:
+        if self.get_taken() == 1:
             return True
 
         else:
             return False
 
-
-    def same(self,point):
-
-        if(self.getX() == point.getX() and self.getY() == point.getY() and self.getColor() == point.getColor() and self.getTaken() == point.getTaken()):
+    def same(self, point):
+        if(self.get_x() == point.get_x() and self.get_y() == point.get_y() and self.get_color() == point.get_color() and self.get_taken() == point.get_taken()):
             return True
         else:
             return False

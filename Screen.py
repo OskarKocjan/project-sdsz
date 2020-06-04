@@ -1,29 +1,26 @@
 import pygame
-from Point import Point
 from fetchPointsFromFile import *
 from Car import Car
 from InterfaceStuff import pause
 import time
-from RepeatedTimer import RepeatedTimer,start_traffic_lights
+from RepeatedTimer import RepeatedTimer, start_traffic_lights
 
 
 def initialize_points(points):
     for i in range(len(points)):
-        pygame.draw.circle(screen, white, points[i].getCords(), 3)
-
-
-
+        pygame.draw.circle(screen, white, points[i].get_cords(), 3)
 
 
 resolution = (1800,900)
 red = (255, 0, 0)
 white = (255, 255, 255)
 black = (0, 0, 0)
+cyan = (0, 255, 255)
 green = (0, 255, 0)
 blue = (0, 0, 128)
 
 # fetching essential data from json
-data, points = ChangePointsFromFloatToInt("roads.json")
+data, points = change_points_from_float_to_int("roads.json")
 
 
 # trasy od lubicz wszsytkie
@@ -69,7 +66,6 @@ streets = [
      'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw', "westerplatte-pawia-prosto"],
 ]
 
-# set track to car
 
 
 # dookoła obwodnicy start od:  'filharmonia-gertrudy-ccw'
@@ -89,36 +85,49 @@ streets1 = [
 
            ]
 
-tmp = ["bagatela-filharmonia-ccw", "strasz-strasz-prosto", "filharmonia-gertrudy-ccw",]
-tmp2 = ["zwierzyniecka-strasz-skret", "filharmonia-gertrudy-ccw",]
+
+# roads for tests
+tmp = ["westerplatte-left-ccw","westerplatte-pawia-prosto"]#,"gertrudy-poczta-ccw", ]
+tmp2 = ["pawia-westerplatte-prosto"]#,"gertrudy-poczta-ccw",]
+tmp3 = ["basztowa-cw","basztowa-lubicz-prosto"]#, "gertrudy-poczta-ccw",]
+tmp4 = ["lubicz-basztowa-prosto"]#, "gertrudy-poczta-ccw",]
 
 
+# initialize cars
 car = Car(tmp, data, red, "car", 0)
 
 car2 = Car(tmp2, data, blue, "car2", 0)
 
-car3 = Car(streets[2], data, green, "car3", 6)
+car3 = Car(tmp3, data, green, "car3", 0)
+
+car4 = Car(tmp4, data, cyan, "car4", 0)
 
 
 # initialize
 pygame.init()
 
+
 # create screen
 screen = pygame.display.set_mode(resolution)
 
-#running condition and title
+
+# running condition and title
 running = True
 pygame.display.set_caption("Cracow Road Simulation")
+
 
 # time delay
 clockobject = pygame.time.Clock()
 tick = 15
 
+
 # background color
 screen.fill(black)
 
+
 # draw road
 initialize_points(points)
+
 
 # pause message
 font = pygame.font.Font('freesansbold.ttf', 32)
@@ -128,18 +137,17 @@ textRect.center = (resolution[0] // 2, resolution[1] // 2)
 screen.blit(text, textRect)
 
 
-# thread for counting time to handle traffic lights
-rt = RepeatedTimer(20 / tick, start_traffic_lights,points,tick)
+# thread for counting time - to handle traffic lights
+rt = RepeatedTimer(1.0, start_traffic_lights, points,screen)
 
 try:
 
     # Main Loop
+    time.sleep(1)
     while running:
 
         clockobject.tick(tick)
 
-
-        occupied = 0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -151,18 +159,13 @@ try:
                 elif event.key == pygame.K_LEFT:
                     tick = max(tick - 5, 3)
 
-
         car.move(screen, points)
-        #print(car.getCurrP().getIndex())
+
         car2.move(screen, points)
-        #car3.move(screen, points)
 
+        car3.move(screen, points)
 
-        # taktyczna petla do sprawdzania ile w globalnej liscie points jest zajetych puntkow
-        # for i in range(len(points)):
-        #     if (points[i].getTaken() == 1):
-        #         occupied += 1
-        #print(occupied)
+        car4.move(screen, points)
 
         pygame.display.update()
 
@@ -170,9 +173,6 @@ try:
 
 finally:
     rt.stop()
-
-#idziego
-# 1410 - idziego-gertrudy-skret
 
 
 

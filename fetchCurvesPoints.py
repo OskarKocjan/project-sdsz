@@ -2,7 +2,7 @@ import json
 import os
 
 
-def bubbleSort(arr,what,how):
+def bubble_sort(arr,what,how):
     if what == 'x':
         p = 0
     if what == 'y':
@@ -27,7 +27,7 @@ def bubbleSort(arr,what,how):
                 if arr[j][p] < arr[j + 1][p]:
                     arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
-def convertGeoJsonToJson(file):
+def convert_geo_json_to_json(file):
     #file = "../coords/intersections/kleparz.json"
     path = file.split("/")
     name = os.path.splitext(path[len(path)-1])[0]
@@ -41,7 +41,7 @@ def convertGeoJsonToJson(file):
                     data['coordinates'].append(item["geometry"]['coordinates'])
 
 
-            bubbleSort(data['coordinates'], 'x', 'asc')
+            bubble_sort(data['coordinates'], 'x', 'asc')
 
 
 
@@ -49,4 +49,4 @@ def convertGeoJsonToJson(file):
         json.dump(data, outfile)
 
 file = "../coords/intersections/basztowa-cw-basztowa-prosto.json"
-convertGeoJsonToJson(file)
+convert_geo_json_to_json(file)

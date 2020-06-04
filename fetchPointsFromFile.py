@@ -4,41 +4,6 @@ from random import randrange
 import os
 import json
 
-
-def distance(x1, y1, x2, y2):
-        # Earth radius in meters
-        R = 6372800
-
-        phi1, phi2 = radians(y1), radians(y2)
-        dphi = radians(y2 - y1)
-        dlambda = radians(x2 - x1)
-
-        a = sin(dphi / 2) ** 2 + \
-            cos(phi1) * cos(phi2) * sin(dlambda / 2) ** 2
-
-        return 2 * R * atan2(sqrt(a), sqrt(1 - a))
-
-
-streets1 = [
-           "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-           "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-           "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-           "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-           "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-           "strasz-strasz-prosto",
-           ]
-
-
-def draw_a_street(streets):
-    return randrange(len(streets))
-
-
 def convertGeoJsonToJson(file):
     #file = "../coords/intersections/kleparz.json"
     path = file.split("/")
@@ -62,8 +27,7 @@ def convertGeoJsonToJson(file):
         json.dump(data, outfile)
 
 
-
-def removeDuplicates(points):
+def remove_duplicates(points):
     tmp1 = []
     for p in points:
         tmp1.append(p.getCords())
@@ -77,7 +41,7 @@ def removeDuplicates(points):
     return tmp2
 
 
-def ChangePointsFromFloatToInt(file):
+def change_points_from_float_to_int(file):
     with open(file, 'r') as f:
         datastore = json.load(f)
 
@@ -93,55 +57,53 @@ def ChangePointsFromFloatToInt(file):
     kx = 1
     ky = 1
 
-    rx = abs(points[0].getX() - points[1].getX())
-    ry = abs(points[0].getY() - points[1].getY())
+    rx = abs(points[0].get_x() - points[1].get_x())
+    ry = abs(points[0].get_y() - points[1].get_y())
 
     rx = 1 / rx
 
     ry = 1 / ry
 
     for i in range(len(points)):
-        points[i].setX(round(((points[i].getX() * (kx + rx)) - 481100) * 10))
-        points[i].setY(round(((points[i].getY() * (ky + ry)) - 1343150) * 10))
+        points[i].set_x(round(((points[i].get_x() * (kx + rx)) - 481100) * 10))
+        points[i].set_y(round(((points[i].get_y() * (ky + ry)) - 1343150) * 10))
 
 
 
-    xmin = points[0].getX()
-    ymin = points[0].getY()
-
-
-    for i in range(len(points)):
-        if(points[i].getX() < xmin):
-            xmin = points[i].getX()
-
-        if (points[i].getY() < ymin):
-            ymin = points[i].getY()
+    xmin = points[0].get_x()
+    ymin = points[0].get_y()
 
 
     for i in range(len(points)):
-        points[i].setX(points[i].getX() - xmin)
-        if (points[i].getX() % 2 == 1):
-            points[i].setX(points[i].getX() + 1)
-        points[i].setX(points[i].getX() / 2)
-        if (points[i].getX() % 2 == 1):
-            points[i].setX(points[i].getX() + 1)
-        points[i].setX(points[i].getX() / 2)
-        points[i].setX(int(points[i].getX()))
+        if(points[i].get_x() < xmin):
+            xmin = points[i].get_x()
+
+        if (points[i].get_y() < ymin):
+            ymin = points[i].get_y()
 
 
-        points[i].setY(points[i].getY() - ymin)
-        if (points[i].getY() % 2 == 1):
-            points[i].setY(points[i].getY() + 1)
-        points[i].setY(points[i].getY() / 2)
-
-        points[i].setY(int(points[i].getY()))
-
-        rememberX = points[i].getX()
-        points[i].setX(points[i].getY() + 70)
-        points[i].setY(rememberX + 30)
-        points[i].setIndex(i)
+    for i in range(len(points)):
+        points[i].set_x(points[i].get_x() - xmin)
+        if (points[i].get_x() % 2 == 1):
+            points[i].set_x(points[i].get_x() + 1)
+        points[i].set_x(points[i].get_x() / 2)
+        if (points[i].get_x() % 2 == 1):
+            points[i].set_x(points[i].get_x() + 1)
+        points[i].set_x(points[i].get_x() / 2)
+        points[i].set_x(int(points[i].get_x()))
 
 
+        points[i].set_y(points[i].get_y() - ymin)
+        if (points[i].get_y() % 2 == 1):
+            points[i].set_y(points[i].get_y() + 1)
+        points[i].set_y(points[i].get_y() / 2)
+
+        points[i].set_y(int(points[i].get_y()))
+
+        rememberX = points[i].get_x()
+        points[i].set_x(points[i].get_y() + 70)
+        points[i].set_y(rememberX + 30)
+        points[i].set_index(i)
 
     i = 0
 
@@ -152,8 +114,6 @@ def ChangePointsFromFloatToInt(file):
             i += 1
 
         track['coordinates'] = sum(track['coordinates'],[])
-
-
 
     return data, points
 

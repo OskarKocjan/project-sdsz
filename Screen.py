@@ -82,12 +82,11 @@ streets1 = [
             "basztowa-ccw-basztowa-prosto",
            "basztowa-dunaj-ccw",
             "dunaj-podwale-prosto",
-
            ]
 
 
 # roads for tests
-tmp = ["westerplatte-left-ccw","westerplatte-pawia-prosto"]#,"gertrudy-poczta-ccw", ]
+tmp = ["filharmonia-gertrudy-ccw","idziego-gertrudy-skret","gertrudy-poczta-ccw"]
 tmp2 = ["pawia-westerplatte-prosto"]#,"gertrudy-poczta-ccw",]
 tmp3 = ["basztowa-cw","basztowa-lubicz-prosto"]#, "gertrudy-poczta-ccw",]
 tmp4 = ["lubicz-basztowa-prosto"]#, "gertrudy-poczta-ccw",]
@@ -102,6 +101,11 @@ car3 = Car(tmp3, data, green, "car3", 0)
 
 car4 = Car(tmp4, data, cyan, "car4", 0)
 
+
+cars = []
+for i in range(50):
+    car = Car(streets[randrange(len(streets))], data, red, "car"+str(i), randrange(3))
+    cars.append(car)
 
 # initialize
 pygame.init()
@@ -159,13 +163,16 @@ try:
                 elif event.key == pygame.K_LEFT:
                     tick = max(tick - 5, 3)
 
-        car.move(screen, points)
+        #car.move(screen, points)
 
-        car2.move(screen, points)
+        #car2.move(screen, points)
 
-        car3.move(screen, points)
+        #car3.move(screen, points)
 
-        car4.move(screen, points)
+        #car4.move(screen, points)
+
+        for car in cars:
+            car.move(screen, points)
 
         pygame.display.update()
 

@@ -198,7 +198,7 @@ class Car:
             self.set_v(min(self.get_v()+1, self.get_vmax()))
         else:
             self.set_v(max(self.get_v() - 1, 0))
-            self.setV(max(self.getV() - 1, 0))
+            self.set_v(max(self.get_v() - 1, 0))
 
 
     def check_if_line_free(self , points):
@@ -206,7 +206,7 @@ class Car:
         oposite, indexes = self.opposite_rl()
         list1 = indexes[0]
         list2 = indexes[1]
-        global_index = self.getCurrP().getIndex()
+        global_index = self.get_curr_p().getIndex()
         for i in range(len(self.get_overtake_track()[list2])):
             if(points[global_index] == self.get_overtake_track()[list2][i]):
                 great_index = i
@@ -225,7 +225,7 @@ class Car:
         pass
 
     def opposite_rl(self):
-        check = self.getCurrentStreet()
+        check = self.get_current_street()
         split = check.split('-')
         if(split[1] == 'left'):
             text = split[0] + '-' + 'right' + '-' + split[2]

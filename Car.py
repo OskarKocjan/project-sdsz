@@ -217,15 +217,12 @@ class Car:
                 can_go = 0.2
                 rem_j = j
 
-        return can_go, oposite, rem_j, giga_index
-
-
-
+        return can_go, oposite, rem_j, giga_index, list1
 
     def change_line(self, points):
         split = self.get_current_street().split('-')
         if(split[1] == 'left' or split[1] == 'right'):
-            will_go, street, can_go, index = self.check_if_line_free(points)
+            procent_go, street, can_go, index, overtake_index = self.check_if_line_free(points)
             if(can_go):
                 pass
 

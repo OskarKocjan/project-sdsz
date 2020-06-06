@@ -164,18 +164,18 @@ try:
                 elif event.key == pygame.K_LEFT:
                     tick = max(tick - 5, 3)
 
-        #car.move(screen, points)
+        car.move(screen, points)
 
-        #car2.move(screen, points)
+        car2.move(screen, points)
 
-        #car3.move(screen, points)
+        car3.move(screen, points)
 
-        #car4.move(screen, points)
+        car4.move(screen, points)
 
-        for car in cars:
-            car.move(screen, points)
+        #for car in cars:
+        #    car.move(screen, points)
 
-        pygame.display.update()
+        #pygame.display.update()
 
         pass
 

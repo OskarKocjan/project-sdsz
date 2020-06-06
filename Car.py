@@ -47,6 +47,9 @@ class Car:
 
         return track
 
+    def set_track_from_track(self, track):
+        self.__track = track
+
     def set_overtake_track(self, streets, data):
         track = []
 
@@ -190,6 +193,8 @@ class Car:
                 if points[nextIndex].get_taken():
                     self.set_v(min(self.get_v(), i))
                     self.set_v_change(1)
+                    if(i == 0):
+                        self.change_line(points)
 
     def accel_random(self):
 
@@ -202,29 +207,73 @@ class Car:
 
 
     def check_if_line_free(self , points):
-        can_go = 0.9
+        procent_go = 90
         oposite, indexes = self.opposite_rl()
         list1 = indexes[0]
         list2 = indexes[1]
-        global_index = self.get_curr_p().get_index()
+        rem_j = 1
+        global_index = self.get_next_p().get_index()
+
         for i in range(len(self.get_overtake_track()[list2])):
+            print(global_index, ' ', self.get_overtake_track()[list2][i].get_index())
             if(global_index == self.get_overtake_track()[list2][i].get_index()):
                 great_index = i
                 break
+
         giga_index = self.get_overtake_track()[list1][great_index].get_index()
+
         for j in range(0, self.get_vmax()):
             if(points[giga_index - j].get_taken()):
-                can_go = 0.2
+                procent_go = 20
                 rem_j = j
 
-        return can_go, oposite, rem_j, giga_index, list1
+        return procent_go, oposite, rem_j, giga_index, list1
 
     def change_line(self, points):
         split = self.get_current_street().split('-')
         if(split[1] == 'left' or split[1] == 'right'):
             procent_go, street, can_go, index, overtake_index = self.check_if_line_free(points)
             if(can_go):
-                pass
+                overtake = self.get_overtake_track()
+                procent = randint(0,100)
+                if(procent < procent_go):
+                    curr_street = self.get_current_street()
+                    track = self.get_track()
+                    street_names = self.get_street_names()
+                    print(curr_street)
+                    print(street)
+
+
+                    self.set_prev_p(points[index - 1])
+                    self.set_curr_p(points[index])
+                    self.set_next_p(points[index + 1])
+
+                    print(str(self.get_curr_p()))
+                    print(str(self.get_next_p()))
+
+                    change_index = street_names.index(curr_street)
+                    street_names[change_index] = street
+                    self.set_street_names(street_names)
+
+                    self.set_current_street(street)
+
+                    for item in track:
+                        if (item['name'] == curr_street):
+                            item['name'] = street
+                            for i in range(len(item['coordinates'])):
+                                item['coordinates'][i] = overtake[overtake_index][i]
+                            self.set_curr_street_l(item["coordinates"][len(item['coordinates']) - 1])
+                            self.set_curr_street_p(item["coordinates"][0])
+                            self.set_curr_street_c(item["coordinates"][1])
+                            self.set_curr_street_n(item["coordinates"][2])
+                            break
+
+                    self.set_track_from_track(track)
+
+
+
+
+
 
 
 

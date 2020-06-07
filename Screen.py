@@ -19,7 +19,7 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 cyan = (0, 255, 255)
 green = (0, 255, 0)
-blue = (0, 0, 128)
+blue = (0, 0, 255)
 
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
@@ -86,6 +86,65 @@ streets1 = [
            ]
 
 
+streets2 = [
+
+           "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+           ]
+
+
+
+
+
+
+streets3 = [
+
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
+           "filharmonia-gertrudy-ccw",
+           ]
+
+
+
+
+streets4 = [
+
+            "gertrudy-westerplatte-prosto",
+           "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+           "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+           "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+           "strasz-strasz-prosto",
+           "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+           "gertrudy-poczta-ccw",
+           ]
+
+
+
+
 # roads for tests
 tmp = ["gertrudy-poczta-ccw","gertrudy-staro-skret"]#"gertrudy-westerplatte-prosto","westerplatte-right-ccw"]
 tmp2 = ["basztowa-cw","basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
@@ -100,13 +159,13 @@ tmp4 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw", "w
 
 
 # initialize cars
-car1 = Car(tmp2, data, blue, "car", 0)
+car1 = Car(streets1, data, red, "car", 0)
 
-car2 = Car(tmp5, data, red, "car2", 0)
+car2 = Car(streets2, data, blue, "car2", 1)
 
-car3 = Car(tmp6, data, green, "car3", 0)
+car3 = Car(streets3, data, red, "car3", 2)
 
-car4 = Car(tmp4, data, cyan, "car4", 0)
+car4 = Car(streets4, data, blue, "car4", 3)
 
 
 cars = []
@@ -157,7 +216,7 @@ screen.blit(text, textRect)
 
 # thread for counting time - to handle traffic lights
 
-rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
+#rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
 
 
@@ -184,21 +243,21 @@ try:
                     tick = max(tick - 5, 3)
 
         car1.move(screen, points)
-        print(points[962].get_taken())
+        #print(points[962].get_taken())
         #print(car1.get_curr_p().get_index(),car1.get_current_street())
         #print(car.get_curr_p().get_index())
 
-        #car2.move(screen, points)
+        car2.move(screen, points)
         #print(car2.get_curr_street_l().get_index())
         #print(car2.get_curr_p().get_index())
 
-        #car3.move(screen, points)
+        car3.move(screen, points)
         #print(car3.get_curr_p().get_index())
 
-        #car4.move(screen, points)
+        car4.move(screen, points)
 
-        for car in cars:
-            car.move(screen, points)
+        #for car in cars:
+        #    car.move(screen, points)
             #print(car.get_curr_p().get_index())
 
         pygame.display.update()
@@ -206,7 +265,8 @@ try:
         pass
 
 finally:
-    rt.stop()
+    pass
+ #   rt.stop()
 
 
 

@@ -181,8 +181,7 @@ class Car:
 
         currIndex = self.__currP.get_index()
         nextIndex = currIndex
-        j = 0
-        for i in range(0, self.get_v() + 1):
+        for i in range(1, self.get_v() + 1):
 
 
                 if(points[nextIndex].get_cords() == self.curr_street_l.get_cords()):
@@ -190,17 +189,13 @@ class Car:
                     index = self.get_street_names().index(self.get_current_street())
                     nextPoint = dict[(index+1)%len(self.get_street_names())]['coordinates'][0]
                     nextIndex = nextPoint.get_index()
-                    j = 1
                 else:
-                    nextIndex = nextIndex + j
-                    j = 1
+                    nextIndex = nextIndex + 1
 
                 if points[nextIndex].get_taken():
-                    self.set_v(min(self.get_v(), i))
+                    self.set_v(min(self.get_v(), i - 1))
                     self.set_v_change(1)
-                    if points[nextIndex].get_lights() == "red":
-                        print("au")
-                        self.set_v(-1)
+
 
     def accel_random(self):
 
@@ -406,12 +401,9 @@ class Car:
 
             track = self.get_track()
 
-            pygame.draw.circle(screen, self.__color, self.get_curr_p().get_cords(), 3)
-            pygame.draw.circle(screen, (255, 255, 255), self.get_prev_p().get_cords(), 3)
-
             # ustawianie czy zajety czy nie
-            points[self.get_curr_p().get_index()].set_taken(1)
-            points[self.get_prev_p().get_index()].set_taken(0)
+            points[self.get_next_p().get_index()].set_taken(1)
+            points[self.get_curr_p().get_index()].set_taken(0)
 
             self.set_prev_p(self.get_curr_p())
             self.set_curr_p(self.get_next_p())
@@ -443,5 +435,6 @@ class Car:
                  self.set_next_p(firstRoadDict['coordinates'][0])
 
 
-
+            pygame.draw.circle(screen, self.__color, self.get_next_p().get_cords(), 3)
+            pygame.draw.circle(screen, (255, 255, 255), self.get_curr_p().get_cords(), 3)
 

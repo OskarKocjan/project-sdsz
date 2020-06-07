@@ -2,7 +2,7 @@ from threading import Timer
 import pygame
 
 class RepeatedTimer(object):
-    def __init__(self, interval, function, *args, **kwargs):
+    def __init__(self, interval, function, *args, **kwargs,):
         self._timer = None
         self.interval = interval
         self.function = function
@@ -10,6 +10,8 @@ class RepeatedTimer(object):
         self.kwargs = kwargs
         self.is_running = False
         self.start()
+
+
 
     def _run(self):
         self.is_running = False
@@ -54,6 +56,7 @@ def start_traffic_lights(points, screen):
     global seconds_filharmonia, seconds_idziego, seconds_poczta, seconds_slowackiego
     global flag_filharmonia, flag_idziego, flag_poczta, flag_slowackiego
 
+
     seconds_filharmonia += 1
     seconds_idziego += 1
     seconds_poczta += 1
@@ -78,7 +81,13 @@ def start_traffic_lights(points, screen):
     pygame.draw.line(screen, grey, (830+10, 700+1), (828, 680))
     pygame.draw.line(screen, grey, (885+1, 610+55-15), (865, 665))
     pygame.draw.line(screen, grey, (810+20, 575+54), (838, 647))
-    pygame.draw.line(screen, grey, (750+29, 650+1), (812, 657)) #(750, 650, 30, 55)
+    pygame.draw.line(screen, grey, (750+29, 650+1), (812, 657))
+
+    # lines for slowackiego
+    pygame.draw.line(screen, grey, (1551, 844 + 20), (1530, 845))
+    pygame.draw.line(screen, grey, (1480+29, 844 - 1), (1520, 842))
+    pygame.draw.line(screen, grey, (1480+30, 750 + 55), (1480+30+5, 750+70))
+    pygame.draw.line(screen, grey, (1571, 780+25), (1545, 830)) #(1570, 780, 30, 55)
 
 
     # filharmonia lights
@@ -113,29 +122,29 @@ def start_traffic_lights(points, screen):
     # idziego lights
     if flag_idziego:
         pygame.draw.rect(screen, (46, 49, 49), (85, 380, 30, 55))
-        pygame.draw.circle(screen, grey, (100, 420), 10, 0)
-        pygame.draw.circle(screen, green, (100, 395), 10, 0)
-
-        pygame.draw.rect(screen, (46, 49, 49), (150, 440, 30, 55))
-        pygame.draw.circle(screen, red, (165, 480), 10, 0)
-        pygame.draw.circle(screen, grey, (165, 455), 10, 0)
-
-        pygame.draw.rect(screen, (46, 49, 49), (30, 470, 30, 55))
-        pygame.draw.circle(screen, grey, (30 + 15, 470 + 15), 10, 0)
-        pygame.draw.circle(screen, red, (30 + 15, 470 + 40), 10, 0)
-
-    else:
-        pygame.draw.rect(screen, (46, 49, 49), (85, 380, 30, 55))
-        pygame.draw.circle(screen, red, (100, 420), 10, 0)
+        pygame.draw.circle(screen, green, (100, 420), 10, 0)
         pygame.draw.circle(screen, grey, (100, 395), 10, 0)
 
         pygame.draw.rect(screen, (46, 49, 49), (150, 440, 30, 55))
+        pygame.draw.circle(screen, red, (165, 455), 10, 0)
         pygame.draw.circle(screen, grey, (165, 480), 10, 0)
-        pygame.draw.circle(screen, green, (165, 455), 10, 0)
 
         pygame.draw.rect(screen, (46, 49, 49), (30, 470, 30, 55))
-        pygame.draw.circle(screen, green, (30 + 15, 470 + 15), 10, 0)
-        pygame.draw.circle(screen,  grey, (30 + 15, 470 + 40), 10, 0)
+        pygame.draw.circle(screen, red, (30 + 15, 470 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (30 + 15, 470 + 40), 10, 0)
+
+    else:
+        pygame.draw.rect(screen, (46, 49, 49), (85, 380, 30, 55))
+        pygame.draw.circle(screen, grey, (100, 420), 10, 0)
+        pygame.draw.circle(screen, red, (100, 395), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (150, 440, 30, 55))
+        pygame.draw.circle(screen, grey, (165, 455), 10, 0)
+        pygame.draw.circle(screen, green, (165, 480), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (30, 470, 30, 55))
+        pygame.draw.circle(screen, grey, (30 + 15, 470 + 15), 10, 0)
+        pygame.draw.circle(screen, green, (30 + 15, 470 + 40), 10, 0)
 
 
 
@@ -143,23 +152,6 @@ def start_traffic_lights(points, screen):
 
     # poczta lights
     if flag_poczta:
-        pygame.draw.rect(screen, (46, 49, 49), (830, 700, 30, 55))
-        pygame.draw.circle(screen, green, (830+15, 700+15), 10, 0)
-        pygame.draw.circle(screen, grey, (830+15, 700+40), 10, 0)
-
-        pygame.draw.rect(screen, (46, 49, 49), (885, 610, 30, 55))
-        pygame.draw.circle(screen, grey, (885+15, 610+15), 10, 0)
-        pygame.draw.circle(screen, red, (885+15, 610+40), 10, 0)
-
-        pygame.draw.rect(screen, (46, 49, 49), (810, 575, 30, 55))
-        pygame.draw.circle(screen, green, (810+15, 575+15), 10, 0)
-        pygame.draw.circle(screen, grey, (810+15, 575+40), 10, 0)
-
-        pygame.draw.rect(screen, (46, 49, 49), (750, 650, 30, 55))
-        pygame.draw.circle(screen, grey, (750+15, 650+15), 10, 0)
-        pygame.draw.circle(screen, red, (750+15, 650+40), 10, 0)
-
-    else:
         pygame.draw.rect(screen, (46, 49, 49), (830, 700, 30, 55))
         pygame.draw.circle(screen, grey, (830 + 15, 700 + 15), 10, 0)
         pygame.draw.circle(screen, red, (830 + 15, 700 + 40), 10, 0)
@@ -177,16 +169,58 @@ def start_traffic_lights(points, screen):
         pygame.draw.circle(screen, grey, (750 + 15, 650 + 40), 10, 0)
 
 
-    # # slowackiego lights
-    # if flag_idziego:
-    #     pygame.draw.rect(screen, (46, 49, 49), (85, 380, 30, 55))
-    #     pygame.draw.circle(screen, (255, 0, 0), (100, 420), 10, 0)
-    #     pygame.draw.circle(screen, grey, (100, 395), 10, 0)
-    # else:
-    #     pygame.draw.rect(screen, (46, 49, 49), (85, 380, 30, 55))
-    #     pygame.draw.circle(screen, grey, (100, 420), 10, 0)
-    #     pygame.draw.circle(screen, (0, 255, 0), (100, 395), 10, 0)
+    else:
+        pygame.draw.rect(screen, (46, 49, 49), (830, 700, 30, 55))
+        pygame.draw.circle(screen, green, (830 + 15, 700 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (830 + 15, 700 + 40), 10, 0)
 
+        pygame.draw.rect(screen, (46, 49, 49), (885, 610, 30, 55))
+        pygame.draw.circle(screen, grey, (885 + 15, 610 + 15), 10, 0)
+        pygame.draw.circle(screen, red, (885 + 15, 610 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (810, 575, 30, 55))
+        pygame.draw.circle(screen, green, (810 + 15, 575 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (810 + 15, 575 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (750, 650, 30, 55))
+        pygame.draw.circle(screen, grey, (750 + 15, 650 + 15), 10, 0)
+        pygame.draw.circle(screen, red, (750 + 15, 650 + 40), 10, 0)
+
+
+    # slowackiego lights
+    if flag_slowackiego:
+        pygame.draw.rect(screen, (46, 49, 49), (1550, 844, 30, 55))
+        pygame.draw.circle(screen, grey, (1550 + 15, 844 + 15), 10, 0)
+        pygame.draw.circle(screen, red, (1550 + 15, 844 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (1480, 844, 30, 55))
+        pygame.draw.circle(screen, green, (1480 + 15, 844 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (1480 + 15, 844 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (1480, 750, 30, 55))
+        pygame.draw.circle(screen, grey, (1480 + 15, 750 + 15), 10, 0)
+        pygame.draw.circle(screen, red, (1480 + 15, 750 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (1570, 780, 30, 55))
+        pygame.draw.circle(screen, green, (1570 + 15, 780 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (1570 + 15, 780 + 40), 10, 0)
+
+    else:
+        pygame.draw.rect(screen, (46, 49, 49), (1550, 844, 30, 55))
+        pygame.draw.circle(screen, green, (1550 + 15, 844 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (1550 + 15, 844 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (1480, 844, 30, 55))
+        pygame.draw.circle(screen, grey, (1480 + 15, 844 + 15), 10, 0)
+        pygame.draw.circle(screen, red, (1480 + 15, 844 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (1480, 750, 30, 55))
+        pygame.draw.circle(screen, green, (1480 + 15, 750 + 15), 10, 0)
+        pygame.draw.circle(screen, grey, (1480 + 15, 750 + 40), 10, 0)
+
+        pygame.draw.rect(screen, (46, 49, 49), (1570, 780, 30, 55))
+        pygame.draw.circle(screen, grey, (1570 + 15, 780 + 15), 10, 0)
+        pygame.draw.circle(screen, red, (1570 + 15, 780 + 40), 10, 0)
 
 
 
@@ -198,6 +232,9 @@ def start_traffic_lights(points, screen):
 
     if seconds_filharmonia == 1:
         flag_filharmonia = swap(flag_filharmonia)
+        points[104].set_lights("red")
+        points[1393].set_lights("green")
+        points[1399].set_lights("green")
 
     elif seconds_filharmonia == 2:
         points[104].set_taken(1)
@@ -206,6 +243,9 @@ def start_traffic_lights(points, screen):
 
     elif seconds_filharmonia == 9:
         flag_filharmonia = swap(flag_filharmonia)
+        points[104].set_lights("green")
+        points[1393].set_lights("red")
+        points[1399].set_lights("red")
 
     elif seconds_filharmonia == 10:
         points[104].set_taken(0)
@@ -245,8 +285,8 @@ def start_traffic_lights(points, screen):
 
 
     # poczta
-    # 1457 - gert-wester-prosto
-    # 1482 - wester-gert-prosto
+    # 376 - gert-wester-prosto
+    # 962 - wester-gert-prosto
     # 1539 - sienna-staro-prosto
     # 1509 - staro-sienna-prosot
 
@@ -254,8 +294,12 @@ def start_traffic_lights(points, screen):
         flag_poczta = swap(flag_poczta)
 
     elif seconds_poczta == 2:
-        points[1457].set_taken(1)
-        points[1482].set_taken(1)
+        points[376].set_lights("red")
+        points[962].set_lights("red")
+        points[1539].set_lights("green")
+        points[1509].set_lights("green")
+        points[376].set_taken(1)
+        points[962].set_taken(1)
         points[1539].set_taken(0)
         points[1509].set_taken(0)
 
@@ -263,8 +307,12 @@ def start_traffic_lights(points, screen):
         flag_poczta = swap(flag_poczta)
 
     elif seconds_poczta == 8:
-        points[1457].set_taken(0)
-        points[1482].set_taken(0)
+        points[376].set_lights("green")
+        points[962].set_lights("green")
+        points[1539].set_lights("red")
+        points[1509].set_lights("red")
+        points[376].set_taken(0)
+        points[962].set_taken(0)
         points[1539].set_taken(1)
         points[1509].set_taken(1)
         seconds_poczta = -10
@@ -281,14 +329,17 @@ def start_traffic_lights(points, screen):
 
     if seconds_slowackiego == 1:
         flag_slowackiego = swap(flag_slowackiego)
+
+    elif seconds_slowackiego == 2:
         points[1578].set_taken(1)
         points[1608].set_taken(1)
         points[1565].set_taken(0)
         points[1631].set_taken(0)
 
+    elif seconds_slowackiego == 7:
+        flag_slowackiego = swap(flag_slowackiego)
 
     elif seconds_slowackiego == 8:
-        flag_slowackiego = swap(flag_slowackiego)
         points[1578].set_taken(0)
         points[1608].set_taken(0)
         points[1565].set_taken(1)
@@ -296,7 +347,8 @@ def start_traffic_lights(points, screen):
 
         seconds_slowackiego = -8
 
-    print(seconds_poczta)
+
+
 
 
 

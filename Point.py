@@ -6,9 +6,16 @@ class Point:
         self.__color = color
         self.__taken = taken
         self.__index = index
+        self.__light = None
 
     def __str__(self):
         return '('+str(self.__x)+', '+str(self.__y)+')'
+
+    def set_lights(self, light):
+        self.__light = light
+
+    def get_lights(self):
+        return self.__light
 
     def set_color(self, color):
         self.__color = color

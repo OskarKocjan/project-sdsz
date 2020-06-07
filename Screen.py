@@ -11,6 +11,8 @@ def initialize_points(points):
         pygame.draw.circle(screen, white, points[i].get_cords(), 3)
 
 
+
+
 resolution = (1800,900)
 red = (255, 0, 0)
 white = (255, 255, 255)
@@ -67,7 +69,6 @@ streets = [
 ]
 
 
-
 # dookoła obwodnicy start od:  'filharmonia-gertrudy-ccw'
 streets1 = [
             "bagatela-filharmonia-ccw",
@@ -86,25 +87,38 @@ streets1 = [
 
 
 # roads for tests
-tmp = ["filharmonia-gertrudy-ccw","idziego-gertrudy-skret","gertrudy-poczta-ccw"]
-tmp2 = ["pawia-westerplatte-prosto"]#,"gertrudy-poczta-ccw",]
-tmp3 = ["basztowa-cw","basztowa-lubicz-prosto"]#, "gertrudy-poczta-ccw",]
-tmp4 = ["lubicz-basztowa-prosto"]#, "gertrudy-poczta-ccw",]
+tmp = ["gertrudy-poczta-ccw","gertrudy-staro-skret"]#"gertrudy-westerplatte-prosto","westerplatte-right-ccw"]
+tmp2 = ["basztowa-cw","basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
+tmp5 = ["sienna-staro-prosto"]
+tmp6 = ["staro-sienna-prosto"]
+
+
+
+tmp3 = ["gertrudy-poczta-ccw","gertrudy-sienna-skret"]
+tmp4 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw", "westerplatte-gertrudy-prosto", "gertrudy-poczta-cw"] #"westerplatte-sienna-skret"
+
 
 
 # initialize cars
-car = Car(tmp, data, red, "car", 0)
+car1 = Car(tmp2, data, blue, "car", 0)
 
-car2 = Car(tmp2, data, blue, "car2", 0)
+car2 = Car(tmp5, data, red, "car2", 0)
 
-car3 = Car(tmp3, data, green, "car3", 0)
+car3 = Car(tmp6, data, green, "car3", 0)
 
 car4 = Car(tmp4, data, cyan, "car4", 0)
 
 
 cars = []
-for i in range(50):
-    car = Car(streets[randrange(len(streets))], data, red, "car"+str(i), randrange(3))
+for i in range(20):
+
+    car = Car(tmp, data, red, "car" + str(i), 0)
+    # if(i%2==0):
+    # #car = Car(streets[randrange(len(streets))], data, red, "car"+str(i), randrange(3))
+    #     car = Car(tmp, data, blue, "car"+str(i), 0)
+    # else:
+    #     car = Car(tmp2, data, red, "car" + str(i), 0)
+
     cars.append(car)
 
 # initialize
@@ -142,9 +156,14 @@ screen.blit(text, textRect)
 
 
 # thread for counting time - to handle traffic lights
-rt = RepeatedTimer(1.0, start_traffic_lights, points, screen)
+
+rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
 
+
+ulice = ["westerplatte-staro-skret","gertrudy-sienna-skret"]
+points[962].set_taken(1)
+# pygame.draw.circle(screen, red, points[955].get_cords(), 3)
 
 try:
 
@@ -164,18 +183,25 @@ try:
                 elif event.key == pygame.K_LEFT:
                     tick = max(tick - 5, 3)
 
-        car.move(screen, points)
+        car1.move(screen, points)
+        print(points[962].get_taken())
+        #print(car1.get_curr_p().get_index(),car1.get_current_street())
+        #print(car.get_curr_p().get_index())
 
-        car2.move(screen, points)
+        #car2.move(screen, points)
+        #print(car2.get_curr_street_l().get_index())
+        #print(car2.get_curr_p().get_index())
 
-        car3.move(screen, points)
+        #car3.move(screen, points)
+        #print(car3.get_curr_p().get_index())
 
-        car4.move(screen, points)
+        #car4.move(screen, points)
 
-        #for car in cars:
-        #    car.move(screen, points)
+        for car in cars:
+            car.move(screen, points)
+            #print(car.get_curr_p().get_index())
 
-        #pygame.display.update()
+        pygame.display.update()
 
         pass
 

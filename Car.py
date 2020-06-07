@@ -9,6 +9,7 @@ class Car:
 
     def __init__(self, streets, data, color, name, v=1, a=0, v_changed=0):
         self.__currentStreet = streets[0]
+        self.__data = data
         self.__track = self.set_track(streets, data)
         self.__a = a
         self.__v = v
@@ -62,6 +63,8 @@ class Car:
         return track
 
 
+    def get_data(self):
+        return  self.__data
 
     def set_curr_street_p(self,prev):
         self.curr_street_p = prev
@@ -171,6 +174,8 @@ class Car:
         self.__currentStreet = street
 
 
+
+
     # funkcja sprawdzająca czy punkty przed nim sa zajete, jesli tak -> zwolnij
     def check_points_in_front(self, points):
 
@@ -193,8 +198,9 @@ class Car:
                 if points[nextIndex].get_taken():
                     self.set_v(min(self.get_v(), i))
                     self.set_v_change(1)
-                    if(i == 0):
-                        self.change_line(points)
+                    if points[nextIndex].get_lights() == "red":
+                        print("au")
+                        self.set_v(-1)
 
     def accel_random(self):
 
@@ -272,11 +278,6 @@ class Car:
 
 
 
-
-
-
-
-
     def opposite_rl(self):
         check = self.get_current_street()
         split = check.split('-')
@@ -296,10 +297,90 @@ class Car:
 
         return text, index_number
 
+    def check_if_taken(self, streets, points):
+        data = self.get_data()
+        points_to_check = []
+        for road in data:
+            if road['name'] in streets:
+
+                if road['name'] == "westerplatte-right-cw" or road['name'] == "westerplatte-left-cw":
+                    length = len(road['coordinates'])
+                    for i in range(length-1-1, length-28, -1):
+                        points_to_check.append(road['coordinates'][i])
+
+                if road['name'] == "gertrudy-poczta-ccw":
+                    length = len(road['coordinates'])
+                    for i in range(length-1-1, length-23, -1):
+                        points_to_check.append(road['coordinates'][i])
+
+                else:
+                    for pkt in road['coordinates']:
+                        points_to_check.append(pkt)
+
+
+                for pkt in points_to_check:
+                    if pkt.get_taken():
+
+                        if self.get_current_street() == "gertrudy-poczta-ccw":
+                            points[376].set_taken(1)
+                            break
+
+                        if self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
+                            points[962].set_taken(1)
+                            break
+
+                    else:
+
+                        if self.get_current_street() == "gertrudy-poczta-ccw":
+                            if points[376].get_lights() == "green":
+                                points[376].set_taken(0)
+                            else:
+                                pass
+
+                        if self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
+                            if points[962].get_lights() == "green":
+                                points[962].set_taken(0)
+                            else:
+                                pass
+
+
+
+    def check_right_hand_rule(self, points):
+
+        possible_ways = ["gertrudy-poczta-ccw","westerplatte-left-cw","westerplatte-right-cw"]
+        #print(self.get_curr_p().get_index(), self.get_curr_street_l().get_index(),self.get_current_street())
+        streets = []
+
+        if self.get_curr_p().get_index() == self.get_curr_street_l().get_index()-1 and self.get_current_street() in possible_ways:
+            index = self.get_street_names().index(self.get_current_street())
+
+            if self.get_current_street() == "gertrudy-poczta-ccw":
+
+                if self.get_street_names()[index + 1] == "gertrudy-sienna-skret":
+
+                    tmp = ["westerplatte-sienna-skret", "westerplatte-right-cw", "westerplatte-left-cw" ]
+                    streets = tmp
+
+            elif self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
+
+                if self.get_street_names()[index + 1] == "westerplatte-staro-skret":
+                    tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
+                    streets = tmp
+
+
+        self.check_if_taken(streets, points)
+
+
+
+
 
     def move(self, screen, points):
 
+
+
         self.get_street_points()
+
+        self.check_right_hand_rule(points)
 
         self.check_points_in_front(points)
 
@@ -309,6 +390,10 @@ class Car:
             self.accel_random()
         else:
             self.set_v_change(0)
+
+
+
+
 
 
 

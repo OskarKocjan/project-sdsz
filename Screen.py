@@ -156,8 +156,8 @@ class Screen:
                         elif event.key == pygame.K_LEFT:
                             tick = max(tick - 5, 3)
 
-                #for car in self.cars:
-                #    car.move(screen, points)
+                for car in self.cars:
+                    car.move(screen, points)
                     # print(car.get_curr_p().get_index())
 
                 car1.move(screen, points)
@@ -195,7 +195,7 @@ over = set_overtake_track(over_streets, data)
 
 # roads for tests
 tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
-tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
+tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-right-cw","westerplatte-staro-skret" ]
 
 streets = [tmp, tmp2]
 

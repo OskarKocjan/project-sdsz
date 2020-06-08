@@ -26,9 +26,9 @@ class Screen:
         for i in range(70):
             if (i % 2 == 0):
 
-                car = Car(tmp, data, self.colors["blue"], "car" + str(i), self.over, 0)
+                car = Car(self.streets[0], data, self.colors["blue"], "car" + str(i), self.over, 0)
             else:
-                car = Car(tmp2, data, self.colors["red"], "car" + str(i), self.over, 0)
+                car = Car(self.streets[1], data, self.colors["red"], "car" + str(i), self.over, 0)
             cars.append(car)
         return cars
 
@@ -156,14 +156,14 @@ class Screen:
                         elif event.key == pygame.K_LEFT:
                             tick = max(tick - 5, 3)
 
-                #for car in self.cars:
-                #    car.move(screen, points)
-                    # print(car.get_curr_p().get_index())
+                for car in self.cars:
+                    car.move(screen, points)
+                    print(car.get_curr_p().get_index())
 
-                car1.move(screen, points)
-                car2.move(screen, points)
-                car3.move(screen, points)
-                car4.move(screen, points)
+                # car1.move(screen, points)
+                # car2.move(screen, points)
+                # car3.move(screen, points)
+                # car4.move(screen, points)
 
                 pygame.display.update()
 
@@ -219,8 +219,7 @@ over = set_overtake_track(over_streets, data)
 
 # roads for tests
 tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
-tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
-
+tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-right-cw","westerplatte-staro-skret" ]
 streets = [tmp, tmp2]
 
 s = Screen(data, points, streets, resolution, colors, over)

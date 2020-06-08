@@ -336,6 +336,7 @@ class Car:
 
                         if self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
                             points[963].set_taken(1)
+                            points[848].set_taken(1)
                             break
 
                     else:
@@ -347,8 +348,9 @@ class Car:
                                 pass
 
                         if self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
-                            if points[963].get_lights() == "green":
+                            if points[963].get_lights() == "green" or points[848].get_lights() == "green":
                                 points[963].set_taken(0)
+                                points[848].set_taken(0)
                             else:
                                 pass
 
@@ -382,15 +384,12 @@ class Car:
 
 
 
-
-
     def move(self, screen, points):
-
 
 
         self.get_street_points()
 
-        #self.check_right_hand_rule(points)
+        self.check_right_hand_rule(points)
 
         self.check_points_in_front(points)
 

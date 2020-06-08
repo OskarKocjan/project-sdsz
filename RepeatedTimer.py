@@ -258,21 +258,30 @@ def start_traffic_lights(points, screen):
 
     # idziego
     # 1446 - bernard
-    # 1454 - stradom-gert-skret
-    # 1429 - bernard-gert-prosto
-    # 1435 - gert-stradom-skret
+    # 1455 - stradom
+    # 501 - gertrudy
+    # 253 - podzamcze
 
     if seconds_idziego == 1:
         flag_idziego = swap(flag_idziego)
 
     elif seconds_idziego == 2:
         points[1446].set_taken(0)
+        points[501].set_taken(0)
+        points[1455].set_taken(1)
+        points[253].set_taken(1)
+
 
     elif seconds_idziego == 9:
         flag_idziego = swap(flag_idziego)
 
     elif seconds_idziego == 10:
         points[1446].set_taken(1)
+        points[501].set_taken(1)
+        points[1455].set_taken(0)
+        points[253].set_taken(0)
+
+
         seconds_idziego = -8
 
 
@@ -280,22 +289,30 @@ def start_traffic_lights(points, screen):
 
 
     # poczta
-    # 376 - gert-wester-prosto
-    # 963 - wester-gert-prosto
-    # 1539 - sienna-staro-prosto
-    # 1509 - staro-sienna-prosot
+    # 376 - gert
+    # 963 - wester-left
+    # 1539 - sienna
+    # 1509 - staro
+
+    # 377 - gert
+    # 963 - wester-left
+    # 848 - wester-right
+    # 1539 - sienna
+    # 1509 - staro
 
     if seconds_poczta == 1:
         flag_poczta = swap(flag_poczta)
 
     elif seconds_poczta == 2:
-        points[376].set_lights("red")
+        points[377].set_lights("red")
         points[963].set_lights("red")
+        points[848].set_lights("red")
         points[1539].set_lights("green")
         points[1509].set_lights("green")
 
-        points[376].set_taken(1)
+        points[377].set_taken(1)
         points[963].set_taken(1)
+        points[848].set_taken(1)
         points[1539].set_taken(0)
         points[1509].set_taken(0)
 
@@ -303,13 +320,15 @@ def start_traffic_lights(points, screen):
         flag_poczta = swap(flag_poczta)
 
     elif seconds_poczta == 8:
-        points[376].set_lights("green")
+        points[377].set_lights("green")
         points[963].set_lights("green")
+        points[848].set_lights("green")
         points[1539].set_lights("red")
         points[1509].set_lights("red")
 
-        points[376].set_taken(0)
+        points[377].set_taken(0)
         points[963].set_taken(0)
+        points[848].set_taken(0)
         points[1539].set_taken(1)
         points[1509].set_taken(1)
         seconds_poczta = -10

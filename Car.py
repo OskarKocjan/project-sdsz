@@ -49,7 +49,7 @@ class Car:
     def set_track_from_track(self, track):
         self.__track = track
 
-<<<<<<< HEAD
+
     def set_overtake_track(self, streets, data):
         track = []
 
@@ -66,8 +66,6 @@ class Car:
 
     def set_color(self, color):
         self.__color = color
-=======
->>>>>>> 7ac4c6f3bd40b5ecae9597a99688a65841811d0d
 
     def get_data(self):
         return  self.__data

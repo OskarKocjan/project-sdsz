@@ -33,6 +33,81 @@ class Screen:
         return cars
 
     def start(self):
+
+        streets1 = [
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+        ]
+
+        streets2 = [
+
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+        ]
+
+        streets3 = [
+
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+        ]
+
+        streets4 = [
+
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+        ]
+
+        car1 = Car(streets1, data, self.colors['blue'], "car", over, 0)
+
+        car2 = Car(streets2, data, self.colors['red'], "car2", over, 1)
+
+        car3 = Car(streets3, data, self.colors['blue'], "car3", over, 2)
+
+        car4 = Car(streets4, data, self.colors['red'], "car4", over, 3)
+
+
+
+
         # initialize
         pygame.init()
 
@@ -81,9 +156,14 @@ class Screen:
                         elif event.key == pygame.K_LEFT:
                             tick = max(tick - 5, 3)
 
-                for car in self.cars:
-                    car.move(screen, points)
+                #for car in self.cars:
+                #    car.move(screen, points)
                     # print(car.get_curr_p().get_index())
+
+                car1.move(screen, points)
+                car2.move(screen, points)
+                car3.move(screen, points)
+                car4.move(screen, points)
 
                 pygame.display.update()
 

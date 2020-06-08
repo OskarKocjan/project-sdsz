@@ -7,13 +7,15 @@ from RepeatedTimer import RepeatedTimer, start_traffic_lights
 
 
 class Screen:
-    def __init__(self, data, points, streets, resolution, colors):
+    def __init__(self, data, points, streets, resolution, colors, over):
         self.data = data
         self.points = points
         self.resolution = resolution
         self.streets = streets
         self.colors = colors
+        self.over = over
         self.cars = self.initialize_cars()
+
 
     def initialize_points(self, screen):
         for i in range(len(points)):
@@ -24,9 +26,9 @@ class Screen:
         for i in range(70):
             if (i % 2 == 0):
 
-                car = Car(tmp, data, self.colors["blue"], "car" + str(i), 0)
+                car = Car(tmp, data, self.colors["blue"], "car" + str(i), self.over, 0)
             else:
-                car = Car(tmp2, data, self.colors["red"], "car" + str(i), 0)
+                car = Car(tmp2, data, self.colors["red"], "car" + str(i), self.over, 0)
             cars.append(car)
         return cars
 
@@ -106,13 +108,18 @@ colors = {
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
 
+over_streets = ['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte-right-cw',
+                'westerplatte-left-cw']
+over = set_overtake_track(over_streets, data)
+
+
 # roads for tests
 tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
 tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
 
 streets = [tmp, tmp2]
 
-s = Screen(data, points, streets, resolution, colors)
+s = Screen(data, points, streets, resolution, colors, over)
 s.start()
 
 

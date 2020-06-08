@@ -16,6 +16,7 @@ class Car:
         self.__color = color
         self.get_first_three_and_last()
         self.name = name
+        self.rem_current_street = streets[0]
         self.__v_max = v + 1
         self.__v_changed = v_changed
         self.__street_names = streets
@@ -179,8 +180,8 @@ class Car:
     # funkcja sprawdzająca czy punkty przed nim sa zajete, jesli tak -> zwolnij
     def check_points_in_front(self, points):
 
-        currIndex = self.__currP.get_index()
-        nextIndex = currIndex
+        nextIndex = self.__currP.get_index()
+
         for i in range(1, self.get_v() + 1):
 
 
@@ -408,6 +409,8 @@ class Car:
             self.set_prev_p(self.get_curr_p())
             self.set_curr_p(self.get_next_p())
 
+            self.set_current_street(self.rem_current_street)
+
             changeLine = 0
 
             for dictionaries in track:
@@ -424,17 +427,17 @@ class Car:
 
                 elif(changeLine == 1):
                     self.set_next_p(dictionaries['coordinates'][0])
-                    self.set_current_street(dictionaries['name'])
+                    self.rem_current_street = dictionaries['name']
                     break
 
 
             lastRoadList = self.get_track()[len(self.get_track())-1]['coordinates']
             if(self.get_curr_p().get_cords() == lastRoadList[len(lastRoadList)-1].get_cords()):
                  firstRoadDict = self.__track[0]
-                 self.set_current_street(firstRoadDict['name'])
+                 self.rem_current_street = firstRoadDict['name']
                  self.set_next_p(firstRoadDict['coordinates'][0])
 
 
-            pygame.draw.circle(screen, self.__color, self.get_next_p().get_cords(), 3)
-            pygame.draw.circle(screen, (255, 255, 255), self.get_curr_p().get_cords(), 3)
+            pygame.draw.circle(screen, self.__color, self.get_curr_p().get_cords(), 3)
+            pygame.draw.circle(screen, (255, 255, 255), self.get_prev_p().get_cords(), 3)
 

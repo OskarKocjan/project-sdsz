@@ -171,12 +171,12 @@ car4 = Car(streets4, data, blue, "car4", 3)
 cars = []
 for i in range(20):
 
-    car = Car(tmp, data, red, "car" + str(i), 0)
-    # if(i%2==0):
+    #car = Car(tmp, data, red, "car" + str(i), 0)
+    if(i%2==0):
     # #car = Car(streets[randrange(len(streets))], data, red, "car"+str(i), randrange(3))
-    #     car = Car(tmp, data, blue, "car"+str(i), 0)
-    # else:
-    #     car = Car(tmp2, data, red, "car" + str(i), 0)
+         car = Car(tmp, data, blue, "car"+str(i), 0)
+    else:
+        car = Car(tmp2, data, red, "car" + str(i), 0)
 
     cars.append(car)
 
@@ -216,7 +216,7 @@ screen.blit(text, textRect)
 
 # thread for counting time - to handle traffic lights
 
-#rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
+rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
 
 
@@ -242,22 +242,22 @@ try:
                 elif event.key == pygame.K_LEFT:
                     tick = max(tick - 5, 3)
 
-        car1.move(screen, points)
+        #car1.move(screen, points)
         #print(points[962].get_taken())
         #print(car1.get_curr_p().get_index(),car1.get_current_street())
         #print(car.get_curr_p().get_index())
 
-        car2.move(screen, points)
+        #car2.move(screen, points)
         #print(car2.get_curr_street_l().get_index())
         #print(car2.get_curr_p().get_index())
 
-        car3.move(screen, points)
+        #car3.move(screen, points)
         #print(car3.get_curr_p().get_index())
 
-        car4.move(screen, points)
+        #car4.move(screen, points)
 
-        #for car in cars:
-        #    car.move(screen, points)
+        for car in cars:
+            car.move(screen, points)
             #print(car.get_curr_p().get_index())
 
         pygame.display.update()
@@ -265,8 +265,8 @@ try:
         pass
 
 finally:
-    pass
- #   rt.stop()
+
+    rt.stop()
 
 
 

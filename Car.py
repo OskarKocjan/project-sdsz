@@ -4,7 +4,6 @@ import pygame
 from random import randint
 
 
-
 class Car:
 
     def __init__(self, streets, data, color, name, v=1, a=0, v_changed=0):

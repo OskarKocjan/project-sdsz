@@ -206,6 +206,10 @@ class Car:
                         self.change_line(points)
                     break
 
+        split = deepcopy(self.get_current_street().split('-'))
+        if(split[1] == 'left' and self.get_v_change() == 0):
+            self.change_line(points)
+            self.set_v_change(1)
 
 
     def accel_random(self):
@@ -218,7 +222,7 @@ class Car:
             self.set_v(max(self.get_v() - 1, 0))
 
 
-    def check_if_line_free(self , points):
+    def check_if_line_free(self, points):
         procent_go = 90
         oposite, indexes = self.opposite_rl()
         list1 = indexes[0]
@@ -237,12 +241,17 @@ class Car:
             if(points[giga_index - j].get_taken()):
                 procent_go = 20
                 rem_j = j
+                
+        for k in range(0, self.get_vmax()):
+            if(points[giga_index + k].get_taken()):
+                procent_go = 0
+                rem_j = 0
 
         return procent_go, oposite, rem_j, giga_index, list1
 
     def change_line(self, points):
         split = deepcopy(self.get_current_street().split('-'))
-        if(split[1] == 'right'):
+        if(split[1] == 'right' or split[1] == 'left'):
             procent_go, street, can_go, index, overtake_index = self.check_if_line_free(points)
             if(can_go):
                 overtake = deepcopy(self.get_overtake_track())

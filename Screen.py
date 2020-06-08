@@ -1,8 +1,8 @@
 import pygame
-import time
-from Car import Car
 from fetchPointsFromFile import *
+from Car import Car
 from InterfaceStuff import pause
+import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 
 
@@ -23,17 +23,90 @@ class Screen:
 
     def initialize_cars(self):
         cars = []
-
-        for i in range(2):
+        for i in range(70):
             if (i % 2 == 0):
 
-                car = Car(self.streets[0], data, self.colors["blue"], "car" + str(i), self.over, 0)
+                car = Car(tmp, data, self.colors["blue"], "car" + str(i), self.over, 0)
             else:
-                car = Car(self.streets[1], data, self.colors["red"], "car" + str(i), self.over, 0)
+                car = Car(tmp2, data, self.colors["red"], "car" + str(i), self.over, 0)
             cars.append(car)
         return cars
 
     def start(self):
+
+        streets1 = [
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+        ]
+
+        streets2 = [
+
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+        ]
+
+        streets3 = [
+
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+        ]
+
+        streets4 = [
+
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+        ]
+
+        car1 = Car(streets1, data, self.colors['blue'], "car", over, 0)
+
+        car2 = Car(streets2, data, self.colors['red'], "car2", over, 1)
+
+        car3 = Car(streets3, data, self.colors['blue'], "car3", over, 2)
+
+        car4 = Car(streets4, data, self.colors['red'], "car4", over, 3)
+
+
+
 
         # initialize
         pygame.init()
@@ -83,10 +156,14 @@ class Screen:
                         elif event.key == pygame.K_LEFT:
                             tick = max(tick - 5, 3)
 
+                #for car in self.cars:
+                #    car.move(screen, points)
+                    # print(car.get_curr_p().get_index())
 
-                for car in self.cars:
-                    car.move(screen, points)
-                    print(car.get_color(),car.get_curr_p().get_index(), car.get_curr_street_l().get_index())
+                car1.move(screen, points)
+                car2.move(screen, points)
+                car3.move(screen, points)
+                car4.move(screen, points)
 
                 pygame.display.update()
 
@@ -140,12 +217,11 @@ over_streets = ['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte
 over = set_overtake_track(over_streets, data)
 
 
-# # roads for tests overtaking
-# tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
-tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-right-cw", "westerplatte-staro-skret" ]
+# roads for tests
+tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
+tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
 
-
-streets = [tmp3, tmp4]
+streets = [tmp, tmp2]
 
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()

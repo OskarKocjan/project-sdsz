@@ -119,7 +119,6 @@ def change_points_from_float_to_int(file):
         points[i].set_y(round(((points[i].get_y() * (ky + ry)) - 1343150) * 10))
 
 
-
     xmin = points[0].get_x()
     ymin = points[0].get_y()
 
@@ -167,7 +166,15 @@ def change_points_from_float_to_int(file):
 
     return data, points
 
+def set_overtake_track(streets, data):
+    track = []
 
+    for street in streets:
+        for road in data:
+            if (road['name'] == street):
+                track.append(road['coordinates'])
+
+    return track
 
 
 

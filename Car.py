@@ -1,10 +1,10 @@
 import pygame
 from random import randint
-
+from copy import deepcopy, copy
 
 class Car:
 
-    def __init__(self, streets, data, color, name, v=1, a=0, v_changed=0):
+    def __init__(self, streets, data, color, name, over, v=1, a=0, v_changed=0):
         self.__currentStreet = streets[0]
         self.__data = data
         self.__track = self.set_track(streets, data)
@@ -17,7 +17,7 @@ class Car:
         self.__v_max = v + 1
         self.__v_changed = v_changed
         self.__street_names = streets
-        self.__overtake_track = self.set_overtake_track(['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte-right-cw', 'westerplatte-left-cw' ], data)
+        self.__overtake_track = over
 
 
     def get_first_three_and_last(self):
@@ -49,6 +49,7 @@ class Car:
     def set_track_from_track(self, track):
         self.__track = track
 
+<<<<<<< HEAD
     def set_overtake_track(self, streets, data):
         track = []
 
@@ -65,6 +66,8 @@ class Car:
 
     def set_color(self, color):
         self.__color = color
+=======
+>>>>>>> 7ac4c6f3bd40b5ecae9597a99688a65841811d0d
 
     def get_data(self):
         return  self.__data
@@ -165,6 +168,9 @@ class Car:
     def get_street_names(self):
         return self.__street_names
 
+    def get_color(self):
+        return self.__color
+
     def get_current_street_coords(self):
         for road in self.__track:
             if(road['name'] == self.get_current_street()):
@@ -198,6 +204,10 @@ class Car:
                 if points[nextIndex].get_taken():
                     self.set_v(min(self.get_v(), i - 1))
                     self.set_v_change(1)
+                    if(i == 1):
+                        self.change_line(points)
+                    break
+
 
 
     def accel_random(self):
@@ -216,15 +226,14 @@ class Car:
         list1 = indexes[0]
         list2 = indexes[1]
         rem_j = 1
-        global_index = self.get_next_p().get_index()
+        global_index = deepcopy(self.get_curr_p().get_index())
 
         for i in range(len(self.get_overtake_track()[list2])):
-            print(global_index, ' ', self.get_overtake_track()[list2][i].get_index())
+            print(global_index, ' ', self.get_overtake_track()[list2][i].get_index(), ' ', self.name, ' ', self.get_color(), list2)
             if(global_index == self.get_overtake_track()[list2][i].get_index()):
-                great_index = i
                 break
 
-        giga_index = self.get_overtake_track()[list1][great_index].get_index()
+        giga_index = self.get_overtake_track()[list1][i].get_index()
 
         for j in range(0, self.get_vmax()):
             if(points[giga_index - j].get_taken()):
@@ -234,23 +243,21 @@ class Car:
         return procent_go, oposite, rem_j, giga_index, list1
 
     def change_line(self, points):
-        split = self.get_current_street().split('-')
-        if(split[1] == 'left' or split[1] == 'right'):
+        split = deepcopy(self.get_current_street().split('-'))
+        if(split[1] == 'right'):
             procent_go, street, can_go, index, overtake_index = self.check_if_line_free(points)
             if(can_go):
-                overtake = self.get_overtake_track()
+                overtake = deepcopy(self.get_overtake_track())
                 procent = randint(0,100)
                 if(procent < procent_go):
-                    curr_street = self.get_current_street()
-                    track = self.get_track()
-                    street_names = self.get_street_names()
-                    print(curr_street)
-                    print(street)
+                    self.set_v(self.get_vmax())
+                    curr_street = deepcopy(self.get_current_street())
+                    track = deepcopy(self.get_track())
+                    street_names = deepcopy(self.get_street_names())
 
 
-                    self.set_prev_p(points[index - 1])
-                    self.set_curr_p(points[index])
-                    self.set_next_p(points[index + 1])
+
+                    self.set_next_p(points[index])
 
                     print(str(self.get_curr_p()))
                     print(str(self.get_next_p()))
@@ -260,16 +267,13 @@ class Car:
                     self.set_street_names(street_names)
 
                     self.set_current_street(street)
-
+                    self.rem_current_street = street
                     for item in track:
                         if (item['name'] == curr_street):
                             item['name'] = street
                             for i in range(len(item['coordinates'])):
                                 item['coordinates'][i] = overtake[overtake_index][i]
-                            self.set_curr_street_l(item["coordinates"][len(item['coordinates']) - 1])
-                            self.set_curr_street_p(item["coordinates"][0])
-                            self.set_curr_street_c(item["coordinates"][1])
-                            self.set_curr_street_n(item["coordinates"][2])
+
                             break
 
                     self.set_track_from_track(track)
@@ -277,7 +281,7 @@ class Car:
 
 
     def opposite_rl(self):
-        check = self.get_current_street()
+        check = deepcopy(self.get_current_street())
         split = check.split('-')
         if(split[1] == 'left'):
             text = split[0] + '-' + 'right' + '-' + split[2]

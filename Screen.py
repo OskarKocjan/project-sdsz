@@ -7,13 +7,15 @@ from RepeatedTimer import RepeatedTimer, start_traffic_lights
 
 
 class Screen:
-    def __init__(self, data, points, streets, resolution, colors):
+    def __init__(self, data, points, streets, resolution, colors, over):
         self.data = data
         self.points = points
         self.resolution = resolution
         self.streets = streets
         self.colors = colors
+        self.over = over
         self.cars = self.initialize_cars()
+
 
     def initialize_points(self, screen):
         for i in range(len(points)):
@@ -21,11 +23,20 @@ class Screen:
 
     def initialize_cars(self):
         cars = []
+<<<<<<< HEAD
         for i in range(2):
             if i % 2 == 0:
                 car = Car(self.streets[1], data, self.colors["blue"], "car" + str(i), 0)
             else:
                 car = Car(self.streets[0], data, self.colors["red"], "car" + str(i), 0)
+=======
+        for i in range(70):
+            if (i % 2 == 0):
+
+                car = Car(tmp, data, self.colors["blue"], "car" + str(i), self.over, 0)
+            else:
+                car = Car(tmp2, data, self.colors["red"], "car" + str(i), self.over, 0)
+>>>>>>> 7ac4c6f3bd40b5ecae9597a99688a65841811d0d
             cars.append(car)
         return cars
 
@@ -105,6 +116,7 @@ colors = {
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
 
+<<<<<<< HEAD
 # FILHARMONIA
 # tmp1 = ["bagatela-filharmonia-ccw",  "strasz-franc-skret"]
 # tmp2 = ["franc-strasz-skret", "filharmonia-gertrudy-ccw"]
@@ -128,10 +140,20 @@ tmp4 = ["stradom-gert-skret", "gertrudy-poczta-ccw" ]
 # tmp2 = [ "basztowa-cw","basztowa-westerplatte-skret", "westerplatte-right-cw" ]
 # tmp3 = ["pawia-westerplatte-prosto" , "westerplatte-right-cw"]
 # tmp4 = ["lubicz-basztowa-prosto" , "basztowa-ccw"]
+=======
+over_streets = ['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte-right-cw',
+                'westerplatte-left-cw']
+over = set_overtake_track(over_streets, data)
+
+
+# roads for tests
+tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
+tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
+>>>>>>> 7ac4c6f3bd40b5ecae9597a99688a65841811d0d
 
 streets = [tmp3, tmp4]
 
-s = Screen(data, points, streets, resolution, colors)
+s = Screen(data, points, streets, resolution, colors, over)
 s.start()
 
 

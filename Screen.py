@@ -1,8 +1,8 @@
 import pygame
-from fetchPointsFromFile import *
-from Car import Car
-from InterfaceStuff import pause
 import time
+from Car import Car
+from fetchPointsFromFile import *
+from InterfaceStuff import pause
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 
 
@@ -21,12 +21,11 @@ class Screen:
 
     def initialize_cars(self):
         cars = []
-        for i in range(70):
-            if (i % 2 == 0):
-
-                car = Car(tmp, data, self.colors["blue"], "car" + str(i), 0)
+        for i in range(2):
+            if i % 2 == 0:
+                car = Car(self.streets[1], data, self.colors["blue"], "car" + str(i), 0)
             else:
-                car = Car(tmp2, data, self.colors["red"], "car" + str(i), 0)
+                car = Car(self.streets[0], data, self.colors["red"], "car" + str(i), 0)
             cars.append(car)
         return cars
 
@@ -81,7 +80,7 @@ class Screen:
 
                 for car in self.cars:
                     car.move(screen, points)
-                    # print(car.get_curr_p().get_index())
+                    print(car.get_color(), car.get_curr_p().get_index(), car.get_curr_street_l().get_index())
 
                 pygame.display.update()
 
@@ -106,11 +105,31 @@ colors = {
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
 
-# roads for tests
-tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
-tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
+# FILHARMONIA
+# tmp1 = ["bagatela-filharmonia-ccw",  "strasz-franc-skret"]
+# tmp2 = ["franc-strasz-skret", "filharmonia-gertrudy-ccw"]
+# tmp3 = ["zwierzyniecka-strasz-skret", "filharmonia-gertrudy-ccw"]
 
-streets = [tmp, tmp2]
+
+# # IDZIEGO
+tmp1 = ["filharmonia-gertrudy-ccw", "idziego-gertrudy-skret"] # "idziego-stradom-prosto"
+tmp2 = ["gertrudy-poczta-cw", "gertrudy-stradom-skret" ]
+tmp3 = ["bernard-stradom-skret"]
+tmp4 = ["stradom-gert-skret", "gertrudy-poczta-ccw" ]
+
+# # POCZTA
+# tmp1 = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
+# tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw","westerplatte-staro-skret" ]
+# tmp3 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw","westerplatte-staro-skret" ]
+# tmp4 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw","westerplatte-staro-skret" ]
+
+# SLOWACKIEGO
+# tmp1 = ["westerplatte-left-ccw","westerplatte-basztowa-skret", "basztowa-ccw" ]
+# tmp2 = [ "basztowa-cw","basztowa-westerplatte-skret", "westerplatte-right-cw" ]
+# tmp3 = ["pawia-westerplatte-prosto" , "westerplatte-right-cw"]
+# tmp4 = ["lubicz-basztowa-prosto" , "basztowa-ccw"]
+
+streets = [tmp3, tmp4]
 
 s = Screen(data, points, streets, resolution, colors)
 s.start()

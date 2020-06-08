@@ -60,6 +60,11 @@ class Car:
 
         return track
 
+    def get_color(self):
+        return self.__color
+
+    def set_color(self, color):
+        self.__color = color
 
     def get_data(self):
         return  self.__data
@@ -359,7 +364,7 @@ class Car:
                 if self.get_street_names()[index + 1] == "westerplatte-staro-skret":
                     tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
                     streets = tmp
-                    
+
 
 
         self.check_if_taken(streets, points)
@@ -374,7 +379,7 @@ class Car:
 
         self.get_street_points()
 
-        self.check_right_hand_rule(points)
+        #self.check_right_hand_rule(points)
 
         self.check_points_in_front(points)
 

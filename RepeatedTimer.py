@@ -257,7 +257,7 @@ def start_traffic_lights(points, screen):
 
 
     # idziego
-    # 1410 - idziego-gert-skret i idziego-gert-prosto
+    # 1446 - bernard
     # 1454 - stradom-gert-skret
     # 1429 - bernard-gert-prosto
     # 1435 - gert-stradom-skret
@@ -266,19 +266,13 @@ def start_traffic_lights(points, screen):
         flag_idziego = swap(flag_idziego)
 
     elif seconds_idziego == 2:
-        points[1410].set_taken(1)
-        points[1454].set_taken(1)
-        points[1429].set_taken(0)
-        points[1435].set_taken(0)
+        points[1446].set_taken(0)
 
     elif seconds_idziego == 9:
         flag_idziego = swap(flag_idziego)
 
     elif seconds_idziego == 10:
-        points[1410].set_taken(0)
-        points[1454].set_taken(0)
-        points[1429].set_taken(1)
-        points[1435].set_taken(1)
+        points[1446].set_taken(1)
         seconds_idziego = -8
 
 
@@ -325,27 +319,35 @@ def start_traffic_lights(points, screen):
 
 
     # slowackiego
-    # 1578 - wester-ccw
-    # 1608 - pawia-right
-    # 1565 - basztowa-lubicz
-    # 1631 - lubicz-basztowa
+    # 733 - wester-ccw-left
+    # 617 - wester-ccw-right
+
+    # 1131 - basztowa
+    # 1608 - pawia
+    # 1631 - lubicz
+
 
     if seconds_slowackiego == 1:
         flag_slowackiego = swap(flag_slowackiego)
 
     elif seconds_slowackiego == 2:
-        points[1578].set_taken(1)
+        points[733].set_taken(1)
+        points[617].set_taken(1)
         points[1608].set_taken(1)
-        points[1565].set_taken(0)
+
+        points[1131].set_taken(0)
         points[1631].set_taken(0)
+
 
     elif seconds_slowackiego == 7:
         flag_slowackiego = swap(flag_slowackiego)
 
     elif seconds_slowackiego == 8:
-        points[1578].set_taken(0)
+        points[733].set_taken(0)
+        points[617].set_taken(0)
         points[1608].set_taken(0)
-        points[1565].set_taken(1)
+
+        points[1131].set_taken(1)
         points[1631].set_taken(1)
 
         seconds_slowackiego = -8

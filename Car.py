@@ -266,8 +266,6 @@ class Car:
 
                     self.set_next_p(points[index])
 
-                    print(str(self.get_curr_p()))
-                    print(str(self.get_next_p()))
 
                     change_index = street_names.index(curr_street)
                     street_names[change_index] = street
@@ -275,6 +273,9 @@ class Car:
 
                     self.set_current_street(street)
                     self.rem_current_street = street
+
+
+
                     for item in track:
                         if (item['name'] == curr_street):
                             item['name'] = street

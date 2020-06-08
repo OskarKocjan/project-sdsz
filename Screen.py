@@ -4,6 +4,7 @@ from Car import Car
 from InterfaceStuff import pause
 import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
+from random import randint
 
 
 class Screen:
@@ -26,9 +27,9 @@ class Screen:
         for i in range(70):
             if (i % 2 == 0):
 
-                car = Car(self.streets[0], data, self.colors["blue"], "car" + str(i), self.over, 0)
+                car = Car(self.streets[0], data, self.colors["blue"], "car" + str(i), self.over, randint(0,2))
             else:
-                car = Car(self.streets[1], data, self.colors["red"], "car" + str(i), self.over, 0)
+                car = Car(self.streets[1], data, self.colors["red"], "car" + str(i), self.over, randint(0,2))
             cars.append(car)
         return cars
 

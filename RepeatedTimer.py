@@ -286,7 +286,7 @@ def start_traffic_lights(points, screen):
 
     # poczta
     # 376 - gert-wester-prosto
-    # 962 - wester-gert-prosto
+    # 963 - wester-gert-prosto
     # 1539 - sienna-staro-prosto
     # 1509 - staro-sienna-prosot
 
@@ -295,11 +295,12 @@ def start_traffic_lights(points, screen):
 
     elif seconds_poczta == 2:
         points[376].set_lights("red")
-        points[962].set_lights("red")
+        points[963].set_lights("red")
         points[1539].set_lights("green")
         points[1509].set_lights("green")
+
         points[376].set_taken(1)
-        points[962].set_taken(1)
+        points[963].set_taken(1)
         points[1539].set_taken(0)
         points[1509].set_taken(0)
 
@@ -308,11 +309,12 @@ def start_traffic_lights(points, screen):
 
     elif seconds_poczta == 8:
         points[376].set_lights("green")
-        points[962].set_lights("green")
+        points[963].set_lights("green")
         points[1539].set_lights("red")
         points[1509].set_lights("red")
+
         points[376].set_taken(0)
-        points[962].set_taken(0)
+        points[963].set_taken(0)
         points[1539].set_taken(1)
         points[1509].set_taken(1)
         seconds_poczta = -10

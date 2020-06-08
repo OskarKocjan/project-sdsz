@@ -301,12 +301,12 @@ class Car:
 
                 if road['name'] == "westerplatte-right-cw" or road['name'] == "westerplatte-left-cw":
                     length = len(road['coordinates'])
-                    for i in range(length-1-1, length-28, -1):
+                    for i in range(length-1, length-28, -1):
                         points_to_check.append(road['coordinates'][i])
 
                 if road['name'] == "gertrudy-poczta-ccw":
                     length = len(road['coordinates'])
-                    for i in range(length-1-1, length-23, -1):
+                    for i in range(length-1, length-23, -1):
                         points_to_check.append(road['coordinates'][i])
 
                 else:
@@ -318,24 +318,24 @@ class Car:
                     if pkt.get_taken():
 
                         if self.get_current_street() == "gertrudy-poczta-ccw":
-                            points[376].set_taken(1)
+                            points[377].set_taken(1)
                             break
 
                         if self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
-                            points[962].set_taken(1)
+                            points[963].set_taken(1)
                             break
 
                     else:
 
                         if self.get_current_street() == "gertrudy-poczta-ccw":
-                            if points[376].get_lights() == "green":
-                                points[376].set_taken(0)
+                            if points[377].get_lights() == "green":
+                                points[377].set_taken(0)
                             else:
                                 pass
 
                         if self.get_current_street() == "westerplatte-left-cw" or self.get_current_street() == "westerplatte-right-cw":
-                            if points[962].get_lights() == "green":
-                                points[962].set_taken(0)
+                            if points[963].get_lights() == "green":
+                                points[963].set_taken(0)
                             else:
                                 pass
 
@@ -343,7 +343,7 @@ class Car:
 
     def check_right_hand_rule(self, points):
 
-        possible_ways = ["gertrudy-poczta-ccw","westerplatte-left-cw","westerplatte-right-cw"]
+        possible_ways = ["gertrudy-poczta-ccw", "westerplatte-left-cw", "westerplatte-right-cw"]
         #print(self.get_curr_p().get_index(), self.get_curr_street_l().get_index(),self.get_current_street())
         streets = []
 
@@ -362,6 +362,7 @@ class Car:
                 if self.get_street_names()[index + 1] == "westerplatte-staro-skret":
                     tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
                     streets = tmp
+                    print("check")
 
 
         self.check_if_taken(streets, points)
@@ -404,7 +405,8 @@ class Car:
 
             # ustawianie czy zajety czy nie
             points[self.get_next_p().get_index()].set_taken(1)
-            points[self.get_curr_p().get_index()].set_taken(0)
+            if points[self.get_curr_p().get_index()].get_lights() == "green" or points[self.get_curr_p().get_index()].get_lights() == None:
+                points[self.get_curr_p().get_index()].set_taken(0)
 
             self.set_prev_p(self.get_curr_p())
             self.set_curr_p(self.get_next_p())

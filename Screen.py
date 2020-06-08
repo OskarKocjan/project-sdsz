@@ -86,65 +86,6 @@ streets1 = [
            ]
 
 
-streets2 = [
-
-           "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-           "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-           "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-           "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-           "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-           ]
-
-
-
-
-
-
-streets3 = [
-
-            "idziego-gertrudy-skret",
-           "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-           "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-           "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-           "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-           "strasz-strasz-prosto",
-           "filharmonia-gertrudy-ccw",
-           ]
-
-
-
-
-streets4 = [
-
-            "gertrudy-westerplatte-prosto",
-           "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-           "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-           "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-           "strasz-strasz-prosto",
-           "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-           "gertrudy-poczta-ccw",
-           ]
-
-
-
-
 # roads for tests
 tmp = ["gertrudy-poczta-ccw","gertrudy-staro-skret"]#"gertrudy-westerplatte-prosto","westerplatte-right-ccw"]
 tmp2 = ["basztowa-cw","basztowa-westerplatte-skret","westerplatte-left-cw","westerplatte-staro-skret" ]
@@ -159,17 +100,17 @@ tmp4 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw", "w
 
 
 # initialize cars
-car1 = Car(streets1, data, red, "car", 0)
-
-car2 = Car(streets2, data, blue, "car2", 1)
-
-car3 = Car(streets3, data, red, "car3", 2)
-
-car4 = Car(streets4, data, blue, "car4", 3)
+#car1 = Car(tmp2, data, blue, "car", 0)
+#
+# car2 = Car(streets2, data, blue, "car2", 1)
+#
+# car3 = Car(streets3, data, red, "car3", 2)
+#
+# car4 = Car(streets4, data, blue, "car4", 3)
 
 
 cars = []
-for i in range(20):
+for i in range(70):
 
     #car = Car(tmp, data, red, "car" + str(i), 0)
     if(i%2==0):
@@ -221,7 +162,7 @@ rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
 
 ulice = ["westerplatte-staro-skret","gertrudy-sienna-skret"]
-points[962].set_taken(1)
+#points[962].set_taken(1)
 # pygame.draw.circle(screen, red, points[955].get_cords(), 3)
 
 try:
@@ -265,7 +206,6 @@ try:
         pass
 
 finally:
-
     rt.stop()
 
 

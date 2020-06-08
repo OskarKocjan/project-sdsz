@@ -1,6 +1,7 @@
 from threading import Timer
 import pygame
 
+
 class RepeatedTimer(object):
     def __init__(self, interval, function, *args, **kwargs,):
         self._timer = None
@@ -49,6 +50,7 @@ flag_poczta = 1
 # slowackiego
 seconds_slowackiego = 0
 flag_slowackiego = 1
+
 
 def start_traffic_lights(points, screen):
 

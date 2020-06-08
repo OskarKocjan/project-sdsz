@@ -1,5 +1,3 @@
-from Point import Point
-from time import sleep
 import pygame
 from random import randint
 
@@ -361,7 +359,7 @@ class Car:
                 if self.get_street_names()[index + 1] == "westerplatte-staro-skret":
                     tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
                     streets = tmp
-                    print("check")
+                    
 
 
         self.check_if_taken(streets, points)

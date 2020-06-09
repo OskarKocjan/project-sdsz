@@ -1,7 +1,7 @@
 import pygame
 from fetchPointsFromFile import *
 from Car import Car
-from InterfaceStuff import pause
+from InterfaceStuff import *
 import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
@@ -39,68 +39,7 @@ class Screen:
 
     def start(self):
 
-        streets1 = [
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-        ]
 
-        streets2 = [
-
-            "strasz-strasz-prosto",
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-        ]
-
-        streets3 = [
-
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-        ]
-
-        streets4 = [
-
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-        ]
 
         car1 = Car(streets1, data, self.colors['blue'], "car", over, 0)
 
@@ -135,11 +74,7 @@ class Screen:
         self.initialize_points(screen)
 
         # pause message
-        font = pygame.font.Font('freesansbold.ttf', 32)
-        text = font.render('To Pause press P To Continue press C', True, self.colors["green"])
-        text_rect = text.get_rect()
-        text_rect.center = (resolution[0] // 2, resolution[1] // 2)
-        screen.blit(text, text_rect)
+        pause_message(screen, self.resolution, self.colors)
 
         # thread for counting time - to handle traffic lights
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
@@ -155,6 +90,7 @@ class Screen:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
+                        break
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_p:
                             pause(clockobject)
@@ -176,6 +112,7 @@ class Screen:
 
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1
+                show_statistics(screen, self.colors)
                 pygame.display.update()
 
                 pass

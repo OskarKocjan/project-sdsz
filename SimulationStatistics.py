@@ -55,19 +55,21 @@ def making_file_statistic():
     data['avg_vmax'] = []
     data['iteration'] = []
     data['diffrence_v_vmax'] = []
+    data['number_of_cars'] = []
 
     with open('data.json', 'w') as outfile:
         json.dump(data, outfile)
 
 
 
-def append_data(avg_v, avg_vmax, diffrence_v_vmax, i):
+def append_data(avg_v, avg_vmax, diffrence_v_vmax, i, number_cars):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         data['avg_v'].append(avg_v)
         data['avg_vmax'].append(avg_vmax)
         data['iteration'].append(i)
         data['diffrence_v_vmax'].append(diffrence_v_vmax)
+        data['number_of_cars'].append(number_cars)
         
     with open('data.json', 'w') as outfile:
         json.dump(data, outfile)
@@ -78,7 +80,7 @@ def append_data(avg_v, avg_vmax, diffrence_v_vmax, i):
 def add_stats(cars, i):
 
     avg_v, avg_vmax, diffrence_v_vmax = average_v(cars)
-    append_data(avg_v, avg_vmax, diffrence_v_vmax, i)
+    append_data(avg_v, avg_vmax, diffrence_v_vmax, i, len(cars))
 
 
 

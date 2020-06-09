@@ -21,6 +21,7 @@ class Car:
         self.ustap = 1
 
 
+
     def get_first_three_and_last(self):
         for item in self.__track:
             if (item['name'] == self.__currentStreet):
@@ -65,6 +66,11 @@ class Car:
 
     def set_color(self, color):
         self.__color = color
+
+
+    def set_color_from_v(self, v):
+        if(v == 0):
+            pass
 
     def get_data(self):
         return  self.__data

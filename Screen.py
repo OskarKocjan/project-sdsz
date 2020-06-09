@@ -8,6 +8,8 @@ from random import randint
 from SimulationStatistics import add_stats, making_file_statistic, run_stats
 import matplotlib.pyplot as plt
 import threading
+from Streets import streets
+import sys
 
 
 class Screen:
@@ -18,8 +20,9 @@ class Screen:
         self.streets = streets
         self.colors = colors
         self.over = over
-        self.cars = self.initialize_cars()
+        self.cars = []
         self.iteration = 0
+        self.initialize_cars()
 
 
     def initialize_points(self, screen):
@@ -27,18 +30,15 @@ class Screen:
             pygame.draw.circle(screen, self.colors["white"], self.points[i].get_cords(), 3)
 
     def initialize_cars(self):
-        cars = []
-        for i in range(20):
-            if (i % 11 == 0):
+        for i in range(100):
+            car = Car(self.streets[randint(0, len(self.streets)-1)], data, self.colors["red"], "car"+str(i), self.over, randint(0, 2))
+            self.cars.append(car)
 
-                car = Car(self.streets[0], data, self.colors["blue"], "car" + str(i), self.over, 0)
-
-            else:
-
-                car = Car(self.streets[1], data, self.colors["red"], "car" + str(i), self.over, 0)
-
-            cars.append(car)
-        return cars
+    def check_if_reached_end(self):
+        for i in range(len(self.cars)):
+            if self.cars[i].track_end:
+                del self.cars[i]
+                break
 
     def start(self):
 
@@ -57,7 +57,7 @@ class Screen:
 
         # time delay
         clockobject = pygame.time.Clock()
-        tick = 15
+        tick = 10
 
         # background color
         screen.fill(self.colors["black"])
@@ -66,20 +66,22 @@ class Screen:
         self.initialize_points(screen)
 
         # pause and velocity message
-        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h']
+        text = ['Press P to pause or  C to continue', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h', "Number of vehicles:"]
         message(screen, (self.resolution[0] // 2, self.resolution[1] // 2), self.colors, text[0])
         message(screen, (100, 50), self.colors, text[1])
         message(screen, (410, 50), self.colors, text[5])
         message(screen, (145, 100), self.colors, text[2])
         message(screen, (410, 100), self.colors, text[5])
-        message(screen, (200, 700), self.colors, text[3])
-        message(screen, (90, 800), self.colors, text[4])
+        message(screen, (190, 700), self.colors, text[3])
+        message(screen, (85, 800), self.colors, text[4])
+        message(screen, (165, 880), self.colors, text[6])
 
         # thread for counting time - to handle traffic lights
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            #thread.start()
+            thread.start()
+
 
             # Main Loop
             time.sleep(1)
@@ -100,9 +102,13 @@ class Screen:
                 for car in self.cars:
                     car.move(screen, points)
 
+                self.check_if_reached_end()
+                print("Current num of vehicles: ", len(self.cars))
+
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1
                 show_statistics(screen, self.colors)
+
                 pygame.display.update()
 
                 pass
@@ -126,12 +132,6 @@ colors = {
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
 over = set_overtake_track(data)
-
-# roads for tests
-tmp = ["dluga-basztowa-cw-skret", "basztowa-cw"]
-tmp2 = ["basztowa-dunaj-cw","basztowa-cw-basztowa-prosto", "basztowa-cw"]
-
-streets = [tmp, tmp2]
 
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()

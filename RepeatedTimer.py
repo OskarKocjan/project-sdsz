@@ -2,7 +2,6 @@ from threading import Timer
 import pygame
 import threading
 
-
 class RepeatedTimer(object):
     def __init__(self, interval, function, *args, **kwargs,):
         self._timer = None

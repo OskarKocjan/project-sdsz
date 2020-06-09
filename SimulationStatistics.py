@@ -28,7 +28,7 @@ def average_v(cars):
     return avg_v, avg_vmax, diffrence_procent
 
 
-def animate(i):
+def animate(i, ax1):
 
     xs = []
     ys1 = []
@@ -39,8 +39,8 @@ def animate(i):
         ys1 = data['avg_v']
         ys2 = data['avg_vmax']
         xs = data['iteration']
-    #ax1.clear()
-    #ax1.plot(xs, ys1)
+    ax1.clear()
+    ax1.plot(xs, ys1)
 
 
 def making_file_statistic():
@@ -80,7 +80,7 @@ def add_stats(cars, i):
 #style.use('fivethirtyeight')
 #fig = plt.figure()
 #ax1 = fig.add_subplot(1, 1, 1)
-#ani = animation.FuncAnimation(fig, animate, interval=1000)
+#ani = animation.FuncAnimation(fig, animate, interval=1000, fargs = (ax, ) )
 #plt.show()
 
 

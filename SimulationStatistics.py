@@ -15,7 +15,13 @@ def average_v(cars):
 
     for i in range(length):
         v = cars[i].get_v()
+        if(v == 0):
+            pass
+        else:
+            v = 30 + (v*10)
+
         vmax = cars[i].get_vmax()
+        vmax = 30 + (vmax*10)
 
         sum_v += v
         sum_vmax += vmax

@@ -66,10 +66,12 @@ class Screen:
         self.initialize_points(screen)
 
         # pause and velocity message
-        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ']
+        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h']
         message(screen, (self.resolution[0] // 2, self.resolution[1] // 2), self.colors, text[0])
         message(screen, (100, 50), self.colors, text[1])
+        message(screen, (410, 50), self.colors, text[5])
         message(screen, (145, 100), self.colors, text[2])
+        message(screen, (410, 100), self.colors, text[5])
         message(screen, (200, 700), self.colors, text[3])
         message(screen, (90, 800), self.colors, text[4])
 

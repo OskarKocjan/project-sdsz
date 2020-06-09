@@ -5,6 +5,8 @@ from InterfaceStuff import pause
 import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
+from SimulationStatistics import add_stats, making_file_statistic
+import matplotlib.pyplot as plt
 
 
 class Screen:
@@ -16,6 +18,7 @@ class Screen:
         self.colors = colors
         self.over = over
         self.cars = self.initialize_cars()
+        self.iteration = 0
 
 
     def initialize_points(self, screen):
@@ -35,78 +38,15 @@ class Screen:
 
     def start(self):
 
-        streets1 = [
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-        ]
-
-        streets2 = [
-
-            "strasz-strasz-prosto",
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-        ]
-
-        streets3 = [
-
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-        ]
-
-        streets4 = [
-
-            "gertrudy-poczta-ccw",
-            "gertrudy-westerplatte-prosto",
-            "westerplatte-right-ccw",
-            "westerplatte-basztowa-skret",
-            "basztowa-ccw",
-            "basztowa-ccw-basztowa-prosto",
-            "basztowa-dunaj-ccw",
-            "dunaj-podwale-prosto",
-            "bagatela-filharmonia-ccw",
-            "strasz-strasz-prosto",
-            "filharmonia-gertrudy-ccw",
-            "idziego-gertrudy-skret",
-        ]
-
-        car1 = Car(streets1, data, self.colors['blue'], "car", over, 0)
-
-        car2 = Car(streets2, data, self.colors['red'], "car2", over, 1)
-
-        car3 = Car(streets3, data, self.colors['blue'], "car3", over, 2)
-
-        car4 = Car(streets4, data, self.colors['red'], "car4", over, 3)
 
 
+        car1 = Car(self.streets[2], data, self.colors['blue'], "car", over, 0)
+
+        car2 = Car(self.streets[3], data, self.colors['red'], "car2", over, 1)
+
+        car3 = Car(self.streets[4], data, self.colors['blue'], "car3", over, 2)
+
+        car4 = Car(self.streets[5], data, self.colors['red'], "car4", over, 3)
 
 
         # initialize
@@ -122,6 +62,7 @@ class Screen:
         # time delay
         clockobject = pygame.time.Clock()
         tick = 15
+
 
         # background color
         screen.fill(self.colors["black"])
@@ -166,13 +107,13 @@ class Screen:
                 # car3.move(screen, points)
                 # car4.move(screen, points)
 
+                add_stats(self.cars, self.iteration)
+                self.iteration += 1
                 pygame.display.update()
-
                 pass
 
         finally:
             rt.stop()
-
 
 resolution = (1800, 900)
 
@@ -188,6 +129,73 @@ colors = {
 
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
+
+streets1 = [
+    "bagatela-filharmonia-ccw",
+    "strasz-strasz-prosto",
+    "filharmonia-gertrudy-ccw",
+    "idziego-gertrudy-skret",
+    "gertrudy-poczta-ccw",
+    "gertrudy-westerplatte-prosto",
+    "westerplatte-right-ccw",
+    "westerplatte-basztowa-skret",
+    "basztowa-ccw",
+    "basztowa-ccw-basztowa-prosto",
+    "basztowa-dunaj-ccw",
+    "dunaj-podwale-prosto",
+]
+
+streets2 = [
+
+    "strasz-strasz-prosto",
+    "filharmonia-gertrudy-ccw",
+    "idziego-gertrudy-skret",
+    "gertrudy-poczta-ccw",
+    "gertrudy-westerplatte-prosto",
+    "westerplatte-right-ccw",
+    "westerplatte-basztowa-skret",
+    "basztowa-ccw",
+    "basztowa-ccw-basztowa-prosto",
+    "basztowa-dunaj-ccw",
+    "dunaj-podwale-prosto",
+    "bagatela-filharmonia-ccw",
+]
+
+streets3 = [
+
+    "filharmonia-gertrudy-ccw",
+    "idziego-gertrudy-skret",
+    "gertrudy-poczta-ccw",
+    "gertrudy-westerplatte-prosto",
+    "westerplatte-right-ccw",
+    "westerplatte-basztowa-skret",
+    "basztowa-ccw",
+    "basztowa-ccw-basztowa-prosto",
+    "basztowa-dunaj-ccw",
+    "dunaj-podwale-prosto",
+    "bagatela-filharmonia-ccw",
+    "strasz-strasz-prosto",
+]
+
+streets4 = [
+
+    "gertrudy-poczta-ccw",
+    "gertrudy-westerplatte-prosto",
+    "westerplatte-right-ccw",
+    "westerplatte-basztowa-skret",
+    "basztowa-ccw",
+    "basztowa-ccw-basztowa-prosto",
+    "basztowa-dunaj-ccw",
+    "dunaj-podwale-prosto",
+    "bagatela-filharmonia-ccw",
+    "strasz-strasz-prosto",
+    "filharmonia-gertrudy-ccw",
+    "idziego-gertrudy-skret",
+]
+
+
+
+
 
 
 # # FILHARMONIA
@@ -221,7 +229,11 @@ over = set_overtake_track(over_streets, data)
 # roads for tests
 tmp = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
 tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-right-cw","westerplatte-staro-skret" ]
-streets = [tmp, tmp2]
+streets = [tmp, tmp2, streets1, streets2, streets3, streets4]
+
+#making file
+making_file_statistic()
+
 
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()

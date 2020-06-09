@@ -23,11 +23,11 @@ def pause(clock):
         clock.tick(5)
 
 
-def pause_message(screen, resolution, colors):
+def message(screen, resolution, colors, text):
     font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render('To Pause press P To Continue press C', True, colors["green"])
+    text = font.render(text, True, colors["green"])
     text_rect = text.get_rect()
-    text_rect.center = (resolution[0] // 2, resolution[1] // 2)
+    text_rect.center = resolution
     screen.blit(text, text_rect)
 
 
@@ -38,17 +38,48 @@ def show_statistics(screen, colors):
         avg_v = data['avg_v'][len(data['avg_v']) - 1]
         avg_vmax = data['avg_vmax'][len(data['avg_vmax']) - 1]
         i = data['iteration'][len(data['iteration']) - 1]
+        procent = data['diffrence_v_vmax'][len(data['diffrence_v_vmax']) - 1]
 
 
-    avg_v = round(avg_v,3)
+    avg_v = round(avg_v, 3)
     avg_vmax = round(avg_vmax, 3)
+    procent = round(procent, 3)
+
+    avg_v = str(avg_v)
+    avg_vmax = str(avg_vmax)
+    i = str(i)
+    procent = str(procent)
+
+    if(len(avg_vmax) == 3):
+        avg_vmax += '0'
+
+    if(len(avg_v) == 3):
+        avg_v += '0'
+
+    if (len(procent) == 3):
+        procent += '0'
+
+    add_length = len(i)*20
+
+
+    pygame.draw.rect(screen, colors['black'], (270, 0, 100, 120))
+    pygame.draw.rect(screen, colors['black'], (410, 680, 120, 50))
+    pygame.draw.rect(screen, colors['black'], (160, 780, 20 + add_length, 50))
 
     font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render('average speed '+str(avg_v), False, colors["green"])
+    text = font.render(avg_v, True, colors["green"])
     text_rect = text.get_rect()
-    text_rect.center = (170, 50)
-    pygame.draw.rect(screen, colors['black'], (0, 0, 450, 120))
+    text_rect.center = (320, 50)
     screen.blit(text, text_rect)
-    text = font.render('average max speed '+str(avg_vmax), False, colors["green"])
-    text_rect.center = (170, 100)
+
+    text = font.render(avg_vmax, True, colors["green"])
+    text_rect.center = (320, 100)
+    screen.blit(text, text_rect)
+
+    text = font.render(procent + '%', True, colors["green"])
+    text_rect.center = (450, 700)
+    screen.blit(text, text_rect)
+
+    text = font.render(i, True, colors["green"])
+    text_rect.center = (200, 800)
     screen.blit(text, text_rect)

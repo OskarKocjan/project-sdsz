@@ -1,7 +1,7 @@
 import pygame
 from fetchPointsFromFile import *
 from Car import Car
-from InterfaceStuff import pause
+from InterfaceStuff import *
 import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
@@ -65,18 +65,19 @@ class Screen:
         # draw road
         self.initialize_points(screen)
 
-        # pause message
-        font = pygame.font.Font('freesansbold.ttf', 32)
-        text = font.render('To Pause press P To Continue press C', True, self.colors["green"])
-        text_rect = text.get_rect()
-        text_rect.center = (resolution[0] // 2, resolution[1] // 2)
-        screen.blit(text, text_rect)
+        # pause and velocity message
+        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ']
+        message(screen, (self.resolution[0] // 2, self.resolution[1] // 2), self.colors, text[0])
+        message(screen, (100, 50), self.colors, text[1])
+        message(screen, (145, 100), self.colors, text[2])
+        message(screen, (200, 700), self.colors, text[3])
+        message(screen, (90, 800), self.colors, text[4])
 
         # thread for counting time - to handle traffic lights
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            thread.start()
+            #thread.start()
 
             # Main Loop
             time.sleep(1)
@@ -99,6 +100,7 @@ class Screen:
 
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1
+                show_statistics(screen, self.colors)
                 pygame.display.update()
 
                 pass

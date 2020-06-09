@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import threading
 
 
+
 class Screen:
     def __init__(self, data, points, streets, resolution, colors, over):
         self.data = data
@@ -18,8 +19,9 @@ class Screen:
         self.streets = streets
         self.colors = colors
         self.over = over
-        self.cars = self.initialize_cars()
+        self.cars = []
         self.iteration = 0
+        self.initialize_cars()
 
 
     def initialize_points(self, screen):
@@ -27,23 +29,20 @@ class Screen:
             pygame.draw.circle(screen, self.colors["white"], self.points[i].get_cords(), 3)
 
     def initialize_cars(self):
-        cars = []
-        for i in range(20):
-            if (i % 11 == 0):
+        for i in range(100):
+            car = Car(self.streets[randint(0, len(self.streets)-1)], data, self.colors["red"], "car"+str(i), self.over, randint(0, 2))
+            self.cars.append(car)
 
-                car = Car(self.streets[0], data, self.colors["blue"], "car" + str(i), self.over, 0)
-
-            else:
-
-                car = Car(self.streets[1], data, self.colors["red"], "car" + str(i), self.over, 0)
-
-            cars.append(car)
-        return cars
+    def check_if_reached_end(self):
+        for i in range(len(self.cars)):
+            if self.cars[i].track_end:
+                del self.cars[i]
+                break
 
     def start(self):
 
         making_file_statistic()
-        #thread = threading.Thread(target=run_stats)
+        thread = threading.Thread(target=run_stats)
 
         # initialize
         pygame.init()
@@ -57,7 +56,7 @@ class Screen:
 
         # time delay
         clockobject = pygame.time.Clock()
-        tick = 15
+        tick = 10
 
         # background color
         screen.fill(self.colors["black"])
@@ -80,7 +79,8 @@ class Screen:
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            #thread.start()
+            thread.start()
+
 
             # Main Loop
             time.sleep(1)
@@ -101,9 +101,13 @@ class Screen:
                 for car in self.cars:
                     car.move(screen, points)
 
+                self.check_if_reached_end()
+                print("Current num of vehicles: ", len(self.cars))
+
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1
                 show_statistics(screen, self.colors)
+
                 pygame.display.update()
 
                 pass

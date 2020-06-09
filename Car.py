@@ -18,7 +18,7 @@ class Car:
         self.__v_changed = v_changed
         self.__street_names = streets
         self.__overtake_track = over
-        self.ustap = 1
+        self.track_end = 0
 
 
 
@@ -642,17 +642,16 @@ class Car:
                     self.rem_current_street = dictionaries['name']
                     break
 
-
-            lastRoadList = self.get_track()[len(self.get_track())-1]['coordinates']
-            if(self.get_curr_p().get_cords() == lastRoadList[len(lastRoadList)-1].get_cords()):
-                 firstRoadDict = self.__track[0]
-                 self.rem_current_street = firstRoadDict['name']
-                 self.set_next_p(firstRoadDict['coordinates'][0])
-
-
             pygame.draw.circle(screen, self.__color, self.get_curr_p().get_cords(), 3)
             pygame.draw.circle(screen, (255, 255, 255), self.get_prev_p().get_cords(), 3)
 
-            print(self.get_color(), self.get_curr_p().get_index(), self.get_curr_street_l().get_index(),self.get_current_street())
-            #self.check_right_hand_rule(points)
+            lastRoadList = self.get_track()[len(self.get_track()) - 1]['coordinates']
+            if (self.get_curr_p().get_cords() == lastRoadList[len(lastRoadList) - 1].get_cords()):
+                points[self.get_prev_p().get_index()].set_taken(0)
+                points[self.get_curr_p().get_index()].set_taken(0)
+                points[self.get_next_p().get_index()].set_taken(0)
+                pygame.draw.circle(screen, (255, 255, 255), self.get_curr_p().get_cords(), 3)
+                self.track_end = 1
+
+
 

@@ -7,7 +7,7 @@ from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
 from SimulationStatistics import add_stats, making_file_statistic, run_stats
 import matplotlib.pyplot as plt
-from StoppableThread import thread_with_trace
+import threading
 
 
 class Screen:
@@ -42,8 +42,8 @@ class Screen:
 
     def start(self):
 
-        #making_file_statistic()
-        #thread = thread_with_trace(target=run_stats)
+        making_file_statistic()
+        thread = threading.Thread(target=run_stats)
 
         # initialize
         pygame.init()
@@ -76,7 +76,7 @@ class Screen:
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            #thread.start()
+            thread.start()
 
             # Main Loop
             time.sleep(1)
@@ -97,7 +97,7 @@ class Screen:
                 for car in self.cars:
                     car.move(screen, points)
 
-                #add_stats(self.cars, self.iteration)
+                add_stats(self.cars, self.iteration)
                 self.iteration += 1
                 pygame.display.update()
 
@@ -128,8 +128,6 @@ tmp = ["dluga-basztowa-cw-skret", "basztowa-cw"]
 tmp2 = ["basztowa-dunaj-cw","basztowa-cw-basztowa-prosto", "basztowa-cw"]
 
 streets = [tmp, tmp2]
-
-
 
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()

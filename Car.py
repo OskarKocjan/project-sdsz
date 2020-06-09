@@ -227,7 +227,6 @@ class Car:
         global_index = deepcopy(self.get_curr_p().get_index())
 
         for i in range(len(self.get_overtake_track()[list2])):
-            #print(global_index, ' ', self.get_overtake_track()[list2][i].get_index(), ' ', self.name, ' ', self.get_color(), list2)
             if(global_index == self.get_overtake_track()[list2][i].get_index()):
                 break
 
@@ -371,7 +370,17 @@ class Car:
                         points_to_check.append(road['coordinates'][i])
 
                 elif road['name'] == "dunaj-podwale-prosto":
-                    for i in range(4):
+                        for i in range(4):
+                            points_to_check.append(road['coordinates'][i])
+
+                elif road['name'] == "basztowa-ccw":
+                    length = len(road['coordinates'])
+                    for i in range(length-1, length-int(3/self.get_vmax()*3),-1):
+                        points_to_check.append(road['coordinates'][i])
+
+                elif road['name'] == "basztowa-dunaj-cw":
+                    length = len(road['coordinates'])
+                    for i in range(length-1, length-int(3/self.get_vmax()*4), -1):
                         points_to_check.append(road['coordinates'][i])
 
                 else:
@@ -383,6 +392,13 @@ class Car:
 
                     if pkt.get_taken():
 
+                        if self.get_current_street() == "dluga-basztowa-cw-skret":
+                            points[1660].set_taken(1)
+                            break
+
+                        if self.get_current_street() == "basztowa-dluga-cw-skret":
+                            points[1667].set_taken(1)
+                            break
 
                         if self.get_current_street() == "karmelicka-podwale-skret":
                             points[1355].set_taken(1)
@@ -443,13 +459,17 @@ class Car:
 
                     else:
 
+                        if self.get_current_street() == "dluga-basztowa-cw-skret":
+                            points[1660].set_taken(0)
+
+                        if self.get_current_street() == "basztowa-dluga-cw-skret":
+                            points[1667].set_taken(0)
+
                         if self.get_current_street() == "karmelicka-podwale-skret":
                             points[1355].set_taken(0)
 
-
                         if self.get_current_street() == "karmelicka-dunaj-skret":
                             points[1371].set_taken(0)
-
 
                         if self.get_current_street() == "franc-strasz-skret":
                             if points[1399].get_lights() == "green":
@@ -502,7 +522,6 @@ class Car:
     def check_right_hand_rule(self, points):
 
         possible_ways = ["gertrudy-poczta-ccw", "westerplatte-left-cw", "westerplatte-right-cw"]
-        #print(self.get_curr_p().get_index(), self.get_curr_street_l().get_index(),self.get_current_street())
         streets = []
 
         # skrety z gertrudy i z wester
@@ -547,17 +566,18 @@ class Car:
 
         # franc skret
         elif self.get_current_street() == "franc-strasz-skret" and self.get_curr_p().get_index() == 1398:
-            print("check")
             streets = ["zwierzyniecka-strasz-skret"]
 
         # karmelica wyjazd
         elif self.get_current_street() == "karmelicka-podwale-skret" and self.get_curr_p().get_index() == 1354 \
                 or self.get_current_street() == "karmelicka-dunaj-skret" and self.get_curr_p().get_index() == 1370:
-            print("check")
             streets = ["basztowa-dunaj-ccw", "dunaj-podwale-prosto"]
 
+        elif self.get_current_street() == "basztowa-dluga-cw-skret" and self.get_curr_p().get_index() == 1666:
+            streets = ["basztowa-ccw"]
 
-
+        elif self.get_current_street() == "dluga-basztowa-cw-skret" and self.get_curr_p().get_index() == 1659:
+            streets = ["basztowa-ccw", "basztowa-dunaj-cw"]
 
 
         self.check_if_taken(streets, points)
@@ -565,7 +585,6 @@ class Car:
 
 
     def move(self, screen, points):
-
 
         self.get_street_points()
 
@@ -581,14 +600,7 @@ class Car:
             self.set_v_change(0)
 
 
-
-
-
-
-
     def change_point(self, screen, points):
-
-
 
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):

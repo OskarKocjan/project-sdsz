@@ -1,13 +1,13 @@
 import pygame
 from fetchPointsFromFile import *
 from Car import Car
-from InterfaceStuff import *
+from InterfaceStuff import pause
 import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
 from SimulationStatistics import add_stats, making_file_statistic, run_stats
 import matplotlib.pyplot as plt
-
+import threading
 
 
 class Screen:
@@ -42,15 +42,8 @@ class Screen:
 
     def start(self):
 
-
-
-
-
         making_file_statistic()
-
-
-
-
+        thread = threading.Thread(target=run_stats)
 
         # initialize
         pygame.init()
@@ -73,13 +66,17 @@ class Screen:
         self.initialize_points(screen)
 
         # pause message
-        pause_message(screen, self.resolution, self.colors)
+        font = pygame.font.Font('freesansbold.ttf', 32)
+        text = font.render('To Pause press P To Continue press C', True, self.colors["green"])
+        text_rect = text.get_rect()
+        text_rect.center = (resolution[0] // 2, resolution[1] // 2)
+        screen.blit(text, text_rect)
 
         # thread for counting time - to handle traffic lights
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            #thread.start()
+            thread.start()
 
             # Main Loop
             time.sleep(1)
@@ -89,7 +86,6 @@ class Screen:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
-                        break
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_p:
                             pause(clockobject)
@@ -101,9 +97,8 @@ class Screen:
                 for car in self.cars:
                     car.move(screen, points)
 
-                #add_stats(self.cars, self.iteration)
+                add_stats(self.cars, self.iteration)
                 self.iteration += 1
-                show_statistics(screen, self.colors)
                 pygame.display.update()
 
                 pass
@@ -133,8 +128,6 @@ tmp = ["dluga-basztowa-cw-skret", "basztowa-cw"]
 tmp2 = ["basztowa-dunaj-cw","basztowa-cw-basztowa-prosto", "basztowa-cw"]
 
 streets = [tmp, tmp2]
-
-
 
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()

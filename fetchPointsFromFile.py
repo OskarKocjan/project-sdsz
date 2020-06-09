@@ -166,9 +166,9 @@ def change_points_from_float_to_int(file):
 
     return data, points
 
-def set_overtake_track(streets, data):
+def set_overtake_track(data):
     track = []
-
+    streets = ['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte-right-cw', 'westerplatte-left-cw']
     for street in streets:
         for road in data:
             if (road['name'] == street):

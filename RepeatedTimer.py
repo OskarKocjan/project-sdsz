@@ -1,5 +1,6 @@
 from threading import Timer
 import pygame
+import threading
 
 
 class RepeatedTimer(object):
@@ -78,17 +79,19 @@ def start_traffic_lights(points, screen):
     pygame.draw.line(screen, grey, (670+30-1, 40+55-1), (725, 110))
     pygame.draw.line(screen, grey, (770+1, 130+1), (743, 125))
 
+
     # lines for poczta
     pygame.draw.line(screen, grey, (830+10, 700+1), (828, 680))
     pygame.draw.line(screen, grey, (885+1, 610+55-15), (865, 665))
     pygame.draw.line(screen, grey, (810+20, 575+54), (838, 647))
     pygame.draw.line(screen, grey, (750+29, 650+1), (812, 657))
 
+
     # lines for slowackiego
     pygame.draw.line(screen, grey, (1551, 844 + 20), (1530, 845))
     pygame.draw.line(screen, grey, (1480+29, 844 - 1), (1520, 842))
     pygame.draw.line(screen, grey, (1480+30, 750 + 55), (1480+30+5, 750+70))
-    pygame.draw.line(screen, grey, (1571, 780+25), (1545, 830)) #(1570, 780, 30, 55)
+    pygame.draw.line(screen, grey, (1571, 780+25), (1545, 830))
 
 
     # filharmonia lights
@@ -257,16 +260,22 @@ def start_traffic_lights(points, screen):
 
 
     # idziego
-    # 1446 - bernard
+    # 1446, 1429prosto - bernard
     # 1455 - stradom
     # 501 - gertrudy
     # 253 - podzamcze
 
     if seconds_idziego == 1:
         flag_idziego = swap(flag_idziego)
+        points[1446].set_lights("green")
+        points[1429].set_lights("green")
+        points[501].set_lights("green")
+        points[1455].set_lights("red")
+        points[253].set_lights("red")
 
     elif seconds_idziego == 2:
         points[1446].set_taken(0)
+        points[1429].set_taken(0)
         points[501].set_taken(0)
         points[1455].set_taken(1)
         points[253].set_taken(1)
@@ -274,9 +283,15 @@ def start_traffic_lights(points, screen):
 
     elif seconds_idziego == 9:
         flag_idziego = swap(flag_idziego)
+        points[1446].set_lights("red")
+        points[1429].set_lights("red")
+        points[501].set_lights("red")
+        points[1455].set_lights("green")
+        points[253].set_lights("green")
 
     elif seconds_idziego == 10:
         points[1446].set_taken(1)
+        points[1429].set_taken(1)
         points[501].set_taken(1)
         points[1455].set_taken(0)
         points[253].set_taken(0)
@@ -289,16 +304,11 @@ def start_traffic_lights(points, screen):
 
 
     # poczta
-    # 376 - gert
-    # 963 - wester-left
-    # 1539 - sienna
-    # 1509 - staro
-
     # 377 - gert
     # 963 - wester-left
     # 848 - wester-right
-    # 1539 - sienna
-    # 1509 - staro
+    # 1539p, 1551pr, 1558l - sienna
+    # 1509p, 1528l, 1521p - staro
 
     if seconds_poczta == 1:
         flag_poczta = swap(flag_poczta)
@@ -307,14 +317,26 @@ def start_traffic_lights(points, screen):
         points[377].set_lights("red")
         points[963].set_lights("red")
         points[848].set_lights("red")
+
         points[1539].set_lights("green")
+        points[1551].set_lights("green")
+        points[1558].set_lights("green")
+
         points[1509].set_lights("green")
+        points[1528].set_lights("green")
+        points[1521].set_lights("green")
 
         points[377].set_taken(1)
         points[963].set_taken(1)
         points[848].set_taken(1)
+
         points[1539].set_taken(0)
+        points[1558].set_taken(0)
+        points[1551].set_taken(0)
+
         points[1509].set_taken(0)
+        points[1528].set_taken(0)
+        points[1521].set_taken(0)
 
     elif seconds_poczta == 7:
         flag_poczta = swap(flag_poczta)
@@ -323,18 +345,27 @@ def start_traffic_lights(points, screen):
         points[377].set_lights("green")
         points[963].set_lights("green")
         points[848].set_lights("green")
+
         points[1539].set_lights("red")
+        points[1551].set_lights("red")
+        points[1558].set_lights("red")
+
         points[1509].set_lights("red")
+        points[1528].set_lights("red")
+        points[1521].set_lights("red")
 
         points[377].set_taken(0)
         points[963].set_taken(0)
         points[848].set_taken(0)
+
         points[1539].set_taken(1)
+        points[1551].set_taken(1)
+        points[1558].set_taken(1)
+
         points[1509].set_taken(1)
+        points[1528].set_taken(1)
+        points[1521].set_taken(1)
         seconds_poczta = -10
-
-
-
 
 
     # slowackiego
@@ -343,11 +374,18 @@ def start_traffic_lights(points, screen):
 
     # 1131 - basztowa
     # 1608 - pawia
-    # 1631 - lubicz
+    # 1631, 1638l - lubicz
 
 
     if seconds_slowackiego == 1:
         flag_slowackiego = swap(flag_slowackiego)
+        points[733].set_lights("red")
+        points[617].set_lights("red")
+        points[1608].set_lights("red")
+
+        points[1131].set_lights("green")
+        points[1631].set_lights("green")
+        points[1638].set_lights("green")
 
     elif seconds_slowackiego == 2:
         points[733].set_taken(1)
@@ -356,10 +394,18 @@ def start_traffic_lights(points, screen):
 
         points[1131].set_taken(0)
         points[1631].set_taken(0)
+        points[1638].set_taken(0)
 
 
     elif seconds_slowackiego == 7:
         flag_slowackiego = swap(flag_slowackiego)
+        points[733].set_lights("green")
+        points[617].set_lights("green")
+        points[1608].set_lights("green")
+
+        points[1131].set_lights("red")
+        points[1631].set_lights("red")
+        points[1638].set_lights("red")
 
     elif seconds_slowackiego == 8:
         points[733].set_taken(0)
@@ -368,6 +414,7 @@ def start_traffic_lights(points, screen):
 
         points[1131].set_taken(1)
         points[1631].set_taken(1)
+        points[1638].set_taken(1)
 
         seconds_slowackiego = -8
 

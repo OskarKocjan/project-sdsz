@@ -5,8 +5,9 @@ from InterfaceStuff import pause
 import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
-from SimulationStatistics import add_stats, making_file_statistic
+from SimulationStatistics import add_stats, making_file_statistic, run_stats
 import matplotlib.pyplot as plt
+from StoppableThread import thread_with_trace
 
 
 class Screen:
@@ -38,15 +39,79 @@ class Screen:
 
     def start(self):
 
+        streets1 = [
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+        ]
 
+        streets2 = [
 
-        car1 = Car(self.streets[2], data, self.colors['blue'], "car", over, 0)
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+        ]
 
-        car2 = Car(self.streets[3], data, self.colors['red'], "car2", over, 1)
+        streets3 = [
 
-        car3 = Car(self.streets[4], data, self.colors['blue'], "car3", over, 2)
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+        ]
 
-        car4 = Car(self.streets[5], data, self.colors['red'], "car4", over, 3)
+        streets4 = [
+
+            "gertrudy-poczta-ccw",
+            "gertrudy-westerplatte-prosto",
+            "westerplatte-right-ccw",
+            "westerplatte-basztowa-skret",
+            "basztowa-ccw",
+            "basztowa-ccw-basztowa-prosto",
+            "basztowa-dunaj-ccw",
+            "dunaj-podwale-prosto",
+            "bagatela-filharmonia-ccw",
+            "strasz-strasz-prosto",
+            "filharmonia-gertrudy-ccw",
+            "idziego-gertrudy-skret",
+        ]
+
+        car1 = Car(streets1, data, self.colors['blue'], "car", over, 0)
+
+        car2 = Car(streets2, data, self.colors['red'], "car2", over, 1)
+
+        car3 = Car(streets3, data, self.colors['blue'], "car3", over, 2)
+
+        car4 = Car(streets4, data, self.colors['red'], "car4", over, 3)
+
+        making_file_statistic()
+        thread = thread_with_trace(target=run_stats)
 
 
         # initialize
@@ -62,7 +127,6 @@ class Screen:
         # time delay
         clockobject = pygame.time.Clock()
         tick = 15
-
 
         # background color
         screen.fill(self.colors["black"])
@@ -81,6 +145,7 @@ class Screen:
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
+            thread.start()
 
             # Main Loop
             time.sleep(1)
@@ -102,18 +167,26 @@ class Screen:
                     car.move(screen, points)
                     print(car.get_curr_p().get_index())
 
-                # car1.move(screen, points)
-                # car2.move(screen, points)
-                # car3.move(screen, points)
-                # car4.move(screen, points)
+                for pkt in self.data:
+                    if pkt['name'] == 'basztowa-ccw':
+                        for cord in pkt['coordinates']:
+                            if cord.get_taken():
+                                print("taken",cord.get_index())
+
 
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1
                 pygame.display.update()
+
                 pass
 
         finally:
+            thread.kill()
+            thread.join()
             rt.stop()
+
+
+
 
 resolution = (1800, 900)
 
@@ -124,11 +197,13 @@ colors = {
     "cyan": (0, 255, 255),
     "green": (0, 255, 0),
     "blue": (0, 0, 255),
+    "grey": (22, 22, 22)
 }
 
 
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
+over = set_overtake_track(data)
 
 streets1 = [
     "bagatela-filharmonia-ccw",
@@ -204,26 +279,29 @@ streets4 = [
 # tmp3 = ["zwierzyniecka-strasz-skret", "filharmonia-gertrudy-ccw"]
 
 
-# # IDZIEGO
-# tmp1 = ["filharmonia-gertrudy-ccw", "idziego-gertrudy-skret"] # "idziego-stradom-prosto"
-# tmp2 = ["gertrudy-poczta-cw", "gertrudy-stradom-skret" ]
-# tmp3 = ["bernard-stradom-skret"]
-# tmp4 = ["stradom-gert-skret", "gertrudy-poczta-ccw" ]
+# # IDZIEGO chyba działa wszystko
+# tmp1 = ["filharmonia-gertrudy-ccw", "idziego-gertrudy-skret","gertrudy-poczta-ccw","gertrudy-sienna-skret"] # "idziego-stradom-prosto"
+# #tmp1 = ["idziego-gertrudy-skret"] # "idziego-stradom-prosto"
+# tmp2 = ["stradom-gert-skret", "gertrudy-poczta-ccw","gertrudy-sienna-skret"]
+# tmp3 = ["bernard-gertrudy-prosto", "gertrudy-poczta-ccw","gertrudy-sienna-skret"]
+# tmp4 = ["gertrudy-poczta-cw", "gertrudy-stradom-skret" ]
 
-# POCZTA
-tmp1 = ["gertrudy-poczta-ccw", "gertrudy-staro-skret"]
-tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-right-cw", "westerplatte-staro-skret" ]
-tmp3 = ["sienna-staro-prosto"]
-tmp4 = ["staro-sienna-prosto"]
+#POCZTA jak obra w prawo to cos dupi sie
+# tmp1 = ["gertrudy-poczta-ccw", "gertrudy-sienna-skret"]
+# tmp2 = ["westerplatte-right-cw", "westerplatte-gertrudy-prosto", "gertrudy-poczta-cw" ]
+# tmp3 = ["staro-sienna-prosto"]
+# tmp4 = ["sienna-staro-prosto"]
 
-# # SLOWACKIEGO
-# tmp1 = ["westerplatte-left-ccw","westerplatte-basztowa-skret", "basztowa-ccw" ]
-# tmp2 = [ "basztowa-cw","basztowa-westerplatte-skret", "westerplatte-right-cw" ]
-# tmp3 = ["pawia-westerplatte-prosto" , "westerplatte-right-cw"]
-# tmp4 = ["lubicz-basztowa-prosto" , "basztowa-ccw"]
+# SLOWACKIEGO dziala
+# tmp1 = ["westerplatte-right-ccw", "westerplatte-basztowa-skret", "basztowa-ccw"]
+# tmp2 = [ "basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-right-cw", "westerplatte-staro-skret"]
+# tmp3 = ["pawia-westerplatte-prosto", "westerplatte-right-cw","westerplatte-staro-skret"]
+# tmp4 = ["lubicz-westerplatte-skret", "westerplatte-right-cw","westerplatte-staro-skret"]
 
-over_streets = ['westerplatte-right-ccw', 'westerplatte-left-ccw', 'westerplatte-right-cw','westerplatte-left-cw']
-over = set_overtake_track(over_streets, data)
+# BAGATELA
+tmp1 = ["karmelicka-dunaj-skret","basztowa-dunaj-cw"] #1370
+tmp2 = ["karmelicka-podwale-skret", "bagatela-filharmonia-ccw"] #1354
+tmp3 = ["basztowa-dunaj-ccw", "dunaj-podwale-prosto","bagatela-filharmonia-ccw" ]
 
 
 # roads for tests
@@ -232,7 +310,8 @@ tmp2 = ["basztowa-cw", "basztowa-westerplatte-skret","westerplatte-right-cw","we
 streets = [tmp, tmp2, streets1, streets2, streets3, streets4]
 
 #making file
-making_file_statistic()
+#making_file_statistic()
+#run_stats()
 
 
 s = Screen(data, points, streets, resolution, colors, over)

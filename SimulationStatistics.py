@@ -76,12 +76,12 @@ def add_stats(cars, i):
 
 
 
-
-#style.use('fivethirtyeight')
-#fig = plt.figure()
-#ax1 = fig.add_subplot(1, 1, 1)
-#ani = animation.FuncAnimation(fig, animate, interval=1000, fargs = (ax, ) )
-#plt.show()
+def run_stats():
+    style.use('fivethirtyeight')
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1, 1, 1)
+    ani = animation.FuncAnimation(fig, animate, interval=1000, fargs = (ax1, ) )
+    plt.show()
 
 
 

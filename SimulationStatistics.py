@@ -56,13 +56,14 @@ def making_file_statistic():
     data['iteration'] = []
     data['diffrence_v_vmax'] = []
     data['number_of_cars'] = []
+    data['time'] = []
 
     with open('data.json', 'w') as outfile:
-        json.dump(data, outfile)
+        json.dump(data, outfile, indent=2)
 
 
 
-def append_data(avg_v, avg_vmax, diffrence_v_vmax, i, number_cars):
+def append_data(avg_v, avg_vmax, diffrence_v_vmax, i, number_cars, time):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         data['avg_v'].append(avg_v)
@@ -70,17 +71,18 @@ def append_data(avg_v, avg_vmax, diffrence_v_vmax, i, number_cars):
         data['iteration'].append(i)
         data['diffrence_v_vmax'].append(diffrence_v_vmax)
         data['number_of_cars'].append(number_cars)
+        data['time'].append(time)
         
     with open('data.json', 'w') as outfile:
-        json.dump(data, outfile)
+        json.dump(data, outfile,indent=2)
 
 
 
 
-def add_stats(cars, i):
+def add_stats(cars, i, time):
 
     avg_v, avg_vmax, diffrence_v_vmax = average_v(cars)
-    append_data(avg_v, avg_vmax, diffrence_v_vmax, i, len(cars))
+    append_data(avg_v, avg_vmax, diffrence_v_vmax, i, len(cars), time)
 
 
 
@@ -91,6 +93,31 @@ def run_stats():
     ani = animation.FuncAnimation(fig, animate, interval=1000, fargs = (ax1, ) )
     plt.show()
 
+
+
+def plot_numcars_v():
+    with open('data.json', 'r') as outfile:
+        data = json.load(outfile)
+        v = data['avg_v']
+        num_cars = data['number_of_cars']
+
+    plt.plot(num_cars, v , 'r.')
+    plt.xlabel('Number of Cars')
+    plt.ylabel('Average speed (V)')
+    plt.savefig('V_num_cars')
+    plt.show()
+
+
+def plot_t_numcars():
+    with open('data.json', 'r') as outfile:
+        data = json.load(outfile)
+        t = data['time']
+        num_cars = data['number_of_cars']
+        plt.plot(t, num_cars)
+        plt.xlabel('Time (t)')
+        plt.ylabel('Number of Cars')
+        plt.savefig('Num_cars_t')
+        plt.show()
 
 
 

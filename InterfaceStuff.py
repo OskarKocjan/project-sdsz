@@ -1,5 +1,6 @@
 import pygame
 import json
+from datetime import datetime
 
 def pause(clock):
 
@@ -40,26 +41,30 @@ def show_statistics(screen, colors):
         i = data['iteration'][len(data['iteration']) - 1]
         procent = data['diffrence_v_vmax'][len(data['diffrence_v_vmax']) - 1]
         num_cars = data['number_of_cars'][len(data['number_of_cars']) - 1]
+        time = data['time'][len(data['time']) - 1]
 
 
     avg_v = round(avg_v, 2)
     avg_vmax = round(avg_vmax, 2)
     procent = round(procent, 2)
+    time = int(time)
 
     avg_v = str(avg_v)
     avg_vmax = str(avg_vmax)
     i = str(i)
     procent = str(procent)
     num_cars = str(num_cars)
-
+    time = datetime.fromtimestamp(-3600 + time).strftime("%H:%M:%S")
 
     add_length1 = len(i)*25
+
 
 
     pygame.draw.rect(screen, colors['black'], (270, 0, 135, 120))
     pygame.draw.rect(screen, colors['black'], (380, 680, 220, 50))
     pygame.draw.rect(screen, colors['black'], (150, 780, 50 + add_length1, 50))
     pygame.draw.rect(screen, colors['black'], (270, 720, 200, 50))
+    pygame.draw.rect(screen, colors['black'], (95, 820, 300, 50))
 
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(avg_v, True, colors["green"])
@@ -81,4 +86,8 @@ def show_statistics(screen, colors):
 
     text = font.render(i, True, colors["green"])
     text_rect.center = (220, 800)
+    screen.blit(text, text_rect)
+
+    text = font.render(time, True, colors["green"])
+    text_rect.center = (170, 850)
     screen.blit(text, text_rect)

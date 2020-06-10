@@ -2,10 +2,9 @@ import pygame
 from fetchPointsFromFile import *
 from Car import Car
 from InterfaceStuff import *
-import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
-from SimulationStatistics import add_stats, making_file_statistic, run_stats
+from SimulationStatistics import *
 from Streets import streets
 import matplotlib.pyplot as plt
 import threading
@@ -24,7 +23,7 @@ class Screen:
         self.over = over
         self.cars = []
         self.iteration = 0
-        self.initialize_cars(100)
+        self.initialize_cars(1000)
 
 
     def initialize_points(self, screen):
@@ -48,7 +47,7 @@ class Screen:
             if x < 20:
                 for i in range(10):
                     car = Car(self.streets[randint(0, len(self.streets) - 1)], data, self.colors["red"], "car",
-                          self.over, randint(0, 2))
+                          self.over, 0)
                     self.cars.append(car)
 
 
@@ -78,7 +77,7 @@ class Screen:
         self.initialize_points(screen)
 
         # pause and velocity message
-        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h', 'Number of Cars: ']
+        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h', 'Number of Cars: ', 'Time: ']
         message(screen, (self.resolution[0] // 2, self.resolution[1] // 2), self.colors, text[0])
         message(screen, (100, 50), self.colors, text[1])
         message(screen, (450, 50), self.colors, text[5])
@@ -87,12 +86,13 @@ class Screen:
         message(screen, (200, 700), self.colors, text[3])
         message(screen, (90, 800), self.colors, text[4])
         message(screen, (140, 750), self.colors, text[6])
+        message(screen, (50, 850), self.colors, text[7])
 
         # thread for counting time - to handle traffic lights
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            thread.start()
+            #thread.start()
 
 
             # Main Loop
@@ -118,9 +118,9 @@ class Screen:
                     car.move(screen, points)
 
                 self.check_if_reached_end()
-                #self.random_initialize(70)
+                #self.random_initialize(100)
 
-                add_stats(self.cars, self.iteration)
+                add_stats(self.cars, self.iteration, time_diff)
                 self.iteration += 1
                 show_statistics(screen, self.colors)
 
@@ -130,6 +130,13 @@ class Screen:
 
         finally:
             rt.stop()
+
+            #ploting
+            plot_numcars_v()
+            plot_t_numcars()
+
+
+
 
 
 resolution = (1800, 900)

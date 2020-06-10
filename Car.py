@@ -605,8 +605,6 @@ class Car:
 
         self.check_points_in_front(points)
 
-        self.set_color_from_v(self.get_v())
-
         self.change_point(screen, points)
 
         if(self.get_v_change() == 0):
@@ -618,7 +616,7 @@ class Car:
 
 
     def change_point(self, screen, points):
-
+        self.set_color_from_v(self.get_v())
         # petla predkosci dla danego pojazdu
         for i in range(self.__v):
 

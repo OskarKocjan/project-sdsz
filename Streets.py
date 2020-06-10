@@ -1,7 +1,8 @@
 # WSZYSTKIE TRASY
 
+possible_streets = {
 
-streets = [
+"lubicz_streets" : [
 
     # LUBICZ
 
@@ -38,7 +39,9 @@ streets = [
     ["lubicz-basztowa-prosto", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
      "idziego-gertrudy-skret",'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw', "westerplatte-pawia-prosto"],
+],
 
+"dluga_streets" : [
 
     # DLUGA
 
@@ -57,7 +60,9 @@ streets = [
 
     ["dluga-basztowa-cw-skret", "basztowa-cw", "basztowa-westerplatte-skret", "westerplatte-left-cw",
      "westerplatte-gertrudy-prosto", "gertrudy-poczta-cw", "gertrudy-stradom-skret"],
+],
 
+"karmelicka_streets" : [
 
     # KARMELICKA
 
@@ -103,7 +108,9 @@ streets = [
     ["karmelicka-podwale-skret", "bagatela-filharmonia-ccw", "strasz-strasz-prosto", "filharmonia-gertrudy-ccw", "idziego-gertrudy-skret",
      "gertrudy-poczta-ccw","gertrudy-westerplatte-prosto", 'westerplatte-left-ccw',"westerplatte-basztowa-skret",
      "basztowa-ccw","basztowa-ccw-basztowa-prosto","basztowa-dunaj-ccw","dunaj-karmelicka-skret"],
+],
 
+"zwierzyniecka_streets" : [
 
     # ZWIERZYNIECKA
 
@@ -139,6 +146,9 @@ streets = [
     ["zwierzyniecka-strasz-skret", "filharmonia-gertrudy-ccw", "idziego-gertrudy-skret",
      "gertrudy-poczta-ccw","gertrudy-westerplatte-prosto", 'westerplatte-left-ccw',"westerplatte-basztowa-skret",
      "basztowa-ccw","basztowa-ccw-basztowa-prosto","basztowa-dunaj-ccw","dunaj-podwale-prosto","bagatela-filharmonia-ccw","strasz-franc-skret"],
+],
+
+"franciszanska_streets" : [
 
     # FRANCISZKANSKA
 
@@ -174,7 +184,10 @@ streets = [
     ["franc-strasz-skret","filharmonia-gertrudy-ccw", "idziego-gertrudy-skret",
      "gertrudy-poczta-ccw","gertrudy-westerplatte-prosto", 'westerplatte-left-ccw',"westerplatte-basztowa-skret",
      "basztowa-ccw","basztowa-ccw-basztowa-prosto","basztowa-dunaj-ccw","dunaj-podwale-prosto","bagatela-filharmonia-ccw","strasz-franc-skret"],
+],
 
+
+"bernard_streets" : [
 
     # BERNARDYNSKA
 
@@ -216,7 +229,9 @@ streets = [
      'westerplatte-left-ccw',"westerplatte-basztowa-skret","basztowa-ccw","basztowa-ccw-basztowa-prosto",
      "basztowa-dunaj-ccw","dunaj-podwale-prosto","bagatela-filharmonia-ccw","filharmonia-gertrudy-ccw","idziego-stradom-prosto"],
 
+],
 
+"stradom_streets" : [
     # STRADOMSKA
 
     ["stradom-gert-skret","gertrudy-poczta-ccw","gertrudy-staro-skret" ],
@@ -256,7 +271,9 @@ streets = [
     ["stradom-gert-skret","gertrudy-poczta-ccw","gertrudy-westerplatte-prosto",
      'westerplatte-left-ccw',"westerplatte-basztowa-skret","basztowa-ccw","basztowa-ccw-basztowa-prosto",
      "basztowa-dunaj-ccw","dunaj-podwale-prosto","bagatela-filharmonia-ccw","strasz-strasz-prosto","filharmonia-gertrudy-ccw","idziego-stradom-prosto"],
+],
 
+"staro_streets" : [
 
     # STAROWIŚLNA
 
@@ -305,7 +322,9 @@ streets = [
      'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
      "idziego-gertrudy-skret",'gertrudy-poczta-ccw', "gertrudy-staro-skret"],
+],
 
+"sienna" : [
 
     # SIENNA
 
@@ -352,7 +371,9 @@ streets = [
      'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
      "idziego-gertrudy-skret",'gertrudy-poczta-ccw', "gertrudy-staro-skret"],
+],
 
+"pawia_streets" : [
 
     # PAWIA
 
@@ -401,8 +422,8 @@ streets = [
     ["pawia-basztowa-skret", 'basztowa-ccw', "basztowa-ccw-basztowa-prosto", 'basztowa-dunaj-ccw',
      "dunaj-podwale-prosto", 'bagatela-filharmonia-ccw', "strasz-strasz-prosto", 'filharmonia-gertrudy-ccw',
      "idziego-gertrudy-skret",'gertrudy-poczta-ccw', "gertrudy-westerplatte-prosto", 'westerplatte-left-ccw', "westerplatte-pawia-prosto"],
-
 ]
+}
 
 
 

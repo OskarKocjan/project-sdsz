@@ -22,15 +22,15 @@ class Screen:
         self.over = over
         self.cars = []
         self.iteration = 0
-        self.initialize_cars()
+        self.initialize_cars(150)
 
 
     def initialize_points(self, screen):
         for i in range(len(points)):
             pygame.draw.circle(screen, self.colors["white"], self.points[i].get_cords(), 3)
 
-    def initialize_cars(self):
-        for i in range(100):
+    def initialize_cars(self, how_many):
+        for i in range(how_many):
             car = Car(self.streets[randint(0, len(self.streets)-1)], data, self.colors["red"], "car"+str(i), self.over, randint(0, 2))
             self.cars.append(car)
 
@@ -39,6 +39,14 @@ class Screen:
             if self.cars[i].track_end:
                 del self.cars[i]
                 break
+
+    def random_initialize(self, amount):
+        if len(self.cars) < amount:
+            x = randint(0, 100)
+            if x < 20:
+                car = Car(self.streets[randint(0, len(self.streets) - 1)], data, self.colors["red"], "car",
+                          self.over, randint(0, 2))
+                self.cars.append(car)
 
 
     def start(self):
@@ -104,7 +112,7 @@ class Screen:
                     car.move(screen, points)
 
                 self.check_if_reached_end()
-                print("Current num of vehicles: ", len(self.cars))
+                self.random_initialize(70)
 
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1

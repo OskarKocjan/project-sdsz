@@ -11,7 +11,7 @@ import threading
 from Streets import possible_streets
 import  time
 import datetime as dt
-
+from Car import outflows
 
 class Screen:
     def __init__(self, data, points, streets, resolution, colors, over):
@@ -122,6 +122,8 @@ class Screen:
                 tab[0] = int(time_diff)
                 if tab[0] - tab[1] == 1 and tab[0] % inflow == 0:
                     self.generate_car_on_each_intersection()
+
+                print(outflows)
 
 
 

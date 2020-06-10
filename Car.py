@@ -1,13 +1,13 @@
 import pygame
 from random import randint
 from copy import deepcopy, copy
+import json
 
 outflows = {
     "filharmonia": 0,
     "idziego": 0,
     "poczta": 0,
     "slowackiego": 0,
-    "kleparz": 0,
     "bagatela": 0,
 }
 
@@ -671,6 +671,36 @@ class Car:
                 pygame.draw.circle(screen, (255, 255, 255), self.get_curr_p().get_cords(), 3)
                 self.track_end = 1
                 global outflows
+
+                if self.get_current_street() == "dunaj-karmelicka-skret":
+                    outflows['bagatela'] += 1
+
+                elif self.get_current_street() == "strasz-franc-skret":
+                    outflows['filharmonia'] += 1
+
+                elif self.get_current_street() == "bernard-stradom-skret"\
+                        or self.get_current_street() == "gertrudy-stradom-skret"\
+                        or self.get_current_street() == "idziego-stradom-prosto":
+                    outflows['idziego'] += 1
+
+                elif self.get_current_street() == "gertrudy-sienna-skret"\
+                        or self.get_current_street() == "westerplatte-sienna-skret"\
+                        or self.get_current_street() == "staro-sienna-prosto" \
+                        or self.get_current_street() == "gertrudy-staro-skret" \
+                        or self.get_current_street() == "westerplatte-staro-skret" \
+                        or self.get_current_street() == "sienna-staro-prosto":
+                    outflows['poczta'] += 1
+
+                elif self.get_current_street() == "basztowa-lubicz-prosto"\
+                        or self.get_current_street() == "westerplatte-lubicz-skret"\
+                        or self.get_current_street() == "lubicz-pawia-skret"\
+                        or self.get_current_street() == "westerplatte-pawia-prosto":
+                    outflows['slowackiego'] += 1
+
+                with open('outflows.json', 'w') as outfile:
+                    json.dump(outflows, outfile, indent=2)
+
+
 
 
 

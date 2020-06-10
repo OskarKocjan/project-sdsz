@@ -54,6 +54,8 @@ flag_slowackiego = 1
 
 def start_traffic_lights(points, screen):
 
+
+
     global seconds_filharmonia, seconds_idziego, seconds_poczta, seconds_slowackiego
     global flag_filharmonia, flag_idziego, flag_poczta, flag_slowackiego
 

@@ -10,6 +10,8 @@ from Streets import streets
 import matplotlib.pyplot as plt
 import threading
 from Streets import streets
+import  time
+import datetime as dt
 
 
 class Screen:
@@ -22,7 +24,7 @@ class Screen:
         self.over = over
         self.cars = []
         self.iteration = 0
-        self.initialize_cars(150)
+        self.initialize_cars(100)
 
 
     def initialize_points(self, screen):
@@ -44,9 +46,10 @@ class Screen:
         if len(self.cars) < amount:
             x = randint(0, 100)
             if x < 20:
-                car = Car(self.streets[randint(0, len(self.streets) - 1)], data, self.colors["red"], "car",
+                for i in range(10):
+                    car = Car(self.streets[randint(0, len(self.streets) - 1)], data, self.colors["red"], "car",
                           self.over, randint(0, 2))
-                self.cars.append(car)
+                    self.cars.append(car)
 
 
     def start(self):
@@ -94,8 +97,11 @@ class Screen:
 
             # Main Loop
             time.sleep(1)
+            start_time = dt.datetime.today().timestamp()
             while running:
                 clockobject.tick(tick)
+                time_diff = dt.datetime.today().timestamp() - start_time
+                print(time_diff)
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -112,7 +118,7 @@ class Screen:
                     car.move(screen, points)
 
                 self.check_if_reached_end()
-                self.random_initialize(70)
+                #self.random_initialize(70)
 
                 add_stats(self.cars, self.iteration)
                 self.iteration += 1

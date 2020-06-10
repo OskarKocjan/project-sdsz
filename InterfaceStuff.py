@@ -42,9 +42,9 @@ def show_statistics(screen, colors):
         num_cars = data['number_of_cars'][len(data['number_of_cars']) - 1]
 
 
-    avg_v = round(avg_v, 3)
-    avg_vmax = round(avg_vmax, 3)
-    procent = round(procent, 3)
+    avg_v = round(avg_v, 2)
+    avg_vmax = round(avg_vmax, 2)
+    procent = round(procent, 2)
 
     avg_v = str(avg_v)
     avg_vmax = str(avg_vmax)
@@ -52,32 +52,23 @@ def show_statistics(screen, colors):
     procent = str(procent)
     num_cars = str(num_cars)
 
-    if(len(avg_vmax) == 3):
-        avg_vmax += '0'
 
-    if(len(avg_v) == 3):
-        avg_v += '0'
-
-    if (len(procent) == 3):
-        procent += '0'
-
-    add_length1 = len(i)*20
-    add_length2 = len(num_cars)*20
+    add_length1 = len(i)*25
 
 
-    pygame.draw.rect(screen, colors['black'], (270, 0, 100, 120))
-    pygame.draw.rect(screen, colors['black'], (410, 680, 120, 50))
-    pygame.draw.rect(screen, colors['black'], (160, 780, 20 + add_length1, 50))
-    pygame.draw.rect(screen, colors['black'], (280, 720, 20 + add_length2, 50))
+    pygame.draw.rect(screen, colors['black'], (270, 0, 135, 120))
+    pygame.draw.rect(screen, colors['black'], (380, 680, 220, 50))
+    pygame.draw.rect(screen, colors['black'], (150, 780, 50 + add_length1, 50))
+    pygame.draw.rect(screen, colors['black'], (270, 720, 200, 50))
 
     font = pygame.font.Font('freesansbold.ttf', 32)
     text = font.render(avg_v, True, colors["green"])
     text_rect = text.get_rect()
-    text_rect.center = (320, 50)
+    text_rect.center = (335, 50)
     screen.blit(text, text_rect)
 
     text = font.render(avg_vmax, True, colors["green"])
-    text_rect.center = (320, 100)
+    text_rect.center = (335, 100)
     screen.blit(text, text_rect)
 
     text = font.render(procent + '%', True, colors["green"])
@@ -85,9 +76,9 @@ def show_statistics(screen, colors):
     screen.blit(text, text_rect)
 
     text = font.render(num_cars, True, colors["green"])
-    text_rect.center = (320, 750)
+    text_rect.center = (350, 750)
     screen.blit(text, text_rect)
 
     text = font.render(i, True, colors["green"])
-    text_rect.center = (200, 800)
+    text_rect.center = (220, 800)
     screen.blit(text, text_rect)

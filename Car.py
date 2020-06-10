@@ -14,7 +14,7 @@ class Car:
         self.get_first_three_and_last()
         self.name = name
         self.rem_current_street = streets[0]
-        self.__v_max = v + 1
+        self.__v_max = 3 if randint(0, 100) < 95 else 2
         self.__v_changed = v_changed
         self.__street_names = streets
         self.__overtake_track = over
@@ -70,7 +70,14 @@ class Car:
 
     def set_color_from_v(self, v):
         if(v == 0):
-            pass
+            self.set_color((255, 0, 0))
+        elif(v == 1):
+            self.set_color((255, 102, 0))
+        elif(v == 2):
+            self.set_color((255, 204, 0))
+        elif(v == 3):
+            self.set_color((51, 204, 51))
+
 
     def get_data(self):
         return  self.__data
@@ -598,12 +605,16 @@ class Car:
 
         self.check_points_in_front(points)
 
+        self.set_color_from_v(self.get_v())
+
         self.change_point(screen, points)
 
         if(self.get_v_change() == 0):
             self.accel_random()
         else:
             self.set_v_change(0)
+
+
 
 
     def change_point(self, screen, points):

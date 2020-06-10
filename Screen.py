@@ -8,7 +8,7 @@ from random import randint
 from SimulationStatistics import add_stats, making_file_statistic, run_stats
 import matplotlib.pyplot as plt
 import threading
-
+from Streets import streets
 
 
 class Screen:
@@ -68,9 +68,9 @@ class Screen:
         text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h', 'Number of Cars: ']
         message(screen, (self.resolution[0] // 2, self.resolution[1] // 2), self.colors, text[0])
         message(screen, (100, 50), self.colors, text[1])
-        message(screen, (410, 50), self.colors, text[5])
+        message(screen, (450, 50), self.colors, text[5])
         message(screen, (145, 100), self.colors, text[2])
-        message(screen, (410, 100), self.colors, text[5])
+        message(screen, (450, 100), self.colors, text[5])
         message(screen, (200, 700), self.colors, text[3])
         message(screen, (90, 800), self.colors, text[4])
         message(screen, (140, 750), self.colors, text[6])
@@ -131,12 +131,6 @@ colors = {
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
 over = set_overtake_track(data)
-
-# roads for tests
-tmp = ["dluga-basztowa-cw-skret", "basztowa-cw"]
-tmp2 = ["basztowa-dunaj-cw","basztowa-cw-basztowa-prosto", "basztowa-cw"]
-
-streets = [tmp, tmp2]
 
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()

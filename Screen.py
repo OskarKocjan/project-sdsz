@@ -6,7 +6,6 @@ import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
 from SimulationStatistics import *
-from Streets import streets
 import matplotlib.pyplot as plt
 import threading
 from Streets import possible_streets
@@ -56,7 +55,7 @@ class Screen:
         for track in possible_streets:
             for i in range(3):
                 car = Car(possible_streets[track][randint(0, len(possible_streets[track]) - 1)],
-                          data, self.colors["red"], "car", self.over, randint(0, 2))
+                          data, self.colors["red"], "car", self.over, 0)
                 self.cars.append(car)
 
 

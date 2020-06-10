@@ -6,6 +6,7 @@ import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
 from SimulationStatistics import add_stats, making_file_statistic, run_stats
+from Streets import streets
 import matplotlib.pyplot as plt
 import threading
 from Streets import streets
@@ -38,6 +39,7 @@ class Screen:
             if self.cars[i].track_end:
                 del self.cars[i]
                 break
+
 
     def start(self):
 

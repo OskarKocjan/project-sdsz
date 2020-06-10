@@ -6,10 +6,9 @@ import time
 from RepeatedTimer import RepeatedTimer, start_traffic_lights
 from random import randint
 from SimulationStatistics import add_stats, making_file_statistic, run_stats
-from Streets import streets
 import matplotlib.pyplot as plt
 import threading
-from Streets import streets
+from Streets import possible_streets
 import  time
 import datetime as dt
 
@@ -50,6 +49,16 @@ class Screen:
                     car = Car(self.streets[randint(0, len(self.streets) - 1)], data, self.colors["red"], "car",
                           self.over, randint(0, 2))
                     self.cars.append(car)
+
+    # INFLOW
+    def generate_car_on_each_intersection(self):
+        for track in possible_streets:
+            for i in range(3):
+                car = Car(possible_streets[track][randint(0, len(possible_streets[track]) - 1)],
+                          data, self.colors["red"], "car", self.over, randint(0, 2))
+                self.cars.append(car)
+
+
 
 
     def start(self):
@@ -92,16 +101,28 @@ class Screen:
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
 
         try:
-            thread.start()
+            #thread.start()
+            tab = [0, 0]
 
+            # inflow in seconds on each intersection
+            inflow = 15
+
+            # start timer
+            start_time = dt.datetime.today().timestamp()
 
             # Main Loop
             time.sleep(1)
-            start_time = dt.datetime.today().timestamp()
             while running:
                 clockobject.tick(tick)
                 time_diff = dt.datetime.today().timestamp() - start_time
-                print(time_diff)
+
+
+                tab[1] = tab[0]
+                tab[0] = int(time_diff)
+                if tab[0] - tab[1] == 1 and tab[0] % inflow == 0:
+                    self.generate_car_on_each_intersection()
+
+
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -144,10 +165,21 @@ colors = {
     "grey": (22, 22, 22)
 }
 
+def change_to_list(possible_streets):
+    streets = []
+    for track in possible_streets:
+        for street in possible_streets[track]:
+            streets.append(street)
+
+    return streets
+
+
 # fetching essential data from json
 data, points = change_points_from_float_to_int("roads.json")
 over = set_overtake_track(data)
 
+
+streets = change_to_list(possible_streets)
 s = Screen(data, points, streets, resolution, colors, over)
 s.start()
 

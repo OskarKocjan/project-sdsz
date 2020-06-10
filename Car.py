@@ -2,6 +2,15 @@ import pygame
 from random import randint
 from copy import deepcopy, copy
 
+outflows = {
+    "filharmonia": 0,
+    "idziego": 0,
+    "poczta": 0,
+    "slowackiego": 0,
+    "kleparz": 0,
+    "bagatela": 0,
+}
+
 class Car:
 
     def __init__(self, streets, data, color, name, over, v=1, a=0, v_changed=0):
@@ -663,6 +672,8 @@ class Car:
                 points[self.get_next_p().get_index()].set_taken(0)
                 pygame.draw.circle(screen, (255, 255, 255), self.get_curr_p().get_cords(), 3)
                 self.track_end = 1
+                global outflows
+
 
 
 

@@ -107,7 +107,7 @@ def plot_numcars_v(inflow, amount_of_inflow):
     plt.ylabel('Average velocity (V)')
     plt.figure(1)
     plt.plot(num_cars, v, 'b.')
-    plt.savefig('V_num_cars' + str(inflow) + '_' + str(amount_of_inflow))
+    plt.savefig('plots/V_num_cars' + str(inflow) + '_' + str(amount_of_inflow))
     #plt.show()
 
 
@@ -120,7 +120,7 @@ def plot_t_numcars(inflow, amount_of_inflow):
         plt.ylabel('Number of Cars')
         plt.figure(2)
         plt.plot(t, num_cars)
-        plt.savefig('Num_cars_t' + str(inflow) + '_' + str(amount_of_inflow))
+        plt.savefig('plots/Num_cars_t' + str(inflow) + '_' + str(amount_of_inflow))
         #plt.show()
 
 
@@ -135,7 +135,7 @@ def plot_t_v(inflow, amount_of_inflow):
         plt.ylabel('Velocity (V)')
         plt.figure(3)
         plt.plot(t, v, t, vmax)
-        plt.savefig('V_t_' + str(inflow) + '_' + str(amount_of_inflow))
+        plt.savefig('plots/V_t_' + str(inflow) + '_' + str(amount_of_inflow))
         #plt.show()
 
 
@@ -154,5 +154,5 @@ def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, b
     plt.figure(4)
     plt.plot(t, filharmonia_list, t, idziego_list, t, poczta_list, t, slowackiego_list, t, bagatela_list)
     plt.legend(('Filharmonia', 'Idziego', 'Poczta', 'Słowackiego', 'Bagatela'))
-    plt.savefig('Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow))
+    plt.savefig('plots/Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow))
     #plt.show()

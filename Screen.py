@@ -143,9 +143,6 @@ class Screen:
                     slowackiego_list.append(outflows['slowackiego'])
                     bagatela_list.append(outflows['bagatela'])
 
-                print(outflows)
-
-
 
 
 
@@ -183,6 +180,9 @@ class Screen:
             plot_t_numcars(inflow, amount_of_inflow, fig, starting_num_cars)
             plot_t_v(inflow, amount_of_inflow, fig, starting_num_cars)
             plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow, fig, starting_num_cars)
+            outflow = [filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list]
+            final_data_append(fig, starting_num_cars, outflow)
+
 
 
 
@@ -215,15 +215,19 @@ over = set_overtake_track(data)
 
 #Input data
 starting_num_cars = [100, 500, 1000]
-inflow_list = [5, 10]
+inflow_list = [7, 14]  #14
 inflow_number_list = [2, 5, 10]
-time_end = 15
-fig = 1
+time_end = 300
+fig = 1  #10
+
+#Final data file
+making_final_data()
+
 
 streets = change_to_list(possible_streets)
 s = Screen(data, points, streets, resolution, colors, over)
-for num_cars in starting_num_cars:
-    for inflow in inflow_list:
+for inflow in inflow_list:
+    for num_cars in starting_num_cars:
         for inflow_number in inflow_number_list:
             s.start(num_cars, inflow, inflow_number, time_end, fig)
             del s

@@ -157,3 +157,68 @@ def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, b
     plt.legend(('Filharmonia', 'Idziego', 'Poczta', 'Słowackiego', 'Bagatela'))
     plt.savefig('plots/Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow)+ '_' + str(fig) + '_' + str(cars))
     #plt.show()
+
+
+
+def making_final_data():
+    data = {}
+    data['simulation_number'] = []
+    data['starting_num_cars'] = []
+    data['final_num_cars'] = []
+    data['starting_v'] = []
+    data['end_v'] = []
+    data['procent'] = []
+    data['min_outflow'] = []
+    data['max_outflow'] = []
+    data['v_min'] = []
+    data['v_max'] = []
+    with open('final_data.json', 'w') as outfile:
+        json.dump(data, outfile, indent=2)
+
+
+
+
+def final_data_append(sim_number, start_cars, outflow):
+
+    out_max = 0
+    out_min = 0
+
+    for flow in outflow:
+        for i in range(len(flow) - 1):
+            first = flow[i]
+            second = flow[i + 1]
+            number = second - first
+            if number > out_max:
+                out_max = number
+            if number < out_min:
+                out_min = number
+
+
+    with open('data.json', 'r') as infile:
+        data1 = json.load(infile)
+        final_cars = data1['number_of_cars'][len(data1['number_of_cars']) - 1]
+        start_v = data1['avg_v'][10]
+        end_v = data1['avg_v'][len(data1['avg_v']) - 1]
+        procent = sum(data1['diffrence_v_vmax']) / len(data1['diffrence_v_vmax'])
+        vmin = min(data1['avg_v'])
+        vmax = max(data1['avg_v'])
+
+
+
+
+
+    with open('final_data.json', 'r') as outfile:
+        data2 = json.load(outfile)
+        data2['simulation_number'].append(sim_number)
+        data2['starting_num_cars'].append(start_cars)
+        data2['final_num_cars'].append(final_cars)
+        data2['starting_v'].append(start_v)
+        data2['end_v'].append(end_v)
+        data2['procent'].append(procent)
+        data2['min_outflow'].append(out_min)
+        data2['max_outflow'].append(out_max)
+        data2['v_min'].append(vmin)
+        data2['v_max'].append(vmax)
+
+    with open('final_data.json', 'w') as outfile:
+        json.dump(data2, outfile, indent=2)

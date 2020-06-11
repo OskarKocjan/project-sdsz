@@ -61,10 +61,10 @@ class Screen:
 
 
 
-    def start(self):
+    def start(self, starting_num_cars, inflow, amount_of_inflow, time_end):
         #Starting number of cars
-        starting_num_cars = [100, 500, 1000]
-        self.initialize_cars(starting_num_cars[1])
+
+        self.initialize_cars(starting_num_cars)
 
 
         #Inflows over time
@@ -93,6 +93,7 @@ class Screen:
         clockobject = pygame.time.Clock()
         tick = 10
 
+
         # background color
         screen.fill(self.colors["black"])
 
@@ -100,7 +101,7 @@ class Screen:
         self.initialize_points(screen)
 
         # pause and velocity message
-        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h', 'Number of Cars: ', 'Time: ']
+        text = ['To Pause press P To Continue press C', 'Average V: ', 'Average V_max: ', 'Percentage difference: ', 'Iteration: ', 'km/h', 'Number of Cars: ', 'Time: ', 'Inflow: ', 'Number of Inflow: ', 'Starting number of cars: ']
         message(screen, (self.resolution[0] // 2, self.resolution[1] // 2), self.colors, text[0])
         message(screen, (100, 50), self.colors, text[1])
         message(screen, (450, 50), self.colors, text[5])
@@ -110,6 +111,9 @@ class Screen:
         message(screen, (90, 800), self.colors, text[4])
         message(screen, (140, 750), self.colors, text[6])
         message(screen, (50, 850), self.colors, text[7])
+        message(screen, (self.resolution[0] // 2 - 200, self.resolution[1] // 2 - 100), self.colors, text[8] + str(inflow))
+        message(screen, (self.resolution[0] // 2 + 200, self.resolution[1] // 2 - 100), self.colors, text[9] + str(inflow_number))
+        message(screen, (self.resolution[0] // 2, self.resolution[1] // 2 - 200), self.colors, text[10] + str(starting_num_cars))
 
         # thread for counting time - to handle traffic lights
         rt = RepeatedTimer(1.00, start_traffic_lights, points, screen)
@@ -118,11 +122,6 @@ class Screen:
             #thread.start()
             tab = [0, 0]
 
-            # inflow in seconds on each intersection and amount of cars
-            inflow_list = [5, 10]
-            number_list = [2, 5, 10]
-            inflow = inflow_list[1]
-            amount_of_inflow = number_list[0]
 
             # start timer
             start_time = dt.datetime.today().timestamp()
@@ -173,7 +172,8 @@ class Screen:
 
                 pygame.display.update()
 
-                pass
+                if(time_diff > time_end):
+                    running = False
 
         finally:
             rt.stop()
@@ -213,10 +213,23 @@ def change_to_list(possible_streets):
 data, points = change_points_from_float_to_int("roads.json")
 over = set_overtake_track(data)
 
+#Input data
+starting_num_cars = [100, 500, 1000]
+inflow_list = [5, 10]
+inflow_number_list = [2, 5, 10]
+time_end = 10
 
 streets = change_to_list(possible_streets)
 s = Screen(data, points, streets, resolution, colors, over)
-s.start()
+for num_cars in starting_num_cars:
+    for inflow in inflow_list:
+        for inflow_number in inflow_number_list:
+            s.start(num_cars, inflow, inflow_number, time_end)
+            del s
+            data, points = change_points_from_float_to_int("roads.json")
+            over = set_overtake_track(data)
+            streets = change_to_list(possible_streets)
+            s = Screen(data, points, streets, resolution, colors, over)
 
 
 

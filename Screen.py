@@ -24,7 +24,7 @@ class Screen:
         self.cars = []
         self.iteration = 0
 
-
+#macipelo
 
     def initialize_points(self, screen):
         for i in range(len(points)):
@@ -64,7 +64,7 @@ class Screen:
     def start(self):
         #Starting number of cars
         starting_num_cars = [100, 500, 1000]
-        self.initialize_cars(starting_num_cars[2])
+        self.initialize_cars(starting_num_cars[1])
 
 
         #Inflows over time

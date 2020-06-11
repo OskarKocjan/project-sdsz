@@ -2,6 +2,7 @@ import pygame
 import json
 from datetime import datetime
 
+
 def pause(clock):
 
     paused = True
@@ -54,7 +55,7 @@ def show_statistics(screen, colors):
     i = str(i)
     procent = str(procent)
     num_cars = str(num_cars)
-    time = datetime.fromtimestamp(-3600 + time).strftime("%H:%M:%S")
+    time = datetime.fromtimestamp(time).strftime("%H:%M:%S")
 
     add_length1 = len(i)*25
 
@@ -91,3 +92,6 @@ def show_statistics(screen, colors):
     text = font.render(time, True, colors["green"])
     text_rect.center = (170, 850)
     screen.blit(text, text_rect)
+
+
+

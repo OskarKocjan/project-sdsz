@@ -2,15 +2,13 @@ import pygame
 from random import randint
 from copy import deepcopy, copy
 import json
-
 outflows = {
-    "filharmonia": 0,
-    "idziego": 0,
-    "poczta": 0,
-    "slowackiego": 0,
-    "bagatela": 0,
-}
-
+                "filharmonia": 0,
+                "idziego": 0,
+                "poczta": 0,
+                "slowackiego": 0,
+                "bagatela": 0,
+            }
 class Car:
 
     def __init__(self, streets, data, color, name, over, v=1, a=0, v_changed=0):

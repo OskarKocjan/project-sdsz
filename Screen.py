@@ -62,6 +62,9 @@ class Screen:
 
 
     def start(self, starting_num_cars, inflow, amount_of_inflow, time_end, fig):
+
+
+
         #Starting number of cars
 
         self.initialize_cars(starting_num_cars)
@@ -214,11 +217,11 @@ data, points = change_points_from_float_to_int("roads.json")
 over = set_overtake_track(data)
 
 #Input data
-starting_num_cars = [100, 500, 1000]
-inflow_list = [7, 14]  #14
-inflow_number_list = [2, 5, 10]
-time_end = 300
-fig = 1  #10
+starting_num_cars = [100, 300, 500]
+inflow_list = [30]
+inflow_number_list = [3, 5, 7]
+time_end = 60
+fig = 10
 
 #Final data file
 making_final_data()
@@ -229,6 +232,14 @@ s = Screen(data, points, streets, resolution, colors, over)
 for inflow in inflow_list:
     for num_cars in starting_num_cars:
         for inflow_number in inflow_number_list:
+
+            global outflows
+            outflows["filharmonia"] = 0
+            outflows["idziego"] = 0
+            outflows["poczta"] = 0
+            outflows["slowackiego"] = 0
+            outflows["bagatela"] = 0
+
             s.start(num_cars, inflow, inflow_number, time_end, fig)
             del s
             data, points = change_points_from_float_to_int("roads.json")

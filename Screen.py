@@ -23,7 +23,7 @@ class Screen:
         self.over = over
         self.cars = []
         self.iteration = 0
-        self.initialize_cars(100)
+
 
 
     def initialize_points(self, screen):
@@ -51,9 +51,9 @@ class Screen:
                     self.cars.append(car)
 
     # INFLOW
-    def generate_car_on_each_intersection(self):
+    def generate_car_on_each_intersection(self, amount):
         for track in possible_streets:
-            for i in range(3):
+            for i in range(amount):
                 car = Car(possible_streets[track][randint(0, len(possible_streets[track]) - 1)],
                           data, self.colors["red"], "car", self.over, 0)
                 self.cars.append(car)
@@ -62,6 +62,19 @@ class Screen:
 
 
     def start(self):
+        #Starting number of cars
+        starting_num_cars = [100, 500, 1000]
+        self.initialize_cars(starting_num_cars[2])
+
+
+        #Inflows over time
+        filharmonia_list = [0]
+        idziego_list = [0]
+        poczta_list = [0]
+        slowackiego_list = [0]
+        bagatela_list = [0]
+
+
 
         making_file_statistic()
         thread = threading.Thread(target=run_stats)
@@ -105,8 +118,11 @@ class Screen:
             #thread.start()
             tab = [0, 0]
 
-            # inflow in seconds on each intersection
-            inflow = 15
+            # inflow in seconds on each intersection and amount of cars
+            inflow_list = [5, 10]
+            number_list = [2, 5, 10]
+            inflow = inflow_list[1]
+            amount_of_inflow = number_list[0]
 
             # start timer
             start_time = dt.datetime.today().timestamp()
@@ -121,9 +137,16 @@ class Screen:
                 tab[1] = tab[0]
                 tab[0] = int(time_diff)
                 if tab[0] - tab[1] == 1 and tab[0] % inflow == 0:
-                    self.generate_car_on_each_intersection()
+                    self.generate_car_on_each_intersection(amount_of_inflow)
+                    filharmonia_list.append(outflows['filharmonia'])
+                    idziego_list.append(outflows['idziego'])
+                    poczta_list.append(outflows['poczta'])
+                    slowackiego_list.append(outflows['slowackiego'])
+                    bagatela_list.append(outflows['bagatela'])
 
                 print(outflows)
+
+
 
 
 
@@ -156,8 +179,10 @@ class Screen:
             rt.stop()
 
             #ploting
-            plot_numcars_v()
-            plot_t_numcars()
+            plot_numcars_v(inflow, amount_of_inflow)
+            plot_t_numcars(inflow, amount_of_inflow)
+            plot_t_v(inflow, amount_of_inflow)
+            plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow)
 
 
 

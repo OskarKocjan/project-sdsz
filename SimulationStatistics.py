@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import style
 import json
-
+from numpy import arange
 
 
 
@@ -95,20 +95,20 @@ def run_stats():
 
 
 
-def plot_numcars_v():
+def plot_numcars_v(inflow, amount_of_inflow):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         v = data['avg_v']
         num_cars = data['number_of_cars']
 
-    plt.plot(num_cars, v , 'r.')
+    plt.plot(num_cars, v, 'b.')
     plt.xlabel('Number of Cars')
-    plt.ylabel('Average speed (V)')
-    plt.savefig('V_num_cars')
-    plt.show()
+    plt.ylabel('Average velocity (V)')
+    #plt.savefig('V_num_cars' + str(inflow) + '_' + str(amount_of_inflow))
+    #plt.show()
 
 
-def plot_t_numcars():
+def plot_t_numcars(inflow, amount_of_inflow):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         t = data['time']
@@ -116,9 +116,29 @@ def plot_t_numcars():
         plt.plot(t, num_cars)
         plt.xlabel('Time (t)')
         plt.ylabel('Number of Cars')
-        plt.savefig('Num_cars_t')
-        plt.show()
+        #plt.savefig('Num_cars_t' + str(inflow) + '_' + str(amount_of_inflow))
+        #plt.show()
 
 
+def plot_t_v(inflow, amount_of_inflow):
+    with open('data.json', 'r') as outfile:
+        data = json.load(outfile)
+        t = data['time']
+        v = data['avg_v']
+        vmax = data['avg_vmax']
+
+        plt.xlabel('Time (t)')
+        plt.ylabel('Velocity (V)')
+        plt.plot(t, v, t, vmax)
+        #plt.savefig('V_t_' + str(inflow) + '_' + str(amount_of_inflow))
+        #plt.show()
 
 
+def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow):
+
+    t = arange(0, 15, 15/len(filharmonia_list))
+
+    plt.xlabel('Time (t)')
+    plt.ylabel('Outflow')
+    plt.plot(t, filharmonia_list, t, idziego_list, t, poczta_list, t, slowackiego_list, t, bagatela_list)
+    plt.show()

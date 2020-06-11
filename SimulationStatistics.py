@@ -95,7 +95,7 @@ def run_stats():
 
 
 
-def plot_numcars_v(inflow, amount_of_inflow):
+def plot_numcars_v(inflow, amount_of_inflow, fig, cars):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         v = data['avg_v']
@@ -105,26 +105,26 @@ def plot_numcars_v(inflow, amount_of_inflow):
 
     plt.xlabel('Number of Cars')
     plt.ylabel('Average velocity (V)')
-    plt.figure(1)
+    plt.figure(fig)
     plt.plot(num_cars, v, 'b.')
-    plt.savefig('plots/V_num_cars' + str(inflow) + '_' + str(amount_of_inflow))
+    plt.savefig('plots/V_num_cars_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
     #plt.show()
 
 
-def plot_t_numcars(inflow, amount_of_inflow):
+def plot_t_numcars(inflow, amount_of_inflow, fig, cars):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         t = data['time']
         num_cars = data['number_of_cars']
         plt.xlabel('Time (t)')
         plt.ylabel('Number of Cars')
-        plt.figure(2)
+        plt.figure(fig + 18)
         plt.plot(t, num_cars)
-        plt.savefig('plots/Num_cars_t' + str(inflow) + '_' + str(amount_of_inflow))
+        plt.savefig('plots/Num_cars_t_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
         #plt.show()
 
 
-def plot_t_v(inflow, amount_of_inflow):
+def plot_t_v(inflow, amount_of_inflow, fig ,cars):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         t = data['time']
@@ -133,13 +133,14 @@ def plot_t_v(inflow, amount_of_inflow):
 
         plt.xlabel('Time (t)')
         plt.ylabel('Velocity (V)')
-        plt.figure(3)
+        plt.figure(fig + 36)
         plt.plot(t, v, t, vmax)
-        plt.savefig('plots/V_t_' + str(inflow) + '_' + str(amount_of_inflow))
+        plt.legend(('V', 'V_max'))
+        plt.savefig('plots/V_t_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
         #plt.show()
 
 
-def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow):
+def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow, fig, cars):
     with open('data.json', 'r') as outfile:
         data = json.load(outfile)
         time = data['time'][len(data['time']) - 1]
@@ -151,8 +152,8 @@ def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, b
 
     plt.xlabel('Time (t)')
     plt.ylabel('Outflow')
-    plt.figure(4)
+    plt.figure(fig + 54)
     plt.plot(t, filharmonia_list, t, idziego_list, t, poczta_list, t, slowackiego_list, t, bagatela_list)
     plt.legend(('Filharmonia', 'Idziego', 'Poczta', 'Słowackiego', 'Bagatela'))
-    plt.savefig('plots/Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow))
+    plt.savefig('plots/Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow)+ '_' + str(fig) + '_' + str(cars))
     #plt.show()

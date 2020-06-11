@@ -61,7 +61,7 @@ class Screen:
 
 
 
-    def start(self, starting_num_cars, inflow, amount_of_inflow, time_end):
+    def start(self, starting_num_cars, inflow, amount_of_inflow, time_end, fig):
         #Starting number of cars
 
         self.initialize_cars(starting_num_cars)
@@ -179,10 +179,10 @@ class Screen:
             rt.stop()
 
             #ploting
-            plot_numcars_v(inflow, amount_of_inflow)
-            plot_t_numcars(inflow, amount_of_inflow)
-            plot_t_v(inflow, amount_of_inflow)
-            plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow)
+            plot_numcars_v(inflow, amount_of_inflow, fig, starting_num_cars)
+            plot_t_numcars(inflow, amount_of_inflow, fig, starting_num_cars)
+            plot_t_v(inflow, amount_of_inflow, fig, starting_num_cars)
+            plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, bagatela_list, inflow, amount_of_inflow, fig, starting_num_cars)
 
 
 
@@ -217,18 +217,20 @@ over = set_overtake_track(data)
 starting_num_cars = [100, 500, 1000]
 inflow_list = [5, 10]
 inflow_number_list = [2, 5, 10]
-time_end = 300
+time_end = 15
+fig = 1
 
 streets = change_to_list(possible_streets)
 s = Screen(data, points, streets, resolution, colors, over)
 for num_cars in starting_num_cars:
     for inflow in inflow_list:
         for inflow_number in inflow_number_list:
-            s.start(num_cars, inflow, inflow_number, time_end)
+            s.start(num_cars, inflow, inflow_number, time_end, fig)
             del s
             data, points = change_points_from_float_to_int("roads.json")
             over = set_overtake_track(data)
             streets = change_to_list(possible_streets)
+            fig += 1
             s = Screen(data, points, streets, resolution, colors, over)
 
 

@@ -55,7 +55,7 @@ def show_statistics(screen, colors):
     i = str(i)
     procent = str(procent)
     num_cars = str(num_cars)
-    time = datetime.fromtimestamp(time).strftime("%H:%M:%S")
+    time = datetime.fromtimestamp(time - 3600).strftime("%H:%M:%S")
 
     add_length1 = len(i)*25
 

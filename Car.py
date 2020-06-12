@@ -695,9 +695,6 @@ class Car:
                         or self.get_current_street() == "westerplatte-pawia-prosto":
                     outflows['slowackiego'] += 1
 
-                with open('outflows.json', 'w') as outfile:
-                    json.dump(outflows, outfile, indent=2)
-
 
 
 

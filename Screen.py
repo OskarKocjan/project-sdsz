@@ -217,11 +217,11 @@ data, points = change_points_from_float_to_int("roads.json")
 over = set_overtake_track(data)
 
 #Input data
-starting_num_cars = [100, 300, 500]
-inflow_list = [30]
-inflow_number_list = [3, 5, 7]
-time_end = 60
-fig = 10
+starting_num_cars = [300]
+inflow_list = [15]
+inflow_number_list = [5]
+time_end = 300
+fig = 1  #10
 
 #Final data file
 making_final_data()

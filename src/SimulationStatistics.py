@@ -4,6 +4,9 @@ import matplotlib.animation as animation
 from matplotlib import style
 import json
 from numpy import arange
+import os
+
+os.path.abspath("")
 
 
 
@@ -105,7 +108,7 @@ def plot_numcars_v(inflow, amount_of_inflow, fig, cars):
     plt.plot(num_cars, v, 'b.')
     plt.xlabel('Number of Cars')
     plt.ylabel('Average velocity (V)')
-    plt.savefig('plots\\V_num_cars_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
+    plt.savefig('..\\plots\\V_num_cars_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
     #plt.show()
 
 
@@ -118,7 +121,7 @@ def plot_t_numcars(inflow, amount_of_inflow, fig, cars):
         plt.plot(t, num_cars)
         plt.xlabel('Time (t)')
         plt.ylabel('Number of Cars')
-        plt.savefig('plots\\Num_cars_t_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
+        plt.savefig('..\\plots\\Num_cars_t_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
         #plt.show()
 
 
@@ -133,7 +136,7 @@ def plot_t_v(inflow, amount_of_inflow, fig ,cars):
         plt.xlabel('Time (t)')
         plt.ylabel('Velocity (V)')
         plt.legend(('V', 'V_max'))
-        plt.savefig('plots\\V_t_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
+        plt.savefig('..\\plots\\V_t_' + str(inflow) + '_' + str(amount_of_inflow) + '_' + str(fig) + '_' + str(cars))
         #plt.show()
 
 
@@ -153,7 +156,7 @@ def plot_inflow(filharmonia_list, idziego_list, poczta_list, slowackiego_list, b
     plt.xlabel('Time (t)')
     plt.ylabel('Outflow')
     plt.legend(('Filharmonia', 'Idziego', 'Poczta', 'Słowackiego', 'Bagatela'))
-    plt.savefig('plots\\Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow)+ '_' + str(fig) + '_' + str(cars))
+    plt.savefig('..\\plots\\Inflow_t_' + str(inflow) + '_' + str(amount_of_inflow)+ '_' + str(fig) + '_' + str(cars))
     #plt.show()
 
 

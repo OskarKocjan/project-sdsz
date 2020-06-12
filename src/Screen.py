@@ -220,7 +220,7 @@ over = set_overtake_track(data)
 starting_num_cars = [300]
 inflow_list = [15]
 inflow_number_list = [5]
-time_end = 300
+time_end = 20
 fig = 1  #10
 
 #Final data file
